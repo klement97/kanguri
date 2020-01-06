@@ -9,6 +9,8 @@ import {RouterModule} from '@angular/router';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {AuthModule} from './auth/auth.module';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, reducers} from './reducers';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,13 @@ import {AuthModule} from './auth/auth.module';
     AppRoutingModule,
     RouterModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
 
     // apps
     AuthModule,

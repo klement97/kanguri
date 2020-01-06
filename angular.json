@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "kanguri"
+  "defaultProject": "kanguri",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
