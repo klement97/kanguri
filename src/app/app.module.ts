@@ -11,6 +11,8 @@ import {environment} from '../environments/environment';
 import {AuthModule} from './auth/auth.module';
 import {StoreModule} from '@ngrx/store';
 import {metaReducers, reducers} from './reducers';
+import {EffectsModule} from '@ngrx/effects';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import {metaReducers, reducers} from './reducers';
     BrowserAnimationsModule,
     AppRoutingModule,
     RouterModule,
+    HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    EffectsModule.forRoot([]),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
