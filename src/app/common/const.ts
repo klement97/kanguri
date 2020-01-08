@@ -6,3 +6,8 @@ export class ErrorData {
     message: string,
   };
 }
+
+export class JwtModel {
+  refresh: string;
+  access: string;
+}

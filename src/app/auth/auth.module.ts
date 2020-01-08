@@ -7,6 +7,7 @@ import {StoreModule} from '@ngrx/store';
 import * as fromCurrentUser from 'src/app/auth/_store/_reducers/current-user.reducer';
 import {AuthRoutingModule} from './auth-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 
 
 @NgModule({
@@ -17,7 +18,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ReactiveFormsModule,
     EffectsModule.forFeature([CurrentUserEffects]),
     StoreModule.forFeature(fromCurrentUser.currentUserFeatureKey, fromCurrentUser.reducer),
-    AuthRoutingModule
+    AuthRoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ]
 })
 export class AuthModule {
