@@ -11,18 +11,18 @@ import {MatButtonModule, MatFormFieldModule, MatInputModule} from '@angular/mate
 
 
 @NgModule({
-  declarations: [LoginComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    EffectsModule.forFeature([CurrentUserEffects]),
-    StoreModule.forFeature(fromCurrentUser.currentUserFeatureKey, fromCurrentUser.reducer),
-    AuthRoutingModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
-  ]
+    declarations: [LoginComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        EffectsModule.forFeature([CurrentUserEffects]),
+        StoreModule.forFeature(fromCurrentUser.currentUserFeatureKey, fromCurrentUser.reducer),
+        AuthRoutingModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule
+    ]
 })
 export class AuthModule {
 }

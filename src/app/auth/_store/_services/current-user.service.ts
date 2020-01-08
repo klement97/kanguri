@@ -17,50 +17,50 @@ const JWT_REFRESH_URL = `${JWT_URL}/refresh`;
 const JWT_VERIFY_URL = `${JWT_URL}/verify`;
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class CurrentUserService {
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
-  }
+    constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
+    }
 
-  createUser(userData) {
-    /** Makes a POST request to /users/ endpoint to create a new user.
-     * @param: userData - an object with at least email and password inside.
-     */
-    return this.http.post(`${USERS_URL}/`, userData);
-  }
+    createUser(userData) {
+        /** Makes a POST request to /users/ endpoint to create a new user.
+         * @param: userData - an object with at least email and password inside.
+         */
+        return this.http.post(`${USERS_URL}/`, userData);
+    }
 
-  currentUserData() {
-    /**
-     * Makes a GET request to /users/me to get current user's data
-     */
-    return this.http.get(`${CURRENT_USER_URL}/`);
-  }
+    currentUserData() {
+        /**
+         * Makes a GET request to /users/me to get current user's data
+         */
+        return this.http.get(`${CURRENT_USER_URL}/`);
+    }
 
-  login(email: string, password: string) {
-    return this.http.post(`${JWT_CREATE_URL}/`, {email, password});
-  }
+    login(email: string, password: string) {
+        return this.http.post(`${JWT_CREATE_URL}/`, {email, password});
+    }
 
-  setJwtToCookies(jwt: JwtModel) {
-    this.cookieService.set('access', jwt.access);
-    this.cookieService.set('refresh', jwt.refresh);
-  }
+    setJwtToCookies(jwt: JwtModel) {
+        this.cookieService.set('access', jwt.access);
+        this.cookieService.set('refresh', jwt.refresh);
+    }
 
-  getJwtFromCookies(): JwtModel {
-    return {
-      access: this.cookieService.get('access'),
-      refresh: this.cookieService.get('refresh')
-    };
-  }
+    getJwtFromCookies(): JwtModel {
+        return {
+            access: this.cookieService.get('access'),
+            refresh: this.cookieService.get('refresh')
+        };
+    }
 
-  logout() {
-    /**
-     * Logout with JWT does mean anything to server side.
-     * We simply delete the JWT from the storage.
-     */
-    this.cookieService.delete('access');
-    this.cookieService.delete('refresh');
-    this.router.navigate(['/auth/login']);
-  }
+    logout() {
+        /**
+         * Logout with JWT does mean anything to server side.
+         * We simply delete the JWT from the storage.
+         */
+        this.cookieService.delete('access');
+        this.cookieService.delete('refresh');
+        this.router.navigate(['/auth/login']);
+    }
 }

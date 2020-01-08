@@ -1,12 +1,14 @@
-<form [formGroup]="loginForm" (ngSubmit)="submit()">
-  <mat-form-field>
-    <input type="text" matInput formControlName="email">
-    <mat-error></mat-error>
+<form (ngSubmit)="submit()" [formGroup]="loginForm">
+    <mat-form-field>
+        <input formControlName="email" matInput type="text">
+        <mat-error>{{getError('email')}}</mat-error>
+    </mat-form-field>
     <br>
-    <input type="password" matInput formControlName="password">
-    <mat-error></mat-error>
-  </mat-form-field>
+    <mat-form-field>
+        <input formControlName="password" matInput type="password">
+        <mat-error>{{getError('password')}}</mat-error>
+    </mat-form-field>
 
-  <br>
-  <button type="submit" mat-stroked-button>Login</button>
+    <br>
+    <button [disabled]="loading$ | async" mat-stroked-button type="submit">Login</button>
 </form>

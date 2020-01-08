@@ -15,35 +15,36 @@ import {EffectsModule} from '@ngrx/effects';
 import {HttpClientModule} from '@angular/common/http';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {CookieService} from 'ngx-cookie-service';
+import {ErrorHandler} from './common/error.handler';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    RouterModule,
-    HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-    EffectsModule.forRoot([]),
-    StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true
-      }
-    }),
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    declarations: [
+        AppComponent,
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        RouterModule,
+        HttpClientModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+        EffectsModule.forRoot([]),
+        StoreModule.forRoot(reducers, {
+            metaReducers,
+            runtimeChecks: {
+                strictStateImmutability: true,
+                strictActionImmutability: true
+            }
+        }),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
 
-    // apps
-    AuthModule,
-    HomeModule,
+        // apps
+        AuthModule,
+        HomeModule,
 
-  ],
-  providers: [CookieService],
-  bootstrap: [AppComponent]
+    ],
+    providers: [CookieService, ErrorHandler],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

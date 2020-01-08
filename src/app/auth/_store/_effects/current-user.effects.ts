@@ -11,31 +11,31 @@ import {JwtModel} from '../../../common/const';
 @Injectable()
 export class CurrentUserEffects {
 
-  createUser$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(CurrentUserActions.createUser),
-      exhaustMap(payload => this.currentUserService.createUser(payload.userData).pipe(
-        map((response: any) => CurrentUserActions.createUserSuccess({userData: response})),
-        catchError(error => of(CurrentUserActions.createUserFailure({error})))
-      ))
-    );
-  });
+    createUser$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(CurrentUserActions.createUser),
+            exhaustMap(payload => this.currentUserService.createUser(payload.userData).pipe(
+                map((response: any) => CurrentUserActions.createUserSuccess({userData: response})),
+                catchError(error => of(CurrentUserActions.createUserFailure({error})))
+            ))
+        );
+    });
 
-  login$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(CurrentUserActions.login),
-      exhaustMap(({email, password}) => this.currentUserService.login(email, password).pipe(
-        map((jwt: JwtModel) => {
-          this.currentUserService.setJwtToCookies(jwt);
-          return CurrentUserActions.loginSuccess({jwt});
-        }),
-        catchError(error => of(CurrentUserActions.loginFailure({error})))
-      ))
-    );
-  });
+    login$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(CurrentUserActions.login),
+            exhaustMap(({email, password}) => this.currentUserService.login(email, password).pipe(
+                map((jwt: JwtModel) => {
+                    this.currentUserService.setJwtToCookies(jwt);
+                    return CurrentUserActions.loginSuccess({jwt});
+                }),
+                catchError(({error}) => of(CurrentUserActions.loginFailure({error})))
+            ))
+        );
+    });
 
 
-  constructor(private actions$: Actions, private currentUserService: CurrentUserService) {
-  }
+    constructor(private actions$: Actions, private currentUserService: CurrentUserService) {
+    }
 
 }

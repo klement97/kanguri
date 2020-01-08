@@ -1,20 +1,20 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css']
+    selector: 'app-landing',
+    templateUrl: './landing.component.html',
+    styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit, AfterViewInit {
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  ngAfterViewInit(): void {
-  }
+    ngAfterViewInit(): void {
+    }
 
 
 }
