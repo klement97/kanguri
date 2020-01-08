@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable, Subject} from 'rxjs';
 import {selectCurrentUserError, selectCurrentUserLoading} from '../_store/_selectors/current-user.selectors';
 import {ErrorHandler} from '../../common/error.handler';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
     selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     loginForm: FormGroup;
     loading$: Observable<boolean>;
     error$: Observable<any>;
+    serverErrorMessage: string = '';
 
     uns$ = new Subject();
 
@@ -27,6 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.initiateLoginForm();
+        this.listenAndSetServerError();
     }
 
     ngOnDestroy() {
@@ -47,6 +50,20 @@ export class LoginComponent implements OnInit, OnDestroy {
             password: this.loginForm.value.password
         }));
     }
+
+    listenAndSetServerError() {
+        this.error$.pipe(takeUntil(this.uns$)).subscribe(
+            error => {
+                if (error) {
+                    // todo: handle error here, for this case only a message is enough
+                    this.serverErrorMessage = 'E-mail ose Password është i gabuar';
+                } else {
+                    this.serverErrorMessage = '';
+                }
+            }
+        );
+    }
+
 
     getError(field: string): string {
         return this.errorHandler.getError(this.loginForm, field);

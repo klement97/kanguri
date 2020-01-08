@@ -1,4 +1,9 @@
 <form (ngSubmit)="submit()" [formGroup]="loginForm">
+
+    <div class="mat-error server-error">
+        <mat-error>{{serverErrorMessage}}</mat-error>
+    </div>
+
     <mat-form-field>
         <input formControlName="email" matInput type="text">
         <mat-error>{{getError('email')}}</mat-error>
