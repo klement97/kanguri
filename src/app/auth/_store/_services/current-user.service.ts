@@ -3,7 +3,9 @@ import {environment} from '../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 
 const API_HOST = `${environment.apiHost}`;
-const USERS_URL = `${API_HOST}/users`;
+
+const AUTH_URL = `${API_HOST}/auth`;
+const USERS_URL = `${AUTH_URL}/users`;
 const CURRENT_USER_URL = `${USERS_URL}/me`;
 
 @Injectable({

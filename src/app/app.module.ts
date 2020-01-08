@@ -13,6 +13,7 @@ import {StoreModule} from '@ngrx/store';
 import {metaReducers, reducers} from './reducers';
 import {EffectsModule} from '@ngrx/effects';
 import {HttpClientModule} from '@angular/common/http';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {HttpClientModule} from '@angular/common/http';
         strictActionImmutability: true
       }
     }),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
 
     // apps
     AuthModule,

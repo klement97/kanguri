@@ -25,7 +25,7 @@ export class CurrentUserEffects {
   createUser$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CurrentUserActions.createUser),
-      exhaustMap(payload => this.currentUserService.createUser(payload).pipe(
+      exhaustMap(payload => this.currentUserService.createUser(payload.userData).pipe(
         map((response: any) => CurrentUserActions.createUserSuccess({userData: response})),
         catchError(error => of(CurrentUserActions.createUserFailure({error})))
       ))
