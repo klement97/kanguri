@@ -12,10 +12,11 @@ import {AuthModule} from './auth/auth.module';
 import {StoreModule} from '@ngrx/store';
 import {metaReducers, reducers} from './reducers';
 import {EffectsModule} from '@ngrx/effects';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {CookieService} from 'ngx-cookie-service';
 import {ErrorHandler} from './common/error.handler';
+import {ServiceInterceptor} from './_interceptor/service.interceptor';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,14 @@ import {ErrorHandler} from './common/error.handler';
         HomeModule,
 
     ],
-    providers: [CookieService, ErrorHandler],
+    providers: [
+        CookieService,
+        ErrorHandler,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ServiceInterceptor,
+            multi: true
+        }],
     bootstrap: [AppComponent]
 })
 export class AppModule {

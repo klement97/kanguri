@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {JwtModel} from '../../../common/const';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
+import {map} from 'rxjs/operators';
 
 const API_HOST = `${environment.apiHost}`;
 
@@ -40,6 +41,12 @@ export class CurrentUserService {
 
     login(email: string, password: string) {
         return this.http.post(`${JWT_CREATE_URL}/`, {email, password});
+    }
+
+    refreshAccessToken() {
+        return this.http.post(`${JWT_REFRESH_URL}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
+            map((jwt: JwtModel) => this.setJwtToCookies(jwt))
+        );
     }
 
     setJwtToCookies(jwt: JwtModel) {

@@ -45,7 +45,8 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
+              "deleteOutputPath": true,
               "buildOptimizer": true,
               "budgets": [
                 {
