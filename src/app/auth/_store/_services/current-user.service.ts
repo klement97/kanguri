@@ -13,9 +13,9 @@ const USERS_URL = `${AUTH_URL}/users`;
 const CURRENT_USER_URL = `${USERS_URL}/me`;
 
 const JWT_URL = `${AUTH_URL}/jwt`;
-const JWT_CREATE_URL = `${JWT_URL}/create`;
-const JWT_REFRESH_URL = `${JWT_URL}/refresh`;
-const JWT_VERIFY_URL = `${JWT_URL}/verify`;
+export const JWT_CREATE_URL = `${JWT_URL}/create`;
+export const JWT_REFRESH_URL = `${JWT_URL}/refresh`;
+export const JWT_VERIFY_URL = `${JWT_URL}/verify`;
 
 @Injectable({
     providedIn: 'root'
@@ -45,13 +45,25 @@ export class CurrentUserService {
 
     refreshAccessToken() {
         return this.http.post(`${JWT_REFRESH_URL}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
-            map((jwt: JwtModel) => this.setJwtToCookies(jwt))
+            map((jwt: JwtModel) => {
+                this.setJwtToCookies(jwt);
+                return jwt;
+            })
         );
     }
 
     setJwtToCookies(jwt: JwtModel) {
-        this.cookieService.set('access', jwt.access);
-        this.cookieService.set('refresh', jwt.refresh);
+        // if (jwt.access) {
+        //     this.cookieService.set('access', jwt.access, 1);
+        // }
+        if (jwt.access) {
+            const tomorrow: Date = new Date();
+            tomorrow.setSeconds(new Date().getSeconds() + 1);
+            this.cookieService.set('access', jwt.access, tomorrow);
+        }
+        if (jwt.refresh) {
+            this.cookieService.set('refresh', jwt.refresh, 7);
+        }
     }
 
     getJwtFromCookies(): JwtModel {
@@ -61,13 +73,13 @@ export class CurrentUserService {
         };
     }
 
-    logout() {
+    logout(): void {
         /**
          * Logout with JWT does mean anything to server side.
-         * We simply delete the JWT from the storage.
+         * We simply delete the JWT from the storage and navigate to login.
          */
         this.cookieService.delete('access');
         this.cookieService.delete('refresh');
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/auth/login']).then();
     }
 }

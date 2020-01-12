@@ -1,40 +1,48 @@
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {CurrentUserService} from '../auth/_store/_services/current-user.service';
-import {Observable, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {JwtModel, noCredentialsUrls} from '../common/const';
 
 @Injectable()
 export class ServiceInterceptor implements HttpInterceptor {
     constructor(private userService: CurrentUserService) {
     }
 
-    private accessToken: string;
-
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log('enter interceptor');
+        if (!noCredentialsUrls.includes(request.url)) {
+            let currentUserJwt: JwtModel = this.userService.getJwtFromCookies();
 
-        const currentUserJwt = this.userService.getJwtFromCookies();
-
-        if (currentUserJwt) {
-            this.accessToken = currentUserJwt.access;
-            request = request.clone({
-                setHeaders: {
-                    Authorization: `Bearer ${this.accessToken}`
-                }
-            });
-        }
-
-
-        return next.handle(request)
-            .pipe(
-                catchError(err => {
-                    if (err && err.code === 'token_not_valid') {
-                        // this.userService.refreshAccessToken();
+            if (currentUserJwt) {
+                if (currentUserJwt.access) {
+                    // If there is an access token then it has not expired yet.
+                    request = request.clone({
+                        setHeaders: {
+                            Authorization: `Bearer ${currentUserJwt.access}`
+                        }
+                    });
+                } else {
+                    // Otherwise we use refresh token to get a new access token
+                    if (currentUserJwt.refresh) {
+                        this.userService.refreshAccessToken().subscribe(
+                            response => {
+                                if (response) {
+                                    request = request.clone({
+                                        setHeaders: {
+                                            Authorization: `Bearer ${currentUserJwt.access}`
+                                        }
+                                    });
+                                }
+                            }
+                        );
+                    } else {
+                        // If there is no refresh token then we should logout the user
+                        this.userService.logout();
                     }
-                    console.log(err);
-                    return throwError(err);
-                })
-            );
+                }
+            }
+
+        }
+        return next.handle(request);
     }
 }
