@@ -2,7 +2,7 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/com
 import {Injectable} from '@angular/core';
 import {CurrentUserService} from '../auth/_store/_services/current-user.service';
 import {Observable} from 'rxjs';
-import {JwtModel, noCredentialsUrls} from '../common/const';
+import {noCredentialsUrls} from '../common/const';
 
 @Injectable()
 export class ServiceInterceptor implements HttpInterceptor {
@@ -10,39 +10,37 @@ export class ServiceInterceptor implements HttpInterceptor {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (!noCredentialsUrls.includes(request.url)) {
-            let currentUserJwt: JwtModel = this.userService.getJwtFromCookies();
-
-            if (currentUserJwt) {
-                if (currentUserJwt.access) {
-                    // If there is an access token then it has not expired yet.
-                    request = request.clone({
-                        setHeaders: {
-                            Authorization: `Bearer ${currentUserJwt.access}`
-                        }
-                    });
-                } else {
-                    // Otherwise we use refresh token to get a new access token
-                    if (currentUserJwt.refresh) {
-                        this.userService.refreshAccessToken().subscribe(
-                            response => {
-                                if (response) {
-                                    request = request.clone({
-                                        setHeaders: {
-                                            Authorization: `Bearer ${currentUserJwt.access}`
-                                        }
-                                    });
-                                }
-                            }
-                        );
-                    } else {
-                        // If there is no refresh token then we should logout the user
-                        this.userService.logout();
-                    }
-                }
-            }
-
+        if (noCredentialsUrls.includes(request.url)) {
+            // Some url's like jwt/create, refresh or verify does not require headers to be set
+            return next.handle(request);
         }
-        return next.handle(request);
+
+        const {access, refresh} = this.userService.getJwtFromCookies();
+        if (access) {
+            // If there is an access token then it has not expired yet
+            request = request.clone({
+                setHeaders: {Authorization: `Bearer ${access}`}
+            });
+            return next.handle(request);
+        }
+
+        if (!access && refresh) {
+            // If there is no access but refresh, we use that refresh to get a new access token.
+            this.userService.refreshAccessToken().subscribe(
+                response => {
+                    if (response) {
+                        request = request.clone({
+                            setHeaders: {Authorization: `Bearer ${response.access}`}
+                        });
+                        return next.handle(request);
+                    }
+                },
+                error => this.userService.logout());
+        }
+
+        if (!access && !refresh) {
+            // If there are neither access nor refresh we must log the user out!
+            this.userService.logout();
+        }
     }
 }

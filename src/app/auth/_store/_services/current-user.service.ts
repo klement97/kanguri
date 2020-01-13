@@ -53,8 +53,10 @@ export class CurrentUserService {
     }
 
     setJwtToCookies(jwt: JwtModel) {
+        const tomorrow: number = 1;
+        const nextWeek: number = 7;
         // if (jwt.access) {
-        //     this.cookieService.set('access', jwt.access, 1);
+        //     this.cookieService.set('access', jwt.access, tomorrow);
         // }
         if (jwt.access) {
             const tomorrow: Date = new Date();
@@ -62,7 +64,7 @@ export class CurrentUserService {
             this.cookieService.set('access', jwt.access, tomorrow);
         }
         if (jwt.refresh) {
-            this.cookieService.set('refresh', jwt.refresh, 7);
+            this.cookieService.set('refresh', jwt.refresh, nextWeek);
         }
     }
 

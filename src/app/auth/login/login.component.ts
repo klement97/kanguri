@@ -7,7 +7,6 @@ import {Observable, Subject} from 'rxjs';
 import {selectCurrentUserError, selectCurrentUserLoading} from '../_store/_selectors/current-user.selectors';
 import {ErrorHandler} from '../../common/error.handler';
 import {takeUntil} from 'rxjs/operators';
-import {CurrentUserService} from '../_store/_services/current-user.service';
 
 @Component({
     selector: 'app-login',
@@ -23,7 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     uns$ = new Subject();
 
     constructor(private store: Store<fromCurrentUser.State>, private fb: FormBuilder,
-                private errorHandler: ErrorHandler, private service: CurrentUserService) {
+                private errorHandler: ErrorHandler) {
         this.error$ = store.select(selectCurrentUserError);
         this.loading$ = store.select(selectCurrentUserLoading);
     }
@@ -31,7 +30,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.initiateLoginForm();
         this.listenAndSetServerError();
-        // this.service.refreshAccessToken().subscribe();
     }
 
     ngOnDestroy() {
