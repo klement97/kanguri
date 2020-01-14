@@ -17,6 +17,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {CookieService} from 'ngx-cookie-service';
 import {ErrorHandler} from './common/error.handler';
 import {ServiceInterceptor} from './_interceptor/service.interceptor';
+import {MatDialogModule} from '@angular/material';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import {ServiceInterceptor} from './_interceptor/service.interceptor';
         AppRoutingModule,
         RouterModule,
         HttpClientModule,
+        MatDialogModule,
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         EffectsModule.forRoot([]),
         StoreModule.forRoot(reducers, {

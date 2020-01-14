@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
+import {ActionsSubject, Store} from '@ngrx/store';
 import * as CurrentUserActions from '../_store/_actions/current-user.actions';
 import * as fromCurrentUser from '../_store/_reducers/current-user.reducer';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -7,6 +7,8 @@ import {Observable, Subject} from 'rxjs';
 import {selectCurrentUserError, selectCurrentUserLoading} from '../_store/_selectors/current-user.selectors';
 import {ErrorHandler} from '../../common/error.handler';
 import {takeUntil} from 'rxjs/operators';
+import {CurrentUserService} from '../_store/_services/current-user.service';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
     selector: 'app-login',
@@ -21,15 +23,29 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     uns$ = new Subject();
 
-    constructor(private store: Store<fromCurrentUser.State>, private fb: FormBuilder,
-                private errorHandler: ErrorHandler) {
+    constructor(private store: Store<fromCurrentUser.State>,
+                private fb: FormBuilder,
+                private errorHandler: ErrorHandler,
+                private service: CurrentUserService,
+                private dialogRef: MatDialogRef<LoginComponent>,
+                private actions$: ActionsSubject
+    ) {
         this.error$ = store.select(selectCurrentUserError);
         this.loading$ = store.select(selectCurrentUserLoading);
+        actions$.pipe(takeUntil(this.uns$)).subscribe(action => {
+            if (action.type === CurrentUserActions.loginSuccess.type) {
+                this.dialogRef.close(action['jwt']);
+                console.log('Dialog closed');
+            }
+        });
     }
 
     ngOnInit() {
         this.initiateLoginForm();
         this.listenAndSetServerError();
+        setTimeout(() => {
+            this.service.currentUserData().subscribe(res => console.log(res));
+        }, 3000);
     }
 
     ngOnDestroy() {

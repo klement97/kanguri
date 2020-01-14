@@ -9,7 +9,7 @@ import {map} from 'rxjs/operators';
 const API_HOST = `${environment.apiHost}`;
 
 const AUTH_URL = `${API_HOST}/auth`;
-const USERS_URL = `${AUTH_URL}/users`;
+export const USERS_URL = `${AUTH_URL}/users`;
 const CURRENT_USER_URL = `${USERS_URL}/me`;
 
 const JWT_URL = `${AUTH_URL}/jwt`;
@@ -53,14 +53,16 @@ export class CurrentUserService {
     }
 
     setJwtToCookies(jwt: JwtModel) {
+        /**
+         * Takes jwt object and sets two cookies, 'access' and 'refresh'.
+         * Access token has 1
+         * @param jwt
+         */
         const tomorrow: number = 1;
         const nextWeek: number = 7;
-        // if (jwt.access) {
-        //     this.cookieService.set('access', jwt.access, tomorrow);
-        // }
         if (jwt.access) {
-            const tomorrow: Date = new Date();
-            tomorrow.setSeconds(new Date().getSeconds() + 1);
+            // const tomorrow: Date = new Date();
+            // tomorrow.setSeconds(new Date().getSeconds() + 1);
             this.cookieService.set('access', jwt.access, tomorrow);
         }
         if (jwt.refresh) {

@@ -22,7 +22,8 @@ import {MatButtonModule, MatFormFieldModule, MatInputModule} from '@angular/mate
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule
-    ]
+    ],
+    entryComponents: [LoginComponent]
 })
 export class AuthModule {
 }

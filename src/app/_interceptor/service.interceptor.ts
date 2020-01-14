@@ -35,7 +35,7 @@ export class ServiceInterceptor implements HttpInterceptor {
                         return next.handle(request);
                     }
                 },
-                error => this.userService.logout());
+                () => this.userService.logout());
         }
 
         if (!access && !refresh) {
