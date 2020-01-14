@@ -1,14 +1,142 @@
 /* You can add global styles to this file, and also import other style files */
-
 html, body {
-    height: 100%;
-}
-
-body {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #fffffe;
 }
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-weight: 100;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #094067;
+}
+
+p {
+  color: #5f6c7b;
+}
+
+.primary-color {
+  background-color: #3da9fc;
+  color: #fffffe;
+}
+
+.danger {
+  background-color: #ef4565;
+  color: #fffffe;
+}
+
+.success {
+  background-color: #3dfca0;
+  color: #fffffe;
+}
+
+button {
+  border-radius: 2px !important;
+  transition: all 0.1s;
+}
+
+button:hover {
+  -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.75);
+}
+
+.radius {
+  border-radius: 2px;
+}
+
+.pos-r {
+  position: relative;
+}
+
+.pos-a {
+  position: absolute;
+}
+
+.pos-f {
+  position: fixed;
+}
+
+.over-hidden {
+  overflow: hidden;
+}
+
+/* Used for centering child of a parent in center in a horizontal direction */
+.flex-center-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+/* Used for centering child of a parent in center in a vertical direction */
+.flex-center-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Puts child in opposite  sides of their parent in a horizontal direction*/
+.child-spaced-row {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+/* Puts child in opposite  sides of their parent in a vertical direction*/
+.child-spaced-column {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+/* Center child inside his parent only if parent has a given position:relative , absolute , fixed ... */
+.center-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Width system  */
+.w-100 {
+  width: 100%;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-25 {
+  width: 25%;
+}
+
+/* Height system  */
+.h-100 {
+  height: 100%;
+}
+
+.h-75 {
+  height: 75%;
+}
+
+.h-50 {
+  height: 50%;
+}
+
+.h-25 {
+  height: 25%;
 }
