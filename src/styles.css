@@ -3,6 +3,7 @@ html, body {
   height: 100%;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #fffffe;
+  font-weight: 200;
 }
 
 * {
@@ -21,6 +22,11 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
   color: #5f6c7b;
+}
+
+a {
+  text-decoration: none;
+  outline: unset;
 }
 
 .primary-color {
@@ -139,4 +145,17 @@ button:hover {
 
 .h-25 {
   height: 25%;
+}
+
+/* Align test in the center */
+.txt-center {
+  text-align: center;
+}
+
+.z-medium {
+  z-index: 1000;
+}
+
+.z-max {
+  z-index: 9999;
 }
