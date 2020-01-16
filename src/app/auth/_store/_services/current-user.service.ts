@@ -3,8 +3,9 @@ import {environment} from '../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {JwtModel} from '../../../common/const';
 import {CookieService} from 'ngx-cookie-service';
-import {Router} from '@angular/router';
 import {map} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {clearCurrentUser} from '../_actions/current-user.actions';
 
 const API_HOST = `${environment.apiHost}`;
 
@@ -22,7 +23,7 @@ export const JWT_VERIFY_URL = `${JWT_URL}/verify`;
 })
 export class CurrentUserService {
 
-    constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
+    constructor(private http: HttpClient, private cookieService: CookieService, private store: Store<any>) {
     }
 
     createUser(userData) {
@@ -84,6 +85,6 @@ export class CurrentUserService {
          */
         this.cookieService.delete('access');
         this.cookieService.delete('refresh');
-        this.router.navigate(['/auth/login']).then();
+        this.store.dispatch(clearCurrentUser());
     }
 }

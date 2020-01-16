@@ -63,9 +63,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.initiateLoginForm();
         this.listenAndSetServerError();
-        setTimeout(() => {
-            this.service.currentUserData().subscribe(res => console.log(res));
-        }, 3000);
     }
 
     ngOnDestroy() {

@@ -24,7 +24,7 @@ export class ServiceInterceptor implements HttpInterceptor {
             return next.handle(request);
         }
 
-        if (!access && refresh) {
+        if (refresh) {
             // If there is no access but refresh, we use that refresh to get a new access token.
             this.userService.refreshAccessToken().subscribe(
                 response => {
@@ -38,9 +38,7 @@ export class ServiceInterceptor implements HttpInterceptor {
                 () => this.userService.logout());
         }
 
-        if (!access && !refresh) {
-            // If there are neither access nor refresh we must log the user out!
-            this.userService.logout();
-        }
+        // If there are neither access nor refresh we must log the user out!
+        this.userService.logout();
     }
 }

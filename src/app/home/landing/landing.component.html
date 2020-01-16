@@ -1,24 +1,28 @@
 <section class="landing-page pos-r w-100 over-hidden">
     <nav class="navigation pos-f w-100 child-spaced-row z-medium">
-        <div class="nav-logo">
-            Logo
-        </div>
+        <div class="nav-logo">Logo</div>
         <div class="menu">
             <ul>
                 <li>Kreu</li>
                 <li>Njoftimet</li>
                 <li>Suporti</li>
-                <li>
+                <li *ngIf="currentUser | async as user">Çkemi {{user.first_name}}</li>
+                <li *ngIf="!(currentUser | async)">
                     <button class="login-btn" mat-flat-button (click)="openLoginDialog()">Hyrë</button>
+                </li>
+                <li *ngIf="currentUser | async">
+                    <button class="login-btn" mat-flat-button (click)="logout()">Dil</button>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="impact pos-r w-100 over-hidden">
         <div class="h-100 w-25 pos-r flex-center-column">
+
             <h1 class="slogan">Kërkon diçka?</h1>
             <p class="slogan-p">Kanguri faqja më e re për kërkimin e produkteve dhe njoftimeve online</p>
             <div class="primary-color txt-center radius">Njoftime</div>
+
         </div>
     </div>
 
