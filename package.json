@@ -29,6 +29,7 @@
     "@ngrx/schematics": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngrx/store-devtools": "^8.0.0",
+    "angular-6-social-login": "^1.1.1",
     "express": "^4.17.1",
     "ngx-cookie-service": "^2.3.0",
     "rxjs": "~6.4.0",

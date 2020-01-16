@@ -9,6 +9,7 @@ import {ErrorHandler} from '../../common/error.handler';
 import {takeUntil} from 'rxjs/operators';
 import {CurrentUserService} from '../_store/_services/current-user.service';
 import {MatDialogRef} from '@angular/material';
+import {AuthService, FacebookLoginProvider, GoogleLoginProvider} from 'angular-6-social-login';
 
 @Component({
     selector: 'app-login',
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                 private errorHandler: ErrorHandler,
                 private service: CurrentUserService,
                 private dialogRef: MatDialogRef<LoginComponent>,
-                private actions$: ActionsSubject
+                private actions$: ActionsSubject,
+                private socials: AuthService
     ) {
         this.error$ = store.select(selectCurrentUserError);
         this.loading$ = store.select(selectCurrentUserLoading);
@@ -38,6 +40,24 @@ export class LoginComponent implements OnInit, OnDestroy {
                 console.log('Dialog closed');
             }
         });
+    }
+
+    socialSignIn(socialPlatform: string) {
+        let socialPlatformProvider;
+        if (socialPlatform == 'facebook') {
+            socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+        } else if (socialPlatform == 'google') {
+            socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+        }
+
+        this.socials.signIn(socialPlatformProvider).then(
+            (userData) => {
+                console.log(socialPlatform + ' sign in data : ', userData);
+                // Now sign-in with userData
+                // ...
+
+            }
+        );
     }
 
     ngOnInit() {

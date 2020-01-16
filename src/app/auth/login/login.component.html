@@ -1,4 +1,4 @@
-<form (ngSubmit)="submit()" [formGroup]="loginForm">
+<form [formGroup]="loginForm">
 
     <div class="mat-error server-error">
         <mat-error>{{serverErrorMessage}}</mat-error>
@@ -15,5 +15,8 @@
     </mat-form-field>
 
     <br>
-    <button [disabled]="loading$ | async" mat-flat-button type="submit">Login</button>
+    <button (click)="submit()" [disabled]="loading$ | async" mat-flat-button type="submit">Login</button>
+
+    <button mat-raised-button color="primary" (click)="socialSignIn('google')">Google</button>
+    <button mat-raised-button color="accent" (click)="socialSignIn('facebook')">Facebook</button>
 </form>
