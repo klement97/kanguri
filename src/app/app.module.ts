@@ -17,6 +17,24 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {CookieService} from 'ngx-cookie-service';
 import {ErrorHandler} from './common/error.handler';
 import {ServiceInterceptor} from './_interceptor/service.interceptor';
+import {MatDialogModule} from '@angular/material';
+import {AuthService, AuthServiceConfig, GoogleLoginProvider,} from 'angular-6-social-login';
+
+// Configs
+export function getAuthServiceConfigs() {
+    return new AuthServiceConfig(
+        [
+            // {
+            //     id: FacebookLoginProvider.PROVIDER_ID,
+            //     provider: new FacebookLoginProvider('Your-Facebook-app-id')
+            // },
+            {
+                id: GoogleLoginProvider.PROVIDER_ID,
+                provider: new GoogleLoginProvider('827784296252-33ag9eu6eaajoijoaipvco11as3e5880.apps.googleusercontent.com')
+            },
+        ]);
+}
+
 
 @NgModule({
     declarations: [
@@ -28,6 +46,7 @@ import {ServiceInterceptor} from './_interceptor/service.interceptor';
         AppRoutingModule,
         RouterModule,
         HttpClientModule,
+        MatDialogModule,
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         EffectsModule.forRoot([]),
         StoreModule.forRoot(reducers, {
@@ -47,11 +66,17 @@ import {ServiceInterceptor} from './_interceptor/service.interceptor';
     providers: [
         CookieService,
         ErrorHandler,
+        AuthService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: ServiceInterceptor,
             multi: true
-        }],
+        },
+        {
+            provide: AuthServiceConfig,
+            useFactory: getAuthServiceConfigs
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

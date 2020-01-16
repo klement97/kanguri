@@ -28,6 +28,7 @@ const currentUserReducer = createReducer(
     on(CurrentUserActions.createUserFailure,
         (state, {error}) => ({...state, loading: false, error})
     ),
+
     on(CurrentUserActions.login,
         state => ({...state, loading: true})
     ),
@@ -36,6 +37,16 @@ const currentUserReducer = createReducer(
     ),
     on(CurrentUserActions.loginFailure,
         (state, {error}) => ({...state, loading: false, error})
+    ),
+
+    on(CurrentUserActions.getCurrentUserDetailsSuccess,
+        (state, {user}) => ({...state, currentUser: user})
+    ),
+    on(CurrentUserActions.getCurrentUserDetailsFailure,
+        (state, {error}) => ({...state, error})
+    ),
+    on(CurrentUserActions.clearCurrentUser,
+        state => ({...state, currentUser: null})
     ),
 );
 

@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, exhaustMap, map} from 'rxjs/operators';
+import {catchError, exhaustMap, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 
 import * as CurrentUserActions from '../_actions/current-user.actions';
 import {CurrentUserService} from '../_services/current-user.service';
 import {JwtModel} from '../../../common/const';
+import {UserModel} from '../_models/user.model';
 
 
 @Injectable()
@@ -33,6 +34,14 @@ export class CurrentUserEffects {
             ))
         );
     });
+
+    getCurrentUserDetails$ = createEffect(() => this.actions$.pipe(
+        ofType(CurrentUserActions.getCurrentUserDetails),
+        switchMap(() => this.currentUserService.currentUserData().pipe(
+            map((user: UserModel) => CurrentUserActions.getCurrentUserDetailsSuccess({user})),
+            catchError(error => of(CurrentUserActions.getCurrentUserDetailsFailure({error})))
+        ))
+    ));
 
 
     constructor(private actions$: Actions, private currentUserService: CurrentUserService) {

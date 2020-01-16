@@ -3,26 +3,27 @@ import {environment} from '../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {JwtModel} from '../../../common/const';
 import {CookieService} from 'ngx-cookie-service';
-import {Router} from '@angular/router';
 import {map} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {clearCurrentUser} from '../_actions/current-user.actions';
 
 const API_HOST = `${environment.apiHost}`;
 
 const AUTH_URL = `${API_HOST}/auth`;
-const USERS_URL = `${AUTH_URL}/users`;
+export const USERS_URL = `${AUTH_URL}/users`;
 const CURRENT_USER_URL = `${USERS_URL}/me`;
 
 const JWT_URL = `${AUTH_URL}/jwt`;
-const JWT_CREATE_URL = `${JWT_URL}/create`;
-const JWT_REFRESH_URL = `${JWT_URL}/refresh`;
-const JWT_VERIFY_URL = `${JWT_URL}/verify`;
+export const JWT_CREATE_URL = `${JWT_URL}/create`;
+export const JWT_REFRESH_URL = `${JWT_URL}/refresh`;
+export const JWT_VERIFY_URL = `${JWT_URL}/verify`;
 
 @Injectable({
     providedIn: 'root'
 })
 export class CurrentUserService {
 
-    constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
+    constructor(private http: HttpClient, private cookieService: CookieService, private store: Store<any>) {
     }
 
     createUser(userData) {
@@ -45,13 +46,29 @@ export class CurrentUserService {
 
     refreshAccessToken() {
         return this.http.post(`${JWT_REFRESH_URL}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
-            map((jwt: JwtModel) => this.setJwtToCookies(jwt))
+            map((jwt: JwtModel) => {
+                this.setJwtToCookies(jwt);
+                return jwt;
+            })
         );
     }
 
     setJwtToCookies(jwt: JwtModel) {
-        this.cookieService.set('access', jwt.access);
-        this.cookieService.set('refresh', jwt.refresh);
+        /**
+         * Takes jwt object and sets two cookies, 'access' and 'refresh'.
+         * Access token has 1
+         * @param jwt
+         */
+        const tomorrow: number = 1;
+        const nextWeek: number = 7;
+        if (jwt.access) {
+            // const tomorrow: Date = new Date();
+            // tomorrow.setSeconds(new Date().getSeconds() + 1);
+            this.cookieService.set('access', jwt.access, tomorrow);
+        }
+        if (jwt.refresh) {
+            this.cookieService.set('refresh', jwt.refresh, nextWeek);
+        }
     }
 
     getJwtFromCookies(): JwtModel {
@@ -61,13 +78,13 @@ export class CurrentUserService {
         };
     }
 
-    logout() {
+    logout(): void {
         /**
          * Logout with JWT does mean anything to server side.
-         * We simply delete the JWT from the storage.
+         * We simply delete the JWT from the storage and navigate to login.
          */
         this.cookieService.delete('access');
         this.cookieService.delete('refresh');
-        this.router.navigate(['/auth/login']);
+        this.store.dispatch(clearCurrentUser());
     }
 }

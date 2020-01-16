@@ -26,11 +26,31 @@ export const login = createAction(
 );
 
 export const loginSuccess = createAction(
-    '[Login] Login Success',
+    '[Login/API] Login Success',
     props<{ jwt: JwtModel }>()
 );
 
 export const loginFailure = createAction(
-    '[Login] Login Failure',
+    '[Login/API] Login Failure',
     props<{ error }>()
+);
+
+// Current user details
+
+export const getCurrentUserDetails = createAction(
+    '[Landing Page] Get Current User Details',
+);
+
+export const getCurrentUserDetailsSuccess = createAction(
+    '[User/API] Get Current User Details Success',
+    props<{ user: UserModel }>()
+);
+
+export const getCurrentUserDetailsFailure = createAction(
+    '[User/API] Get Current User Details Failure',
+    props<{ error }>()
+);
+
+export const clearCurrentUser = createAction(
+    '[User] Clear Current User'
 );
