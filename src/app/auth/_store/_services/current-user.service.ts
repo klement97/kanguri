@@ -5,7 +5,8 @@ import {JwtModel} from '../../../common/const';
 import {CookieService} from 'ngx-cookie-service';
 import {map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
-import {clearCurrentUser} from '../_actions/current-user.actions';
+import {clearCurrentUser, getCurrentUserDetails, login} from '../_actions/current-user.actions';
+import {UserModel} from '../_models/user.model';
 
 const API_HOST = `${environment.apiHost}`;
 
@@ -19,72 +20,88 @@ export const JWT_REFRESH_URL = `${JWT_URL}/refresh`;
 export const JWT_VERIFY_URL = `${JWT_URL}/verify`;
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class CurrentUserService {
 
-    constructor(private http: HttpClient, private cookieService: CookieService, private store: Store<any>) {
-    }
+	constructor(private http: HttpClient, private cookieService: CookieService, private store: Store<any>) {
+	}
 
-    createUser(userData) {
-        /** Makes a POST request to /users/ endpoint to create a new user.
-         * @param: userData - an object with at least email and password inside.
-         */
-        return this.http.post(`${USERS_URL}/`, userData);
-    }
+	createUser(userData: UserModel) {
+		/** Makes a POST request to /users/ endpoint to create a new user.
+		 * @param: userData - an object with at least email and password inside.
+		 */
+		return this.http.post<UserModel>(`${USERS_URL}/`, userData);
+	}
 
-    currentUserData() {
-        /**
-         * Makes a GET request to /users/me to get current user's data
-         */
-        return this.http.get(`${CURRENT_USER_URL}/`);
-    }
+	currentUserData() {
+		/** Makes a GET request to /users/me to get current user's data */
+		return this.http.get(`${CURRENT_USER_URL}/`);
+	}
 
-    login(email: string, password: string) {
-        return this.http.post(`${JWT_CREATE_URL}/`, {email, password});
-    }
+	login(email: string, password: string) {
+		/** Makes a post request to receive a pair of tokens. */
+		return this.http.post(`${JWT_CREATE_URL}/`, {email, password});
+	}
 
-    refreshAccessToken() {
-        return this.http.post(`${JWT_REFRESH_URL}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
-            map((jwt: JwtModel) => {
-                this.setJwtToCookies(jwt);
-                return jwt;
-            })
-        );
-    }
+	loginAfterSignUp(email: string, password: string) {
+		this.store.dispatch(login({email, password}));
+	}
 
-    setJwtToCookies(jwt: JwtModel) {
-        /**
-         * Takes jwt object and sets two cookies, 'access' and 'refresh'.
-         * Access token has 1
-         * @param jwt
-         */
-        const tomorrow: number = 1;
-        const nextWeek: number = 7;
-        if (jwt.access) {
-            // const tomorrow: Date = new Date();
-            // tomorrow.setSeconds(new Date().getSeconds() + 1);
-            this.cookieService.set('access', jwt.access, tomorrow);
-        }
-        if (jwt.refresh) {
-            this.cookieService.set('refresh', jwt.refresh, nextWeek);
-        }
-    }
+	refreshAccessToken() {
+		/** Makes a request to refresh access token and sets access and refresh from response to cookies. */
+		return this.http.post(`${JWT_REFRESH_URL}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
+			map((jwt: JwtModel) => {
+				this.setJwtToCookies(jwt);
+				return jwt;
+			})
+		);
+	}
 
-    getJwtFromCookies(): JwtModel {
-        return {
-            access: this.cookieService.get('access'),
-            refresh: this.cookieService.get('refresh')
-        };
-    }
+	setJwtToCookies(jwt: JwtModel) {
+		/**
+		 * Takes jwt object and sets two cookies, 'kanguri_access' and 'kanguri_refresh'.
+		 * Access token lifetime is 1 day, refresh token is 7 days
+		 * @param jwt
+		 */
+		const tomorrow: number = 1;
+		const nextWeek: number = 7;
+		if (jwt.access) {
+			// const tomorrow: Date = new Date();
+			// tomorrow.setSeconds(new Date().getSeconds() + 1);
+			this.cookieService.set('kanguri_access', jwt.access, tomorrow);
+		}
+		if (jwt.refresh) {
+			this.cookieService.set('kanguri_refresh', jwt.refresh, nextWeek);
+		}
+	}
 
-    logout(): void {
-        /**
-         * Logout with JWT does mean anything to server side.
-         * We simply delete the JWT from the storage and navigate to login.
-         */
-        this.cookieService.delete('access');
-        this.cookieService.delete('refresh');
-        this.store.dispatch(clearCurrentUser());
-    }
+	getJwtFromCookies(): JwtModel {
+		return {
+			access: this.cookieService.get('kanguri_access'),
+			refresh: this.cookieService.get('kanguri_refresh')
+		};
+	}
+
+	logout(): void {
+		/**
+		 * Logout with JWT does mean anything to server side.
+		 * We simply delete the JWT from the storage and navigate to login.
+		 */
+		this.cookieService.delete('kanguri_access');
+		this.cookieService.delete('kanguri_refresh');
+		this.store.dispatch(clearCurrentUser());
+	}
+
+	loadUserIfLoggedIn() {
+		/**
+		 * Checks if there is an access token in cookies
+		 * and dispatches action to get currentUser's details
+		 * from server and load them to the Store.
+		 */
+		if (this.cookieService.get('kanguri_access') !== null) {
+			this.store.dispatch(getCurrentUserDetails());
+		}
+	}
+
 }

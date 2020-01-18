@@ -12,39 +12,43 @@ import {UserModel} from '../_models/user.model';
 @Injectable()
 export class CurrentUserEffects {
 
-    createUser$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(CurrentUserActions.createUser),
-            exhaustMap(payload => this.currentUserService.createUser(payload.userData).pipe(
-                map((response: any) => CurrentUserActions.createUserSuccess({userData: response})),
-                catchError(error => of(CurrentUserActions.createUserFailure({error})))
-            ))
-        );
-    });
+	createUser$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(CurrentUserActions.createUser),
+			exhaustMap(({userData}) => this.currentUserService.createUser(userData).pipe(
+				map(response => {
+					this.currentUserService.loginAfterSignUp(userData.email, userData.password);
+					return CurrentUserActions.createUserSuccess({userData: response});
+				}),
+				catchError(error => of(CurrentUserActions.createUserFailure({error})))
+			))
+		);
+	});
 
-    login$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(CurrentUserActions.login),
-            exhaustMap(({email, password}) => this.currentUserService.login(email, password).pipe(
-                map((jwt: JwtModel) => {
-                    this.currentUserService.setJwtToCookies(jwt);
-                    return CurrentUserActions.loginSuccess({jwt});
-                }),
-                catchError(({error}) => of(CurrentUserActions.loginFailure({error})))
-            ))
-        );
-    });
-
-    getCurrentUserDetails$ = createEffect(() => this.actions$.pipe(
-        ofType(CurrentUserActions.getCurrentUserDetails),
-        switchMap(() => this.currentUserService.currentUserData().pipe(
-            map((user: UserModel) => CurrentUserActions.getCurrentUserDetailsSuccess({user})),
-            catchError(error => of(CurrentUserActions.getCurrentUserDetailsFailure({error})))
-        ))
-    ));
+	login$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(CurrentUserActions.login),
+			exhaustMap(({email, password}) => this.currentUserService.login(email, password).pipe(
+				map((jwt: JwtModel) => {
+					this.currentUserService.setJwtToCookies(jwt);
+					return CurrentUserActions.loginSuccess({jwt});
+				}),
+				catchError(({error}) => of(CurrentUserActions.loginFailure({error})))
+			))
+		);
+	});
 
 
-    constructor(private actions$: Actions, private currentUserService: CurrentUserService) {
-    }
+	getCurrentUserDetails$ = createEffect(() => this.actions$.pipe(
+		ofType(CurrentUserActions.getCurrentUserDetails),
+		switchMap(() => this.currentUserService.currentUserData().pipe(
+			map((user: UserModel) => CurrentUserActions.getCurrentUserDetailsSuccess({user})),
+			catchError(error => of(CurrentUserActions.getCurrentUserDetailsFailure({error})))
+		))
+	));
+
+
+	constructor(private actions$: Actions, private currentUserService: CurrentUserService) {
+	}
 
 }
