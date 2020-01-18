@@ -5,7 +5,7 @@ import {JwtModel} from '../../../common/const';
 import {CookieService} from 'ngx-cookie-service';
 import {map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
-import {clearCurrentUser} from '../_actions/current-user.actions';
+import {clearCurrentUser, getCurrentUserDetails} from '../_actions/current-user.actions';
 
 const API_HOST = `${environment.apiHost}`;
 
@@ -34,17 +34,17 @@ export class CurrentUserService {
     }
 
     currentUserData() {
-        /**
-         * Makes a GET request to /users/me to get current user's data
-         */
+        /** Makes a GET request to /users/me to get current user's data */
         return this.http.get(`${CURRENT_USER_URL}/`);
     }
 
     login(email: string, password: string) {
+        /** Makes a post request to receive a pair of tokens. */
         return this.http.post(`${JWT_CREATE_URL}/`, {email, password});
     }
 
     refreshAccessToken() {
+        /** Makes a request to refresh access token and sets access and refresh from response to cookies. */
         return this.http.post(`${JWT_REFRESH_URL}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
             map((jwt: JwtModel) => {
                 this.setJwtToCookies(jwt);
@@ -87,4 +87,16 @@ export class CurrentUserService {
         this.cookieService.delete('refresh');
         this.store.dispatch(clearCurrentUser());
     }
+
+    loadUserIfLoggedIn() {
+        /**
+         * Checks if there is an access token in cookies
+         * and dispatches action to get currentUser's details
+         * from server and load them to the Store.
+         */
+        if (this.cookieService.get('access') !== null) {
+            this.store.dispatch(getCurrentUserDetails());
+        }
+    }
+
 }

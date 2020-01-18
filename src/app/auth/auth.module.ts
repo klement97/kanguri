@@ -8,6 +8,7 @@ import * as fromCurrentUser from 'src/app/auth/_store/_reducers/current-user.red
 import {AuthRoutingModule} from './auth-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {CurrentUserService} from './_store/_services/current-user.service';
 
 
 @NgModule({
@@ -26,4 +27,7 @@ import {MatButtonModule, MatFormFieldModule, MatInputModule} from '@angular/mate
     entryComponents: [LoginComponent]
 })
 export class AuthModule {
+    constructor(private currentUserService: CurrentUserService) {
+        currentUserService.loadUserIfLoggedIn();
+    }
 }
