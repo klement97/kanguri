@@ -1,0 +1,29 @@
+<form [formGroup]="signupForm" class="flex-center-column">
+
+    <!-- First Name -->
+    <mat-form-field>
+        <input matInput type="text" formControlName="first_name" placeholder="Emri">
+        <mat-error>{{getError('first_name')}}</mat-error>
+    </mat-form-field>
+
+    <!-- Last Name -->
+    <mat-form-field>
+        <input matInput type="text" formControlName="last_name" placeholder="Mbiemri">
+        <mat-error>{{getError('last_name')}}</mat-error>
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field>
+        <input matInput type="text" formControlName="email" placeholder="Email">
+        <mat-error>{{getError('email')}}</mat-error>
+    </mat-form-field>
+
+    <!-- Password -->
+    <mat-form-field>
+        <input matInput type="text" formControlName="password" placeholder="Fjalëkalimi">
+        <mat-error>{{getError('password')}}</mat-error>
+    </mat-form-field>
+
+    <button type="submit" (click)="submit()" class="primary-color" mat-flat-button>Regjistrohu</button>
+
+</form>
