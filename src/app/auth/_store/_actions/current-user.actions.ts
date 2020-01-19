@@ -1,6 +1,6 @@
 import {createAction, props} from '@ngrx/store';
-import {UserModel} from '../_models/user.model';
-import {JwtModel} from '../../../common/const';
+import {UserModel}           from '../_models/user.model';
+import {JwtModel}            from '../../../common/const';
 
 // Create User
 export const createUser = createAction(

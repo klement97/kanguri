@@ -1,20 +1,20 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActionsSubject, Store} from '@ngrx/store';
-import * as CurrentUserActions from '../_store/_actions/current-user.actions';
-import * as fromCurrentUser from '../_store/_reducers/current-user.reducer';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Observable, Subject} from 'rxjs';
-import {selectCurrentUserError, selectCurrentUserLoading} from '../_store/_selectors/current-user.selectors';
-import {ErrorHandler} from '../../common/error.handler';
-import {takeUntil} from 'rxjs/operators';
-import {CurrentUserService} from '../_store/_services/current-user.service';
-import {MatDialogRef} from '@angular/material';
+import {Component, OnDestroy, OnInit}                            from '@angular/core';
+import {ActionsSubject, Store}                                   from '@ngrx/store';
+import * as CurrentUserActions                                   from '../_store/_actions/current-user.actions';
+import * as fromCurrentUser                                      from '../_store/_reducers/current-user.reducer';
+import {FormBuilder, FormGroup, Validators}                      from '@angular/forms';
+import {Observable, Subject}                                     from 'rxjs';
+import {selectCurrentUserLoading, selectLoginError}              from '../_store/_selectors/current-user.selectors';
+import {ErrorHandler}                                            from '../../common/error.handler';
+import {takeUntil}                                               from 'rxjs/operators';
+import {CurrentUserService}                                      from '../_store/_services/current-user.service';
+import {MatDialogRef}                                            from '@angular/material';
 import {AuthService, FacebookLoginProvider, GoogleLoginProvider} from 'angular-6-social-login';
 
 @Component({
-	selector: 'app-login',
+	selector   : 'app-login',
 	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.css']
+	styleUrls  : ['./login.component.css']
 })
 export class LoginComponent implements OnInit, OnDestroy {
 	showLogin: boolean = true;
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	            private actions$: ActionsSubject,
 	            private socials: AuthService
 	) {
-		this.error$ = store.select(selectCurrentUserError);
+		this.error$ = store.select(selectLoginError);
 		this.loading$ = store.select(selectCurrentUserLoading);
 		actions$.pipe(takeUntil(this.uns$)).subscribe(action => {
 			if (action.type === CurrentUserActions.loginSuccess.type) {
@@ -79,14 +79,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	initiateLoginForm() {
 		this.loginForm = this.fb.group({
-			email: ['klementomeri97@gmail.com', [Validators.required, Validators.email, Validators.maxLength(255)]],
+			email   : ['klementomeri97@gmail.com', [Validators.required, Validators.email, Validators.maxLength(255)]],
 			password: ['Test2019!', [Validators.required]]
 		});
 	}
 
 	submit() {
 		this.store.dispatch(CurrentUserActions.login({
-			email: this.loginForm.value.email,
+			email   : this.loginForm.value.email,
 			password: this.loginForm.value.password
 		}));
 	}

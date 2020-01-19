@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../../../../environments/environment';
-import {HttpClient} from '@angular/common/http';
-import {JwtModel} from '../../../common/const';
-import {CookieService} from 'ngx-cookie-service';
-import {map} from 'rxjs/operators';
-import {Store} from '@ngrx/store';
+import {Injectable}                                     from '@angular/core';
+import {environment}                                    from '../../../../environments/environment';
+import {HttpClient}                                     from '@angular/common/http';
+import {JwtModel}                                       from '../../../common/const';
+import {CookieService}                                  from 'ngx-cookie-service';
+import {map}                                            from 'rxjs/operators';
+import {Store}                                          from '@ngrx/store';
 import {clearCurrentUser, getCurrentUserDetails, login} from '../_actions/current-user.actions';
-import {UserModel} from '../_models/user.model';
+import {UserModel}                                      from '../_models/user.model';
 
 const API_HOST = `${environment.apiHost}`;
 
@@ -64,8 +64,11 @@ export class CurrentUserService {
 		 * Access token lifetime is 1 day, refresh token is 7 days
 		 * @param jwt
 		 */
-		const tomorrow: number = 1;
-		const nextWeek: number = 7;
+		const today = new Date();
+		const tomorrow: Date = new Date();
+		tomorrow.setDate(today.getDate() + 1);
+		const nextWeek: Date = new Date();
+		nextWeek.setDate(today.getDate() + 7);
 		if (jwt.access) {
 			// const tomorrow: Date = new Date();
 			// tomorrow.setSeconds(new Date().getSeconds() + 1);
@@ -78,7 +81,7 @@ export class CurrentUserService {
 
 	getJwtFromCookies(): JwtModel {
 		return {
-			access: this.cookieService.get('kanguri_access'),
+			access : this.cookieService.get('kanguri_access'),
 			refresh: this.cookieService.get('kanguri_refresh')
 		};
 	}
