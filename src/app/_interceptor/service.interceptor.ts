@@ -1,8 +1,8 @@
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Injectable}                                           from '@angular/core';
-import {CurrentUserService}                                   from '../auth/_store/_services/current-user.service';
-import {Observable}                                           from 'rxjs';
-import {noCredentialsUrls}                                    from '../common/const';
+import {Injectable} from '@angular/core';
+import {CurrentUserService} from '../apps/auth/_store/_services/current-user.service';
+import {Observable} from 'rxjs';
+import {noCredentialsUrls} from '../common/const';
 
 @Injectable()
 export class ServiceInterceptor implements HttpInterceptor {

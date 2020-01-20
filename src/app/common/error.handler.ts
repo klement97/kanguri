@@ -1,5 +1,5 @@
 import {AbstractControl, FormGroup} from '@angular/forms';
-import { Injectable } from "@angular/core";
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ErrorHandler {
@@ -8,13 +8,11 @@ export class ErrorHandler {
 		/**
 		 * This function is used to get form field errors and returns only one of them
 		 *
-		 * param: form: Form to which to lookup to get formField
-		 * param @type: FormGroup
-		 * param: field: from field name as string
-		 * param @type: string
+		 * param form        Form to which to lookup to get formField
+		 * param field       formFieldName as a string
 		 *
-		 * return: message: error message if field matches any of the error types below
-		 * return @type: string
+		 * return message    Error message if field matches any of the error types below
+		 * return @type      string
 		 */
 		const formField = form.get(field);
 		if (formField) {
@@ -34,7 +32,7 @@ export class ErrorHandler {
 				} else if (errors.pattern) {
 					message = 'Vlera e dhënë nuk është e saktë';
 				} else if (errors.serverError) {
-					message = errors.serverError
+					message = errors.serverError;
 				} else {
 					message = '';
 				}
@@ -51,8 +49,8 @@ export class ErrorHandler {
 		/**
 		 * Sets error of type 'serverError' to fields of the form given.
 		 *
-		 * param: error: ErrorData instance
-		 * param: form: Form that error will be set to
+		 * param error      ErrorData instance
+		 * param form       Form that error will be set to
 		 */
 		if (error && form && error.length === undefined) {
 			Object.keys(error).forEach(field => {
@@ -76,12 +74,9 @@ export class ErrorHandler {
 		 * If backend sends field in a nested relation, this method goes deeper in the error
 		 * response and searches for fields in the given form.
 		 *
-		 * param: form: FormGroup instance that error will be set
-		 * param @type: FormGroup
-		 * param: nestedFormErrors: Dictionary that holds keys which may be fields for our form
-		 * param @type: Dictionary
-		 * param: nestedFormName: param to be used to get nested form out of form
-		 * param @type: string
+		 * param form              FormGroup instance that error will be set
+		 * param nestedFormErrors  Dictionary that holds keys which may be fields for our form
+		 * param nestedFormName    param to be used to get nested form out of form
 		 */
 		Object.keys(nestedFormErrors).forEach(field => {
 			const formControl = form.get(field);
@@ -104,11 +99,11 @@ export class ErrorHandler {
 	hasError(field: AbstractControl): boolean {
 		/**
 		 * Checks if field is invalid and touched or dirty.
-		 * Only field.invalid will throw errors at the opening of a form which is a case
+		 * 'field.invalid' will throw errors at the opening of a form which is a case
 		 * we don't want to happen.
 		 *
-		 * param: field: an object which holds required information
-		 * param @type: AbstractControl of a FormGroup
+		 * param field   An object which holds required information
+		 * param @type   AbstractControl of a FormGroup
 		 */
 		return field.invalid && (field.touched || field.dirty);
 

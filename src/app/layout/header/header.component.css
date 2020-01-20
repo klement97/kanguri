@@ -1,0 +1,18 @@
+.navigation {
+    background-color: #2F2E2E;
+    color: white;
+    padding: 20px 100px;
+}
+
+.menu ul li {
+    list-style-type: none;
+    display: inline-block;
+    margin-left: 80px;
+    cursor: pointer;
+}
+
+.login-btn {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+}
