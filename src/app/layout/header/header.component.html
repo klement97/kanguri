@@ -1,0 +1,17 @@
+<nav class="navigation pos-f w-100 child-spaced-row z-medium">
+    <div class="nav-logo" routerLink="/" style="cursor: pointer">Logo</div>
+    <div class="menu">
+        <ul>
+            <li>Kreu</li>
+            <li>Njoftimet</li>
+            <li>Suporti</li>
+            <li *ngIf="currentUser$ | async as user" routerLink="/profile/user">Çkemi {{user.first_name}}</li>
+            <li *ngIf="!(currentUser$ | async)">
+                <button (click)="openLoginDialog()" class="login-btn" mat-flat-button>Hyrë</button>
+            </li>
+            <li *ngIf="currentUser$ | async">
+                <button (click)="logout()" class="login-btn" mat-flat-button>Dil</button>
+            </li>
+        </ul>
+    </div>
+</nav>

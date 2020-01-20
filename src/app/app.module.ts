@@ -1,45 +1,31 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule}      from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import {AppComponent}                                         from './app.component';
-import {BrowserAnimationsModule}                              from '@angular/platform-browser/animations';
-import {AppRoutingModule}                                     from './app-routing.module';
-import {RouterModule}                                         from '@angular/router';
-import {ServiceWorkerModule}                                  from '@angular/service-worker';
-import {environment}                                          from '../environments/environment';
-import {AuthModule}                                           from './auth/auth.module';
-import {StoreModule}                                          from '@ngrx/store';
-import {metaReducers, reducers}                               from './reducers';
-import {EffectsModule}                                        from '@ngrx/effects';
-import {HTTP_INTERCEPTORS, HttpClientModule}                  from '@angular/common/http';
-import {StoreDevtoolsModule}                                  from '@ngrx/store-devtools';
-import {CookieService}                                        from 'ngx-cookie-service';
-import {ErrorHandler}                                         from './common/error.handler';
-import {ServiceInterceptor}                                   from './_interceptor/service.interceptor';
-import { MatDialogModule } from '@angular/material/dialog';
-import {AuthService, AuthServiceConfig, GoogleLoginProvider,} from 'angular-6-social-login';
-
-// Configs
-export function getAuthServiceConfigs() {
-	return new AuthServiceConfig(
-		[
-			// {
-			//     id: FacebookLoginProvider.PROVIDER_ID,
-			//     provider: new FacebookLoginProvider('Your-Facebook-app-id')
-			// },
-			{
-				id      : GoogleLoginProvider.PROVIDER_ID,
-				provider: new GoogleLoginProvider('827784296252-33ag9eu6eaajoijoaipvco11as3e5880.apps.googleusercontent.com')
-			},
-		]);
-}
-
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AppRoutingModule} from './app-routing.module';
+import {RouterModule} from '@angular/router';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
+import {AuthModule} from './apps/auth/auth.module';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, reducers} from './reducers';
+import {EffectsModule} from '@ngrx/effects';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {CookieService} from 'ngx-cookie-service';
+import {ErrorHandler} from './common/error.handler';
+import {MatDialogModule} from '@angular/material/dialog';
+import {ServiceInterceptor} from 'src/app/_interceptor/service.interceptor';
+import {HeaderComponent} from './layout/header/header.component';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
 	declarations: [
 		AppComponent,
+		HeaderComponent,
 	],
-	imports     : [
+	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
 		AppRoutingModule,
@@ -51,7 +37,7 @@ export function getAuthServiceConfigs() {
 		StoreModule.forRoot(reducers, {
 			metaReducers,
 			runtimeChecks: {
-				strictStateImmutability : true,
+				strictStateImmutability: true,
 				strictActionImmutability: true
 			}
 		}),
@@ -59,23 +45,15 @@ export function getAuthServiceConfigs() {
 
 		// apps
 		AuthModule,
+		MatButtonModule,
 
 	],
-	providers   : [
+	providers: [
 		CookieService,
 		ErrorHandler,
-		AuthService,
-		{
-			provide : HTTP_INTERCEPTORS,
-			useClass: ServiceInterceptor,
-			multi   : true
-		},
-		{
-			provide   : AuthServiceConfig,
-			useFactory: getAuthServiceConfigs
-		}
+		{provide: HTTP_INTERCEPTORS, useClass: ServiceInterceptor, multi: true}, // interceptor
 	],
-	bootstrap   : [AppComponent]
+	bootstrap: [AppComponent]
 })
 export class AppModule {
 }
