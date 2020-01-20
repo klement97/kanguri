@@ -7,6 +7,7 @@ import {map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {clearCurrentUser, getCurrentUserDetails, login} from 'src/app/apps/auth/_store/_actions/current-user.actions';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
+import {Observable} from 'rxjs';
 
 const API_HOST = `${environment.apiHost}`;
 
@@ -27,11 +28,15 @@ export class CurrentUserService {
 	constructor(private http: HttpClient, private cookieService: CookieService, private store: Store<any>) {
 	}
 
-	createUser(userData: UserModel) {
+	createUser(userData: UserModel): Observable<UserModel> {
 		/** Makes a POST request to /users/ endpoint to create a new user.
 		 * @param: userData - an object with at least email and password inside.
 		 */
 		return this.http.post<UserModel>(`${USERS_URL}/`, userData);
+	}
+
+	updateCurrentUser(user: UserModel): Observable<UserModel> {
+		return this.http.put<UserModel>(`${CURRENT_USER_URL}/`, user);
 	}
 
 	currentUserData() {

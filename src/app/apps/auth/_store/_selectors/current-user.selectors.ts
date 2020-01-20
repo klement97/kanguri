@@ -24,3 +24,8 @@ export const selectSignUpError = createSelector(
 	selectCurrentUserState,
 	state => state.signUpError
 );
+
+export const selectUpdateUserError = createSelector(
+	selectCurrentUserState,
+	state => state.updateUserError
+);

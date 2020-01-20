@@ -1,0 +1,15 @@
+form {
+    padding-top: 100px;
+    padding-bottom: 30px;
+}
+
+mat-form-field {
+    width: 25%;
+    padding: -15px 15px;
+}
+
+.inline-fields {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
