@@ -16,7 +16,7 @@ import {StoreDevtoolsModule}                                  from '@ngrx/store-
 import {CookieService}                                        from 'ngx-cookie-service';
 import {ErrorHandler}                                         from './common/error.handler';
 import {ServiceInterceptor}                                   from './_interceptor/service.interceptor';
-import {MatDialogModule}                                      from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 import {AuthService, AuthServiceConfig, GoogleLoginProvider,} from 'angular-6-social-login';
 
 // Configs

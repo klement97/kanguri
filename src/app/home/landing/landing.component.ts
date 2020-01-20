@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {MatDialog}                        from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {LoginComponent}                   from '../../auth/login/login.component';
 import {Observable}                       from 'rxjs';
 import {UserModel}                        from '../../auth/_store/_models/user.model';

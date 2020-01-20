@@ -132,6 +132,7 @@
   },
   "defaultProject": "kanguri",
   "cli": {
-    "defaultCollection": "@ngrx/schematics"
+    "defaultCollection": "@ngrx/schematics",
+    "analytics": "7ded202a-e2b5-4e21-95d4-0e670504aa04"
   }
 }

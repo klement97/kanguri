@@ -8,7 +8,7 @@ import {selectCurrentUserLoading, selectLoginError}              from '../_store
 import {ErrorHandler}                                            from '../../common/error.handler';
 import {takeUntil}                                               from 'rxjs/operators';
 import {CurrentUserService}                                      from '../_store/_services/current-user.service';
-import {MatDialogRef}                                            from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import {AuthService, FacebookLoginProvider, GoogleLoginProvider} from 'angular-6-social-login';
 
 @Component({

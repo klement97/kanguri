@@ -1,5 +1,7 @@
 import {AbstractControl, FormGroup} from '@angular/forms';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class ErrorHandler {
 
 	getError(form: FormGroup, field: string): string {
