@@ -2,28 +2,28 @@
 
     <!-- First Name -->
     <mat-form-field>
-        <input matInput type="text" formControlName="first_name" placeholder="Emri">
+        <input formControlName="first_name" matInput placeholder="Emri" type="text">
         <mat-error>{{getError('first_name')}}</mat-error>
     </mat-form-field>
 
     <!-- Last Name -->
     <mat-form-field>
-        <input matInput type="text" formControlName="last_name" placeholder="Mbiemri">
+        <input formControlName="last_name" matInput placeholder="Mbiemri" type="text">
         <mat-error>{{getError('last_name')}}</mat-error>
     </mat-form-field>
 
     <!-- Email -->
     <mat-form-field>
-        <input matInput type="text" formControlName="email" placeholder="Email">
+        <input formControlName="email" matInput placeholder="Email" type="text">
         <mat-error>{{getError('email')}}</mat-error>
     </mat-form-field>
 
     <!-- Password -->
     <mat-form-field>
-        <input matInput type="text" formControlName="password" placeholder="Fjalëkalimi">
+        <input formControlName="password" matInput placeholder="Fjalëkalimi" type="text">
         <mat-error>{{getError('password')}}</mat-error>
     </mat-form-field>
 
-    <button type="submit" (click)="submit()" class="primary-color" mat-flat-button>Regjistrohu</button>
+    <button (click)="submit()" class="primary-color" mat-flat-button type="submit">Regjistrohu</button>
 
 </form>

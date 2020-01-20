@@ -1,20 +1,22 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {LoginComponent} from './login/login.component';
-import {EffectsModule} from '@ngrx/effects';
-import {CurrentUserEffects} from './_store/_effects/current-user.effects';
-import {StoreModule} from '@ngrx/store';
-import * as fromCurrentUser from 'src/app/auth/_store/_reducers/current-user.reducer';
-import {AuthRoutingModule} from './auth-routing.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatButtonModule, MatFormFieldModule, MatInputModule} from '@angular/material';
-import {CurrentUserService} from './_store/_services/current-user.service';
-import {SignupComponent} from './signup/signup.component';
+import {NgModule}                                            from '@angular/core';
+import {CommonModule}                                        from '@angular/common';
+import {LoginComponent}                                      from './login/login.component';
+import {EffectsModule}                                       from '@ngrx/effects';
+import {CurrentUserEffects}                                  from './_store/_effects/current-user.effects';
+import {StoreModule}                                         from '@ngrx/store';
+import * as fromCurrentUser                                  from 'src/app/auth/_store/_reducers/current-user.reducer';
+import {AuthRoutingModule}                                   from './auth-routing.module';
+import {FormsModule, ReactiveFormsModule}                    from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {CurrentUserService}                                  from './_store/_services/current-user.service';
+import {SignupComponent}                                     from './signup/signup.component';
 
 
 @NgModule({
-	declarations: [LoginComponent, SignupComponent],
-	imports: [
+	declarations   : [LoginComponent, SignupComponent],
+	imports        : [
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,

@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {Injectable}                             from '@angular/core';
+import {Actions, createEffect, ofType}          from '@ngrx/effects';
 import {catchError, exhaustMap, map, switchMap} from 'rxjs/operators';
-import {of} from 'rxjs';
+import {of}                                     from 'rxjs';
 
 import * as CurrentUserActions from '../_actions/current-user.actions';
-import {CurrentUserService} from '../_services/current-user.service';
-import {JwtModel} from '../../../common/const';
-import {UserModel} from '../_models/user.model';
+import {CurrentUserService}    from '../_services/current-user.service';
+import {JwtModel}              from '../../../common/const';
+import {UserModel}             from '../_models/user.model';
 
 
 @Injectable()
@@ -20,7 +20,7 @@ export class CurrentUserEffects {
 					this.currentUserService.loginAfterSignUp(userData.email, userData.password);
 					return CurrentUserActions.createUserSuccess({userData: response});
 				}),
-				catchError(error => of(CurrentUserActions.createUserFailure({error})))
+				catchError(err => of(CurrentUserActions.createUserFailure({error: err.error})))
 			))
 		);
 	});

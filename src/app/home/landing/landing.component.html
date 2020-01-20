@@ -8,10 +8,10 @@
                 <li>Suporti</li>
                 <li *ngIf="currentUser | async as user">Çkemi {{user.first_name}}</li>
                 <li *ngIf="!(currentUser | async)">
-                    <button class="login-btn" mat-flat-button (click)="openLoginDialog()">Hyrë</button>
+                    <button (click)="openLoginDialog()" class="login-btn" mat-flat-button>Hyrë</button>
                 </li>
                 <li *ngIf="currentUser | async">
-                    <button class="login-btn" mat-flat-button (click)="logout()">Dil</button>
+                    <button (click)="logout()" class="login-btn" mat-flat-button>Dil</button>
                 </li>
             </ul>
         </div>
@@ -20,7 +20,7 @@
         <div class="h-100 w-25 pos-r flex-center-column">
 
             <h1 class="slogan">Kërkon diçka?</h1>
-<!--            <h1 class="slogan">Hello there</h1>-->
+            <!--            <h1 class="slogan">Hello there</h1>-->
             <p class="slogan-p">Kanguri faqja më e re për kërkimin e produkteve dhe njoftimeve online</p>
             <div class="primary-color txt-center radius">Njoftime</div>
 
