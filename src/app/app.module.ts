@@ -4,7 +4,6 @@ import {NgModule}      from '@angular/core';
 import {AppComponent}                                         from './app.component';
 import {BrowserAnimationsModule}                              from '@angular/platform-browser/animations';
 import {AppRoutingModule}                                     from './app-routing.module';
-import {HomeModule}                                           from './home/home.module';
 import {RouterModule}                                         from '@angular/router';
 import {ServiceWorkerModule}                                  from '@angular/service-worker';
 import {environment}                                          from '../environments/environment';
@@ -60,7 +59,6 @@ export function getAuthServiceConfigs() {
 
 		// apps
 		AuthModule,
-		HomeModule,
 
 	],
 	providers   : [
