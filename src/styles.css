@@ -44,6 +44,14 @@ a {
     color: #fffffe;
 }
 
+.success .mat-action-container {
+    color: #fffffe;
+}
+
+.font-wg-400 {
+    font-weight: 400;
+}
+
 button {
     border-radius: 2px !important;
     transition: all 0.1s;

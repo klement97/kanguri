@@ -11,6 +11,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {SignupComponent} from 'src/app/apps/auth/signup/signup.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {SignupComponent} from 'src/app/apps/auth/signup/signup.component';
 		AuthRoutingModule,
 		MatFormFieldModule,
 		MatInputModule,
-		MatButtonModule
+		MatButtonModule,
+		MatSnackBarModule
 	],
 	entryComponents: [LoginComponent],
 })
