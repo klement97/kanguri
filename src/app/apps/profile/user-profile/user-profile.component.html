@@ -1,1 +1,64 @@
-<p>user-profile works!</p>
+<form class="flex-center-column" [formGroup]="userForm" (ngSubmit)="submit()">
+
+    <div *ngIf="currentUser$ | async as user">
+        <img src="{{user.image}}" alt="profile_pic" width="150px" height="150px">
+    </div>
+
+    <div class="inline-fields">
+        <!-- First Name -->
+        <mat-form-field class="w-100">
+            <input required matInput type="text" formControlName="first_name" placeholder="Emri">
+            <mat-error>{{getError('first_name')}}</mat-error>
+            <mat-icon matSuffix>person_pin</mat-icon>
+        </mat-form-field>
+
+        <!-- Last Name -->
+        <mat-form-field class="w-100">
+            <input required matInput type="text" formControlName="last_name" placeholder="Mbiemri">
+            <mat-error>{{getError('last_name')}}</mat-error>
+            <mat-icon matSuffix>person_pin</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <!-- Email -->
+    <mat-form-field>
+        <input required matInput type="text" formControlName="email" placeholder="Email">
+        <mat-error>{{getError('email')}}</mat-error>
+        <mat-icon matSuffix>contact_mail</mat-icon>
+    </mat-form-field>
+
+    <!-- Phone -->
+    <mat-form-field>
+        <input matInput type="text" formControlName="phone" placeholder="Telefoni">
+        <mat-error>{{getError('phone')}}</mat-error>
+        <mat-hint>Numri i celularit që do t'i shfaqet të interesuarve</mat-hint>
+        <mat-icon matSuffix>contact_phone</mat-icon>
+    </mat-form-field>
+
+    <!-- Address Line -->
+    <mat-form-field>
+        <input matInput type="text" formControlName="address_line"
+               placeholder="Adresa">
+        <mat-error>{{getError('address_line')}}</mat-error>
+        <mat-hint>Emri i lagjes është i mjaftueshëm (psh. Komuna e Parisit, Blloku...)</mat-hint>
+        <mat-icon matSuffix>my_location</mat-icon>
+    </mat-form-field>
+
+    <!-- City -->
+    <mat-form-field>
+        <mat-select formControlName="city">
+            <mat-option [value]="null">Zgjidhni një qytet</mat-option>
+            <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
+        </mat-select>
+        <mat-error>{{getError('city')}}</mat-error>
+        <mat-hint>Qyteti në të cilin jetoni</mat-hint>
+        <mat-icon matSuffix>location_city</mat-icon>
+    </mat-form-field>
+
+    <button mat-flat-button class="primary-color" type="submit">
+        <mat-icon>save</mat-icon>
+        Ruaj
+    </button>
+
+
+</form>

@@ -25,6 +25,14 @@ export class CurrentUserEffects {
 		);
 	});
 
+	updateCurrentUser$ = createEffect(() => this.actions$.pipe(
+		ofType(CurrentUserActions.updateCurrentUser),
+		exhaustMap(({user}) => this.currentUserService.updateCurrentUser(user).pipe(
+			map(user => CurrentUserActions.updateCurrentUserSuccess({user})),
+			catchError(err => of(CurrentUserActions.getCurrentUserDetailsFailure({error: err.error})))
+		))
+	));
+
 	login$ = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(CurrentUserActions.login),

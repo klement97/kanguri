@@ -19,6 +19,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {ServiceInterceptor} from 'src/app/_interceptor/service.interceptor';
 import {HeaderComponent} from './layout/header/header.component';
 import {MatButtonModule} from '@angular/material/button';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
 	declarations: [

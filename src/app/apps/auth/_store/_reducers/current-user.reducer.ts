@@ -9,6 +9,7 @@ export interface State {
 	currentUser: UserModel;
 	loginError: any;
 	signUpError: any;
+	updateUserError: any;
 }
 
 export const initialState: State = {
@@ -16,6 +17,7 @@ export const initialState: State = {
 	currentUser: null,
 	loginError: null,
 	signUpError: null,
+	updateUserError: null,
 };
 
 const currentUserReducer = createReducer(
@@ -56,6 +58,17 @@ const currentUserReducer = createReducer(
 		state => ({...state, currentUser: null})
 	),
 	// -------------------------
+
+	// Update current user
+	on(CurrentUserActions.updateCurrentUser,
+		state => ({...state, loading: true, updateUserError: null})
+	),
+	on(CurrentUserActions.updateCurrentUserSuccess,
+		(state, {user}) => ({...state, loading: false, updateUserError: null, currentUser: user})
+	),
+	on(CurrentUserActions.updateCurrentUserFailure,
+		(state, {error}) => ({...state, loading: false, updateUserError: error})
+	),
 );
 
 export function reducer(state: State | undefined, action: Action) {

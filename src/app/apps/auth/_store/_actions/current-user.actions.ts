@@ -1,6 +1,7 @@
 import {createAction, props} from '@ngrx/store';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 import {JwtModel} from 'src/app/common/const';
+import {Update} from '@ngrx/entity';
 
 // Create User
 export const createUser = createAction(
@@ -35,6 +36,7 @@ export const loginFailure = createAction(
 	'[Login/API] Login Failure',
 	props<{ error }>()
 );
+// -----------------------------------
 
 // Current user details
 export const getCurrentUserDetails = createAction(
@@ -55,3 +57,19 @@ export const clearCurrentUser = createAction(
 	'[User] Clear Current User'
 );
 // -----------------------------
+
+// Update Current User
+export const updateCurrentUser = createAction(
+	'[Profile Page] Update Current User',
+	props<{ user: UserModel }>()
+);
+
+export const updateCurrentUserSuccess = createAction(
+	'[Users/API] Current User Updated Successfully',
+	props<{ user: UserModel }>()
+);
+
+export const updateCurrentUserFailure = createAction(
+	'[Users/API] Current User Update Failure',
+	props<{ error }>()
+);
