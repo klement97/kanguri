@@ -7,6 +7,7 @@ import * as CurrentUserActions from 'src/app/apps/auth/_store/_actions/current-u
 import {CurrentUserService} from 'src/app/apps/auth/_store/_services/current-user.service';
 import {JwtModel} from 'src/app/common/const';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Injectable()
@@ -28,7 +29,12 @@ export class CurrentUserEffects {
 	updateCurrentUser$ = createEffect(() => this.actions$.pipe(
 		ofType(CurrentUserActions.updateCurrentUser),
 		exhaustMap(({user}) => this.currentUserService.updateCurrentUser(user).pipe(
-			map(user => CurrentUserActions.updateCurrentUserSuccess({user})),
+			map(user => {
+				this.snackbar.open('Profili u përditësua me sukses.', '', {
+					panelClass: 'success font-wg-400', duration: 3000
+				});
+				return CurrentUserActions.updateCurrentUserSuccess({user});
+			}),
 			catchError(err => of(CurrentUserActions.getCurrentUserDetailsFailure({error: err.error})))
 		))
 	));
@@ -56,7 +62,8 @@ export class CurrentUserEffects {
 	));
 
 
-	constructor(private actions$: Actions, private currentUserService: CurrentUserService) {
+	constructor(private actions$: Actions, private currentUserService: CurrentUserService,
+	            private snackbar: MatSnackBar) {
 	}
 
 }
