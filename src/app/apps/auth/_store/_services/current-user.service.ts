@@ -24,66 +24,103 @@ export const JWT_VERIFY_URL = `${JWT_URL}/verify`;
 	providedIn: 'root'
 })
 export class CurrentUserService {
+	/**
+	 * Service to deal with operations related to Current User
+	 *
+	 * @param {HttpClient} http
+	 * @param {CookieService} cookieService
+	 * @param {Store<any>} store
+	 */
 
 	constructor(private http: HttpClient, private cookieService: CookieService, private store: Store<any>) {
 	}
 
+
+	/**
+	 * Makes a POST request to /users/ endpoint to create a new user.
+	 * @param {UserModel} userData          an object with at least email and password inside.
+	 * @returns {Observable<UserModel>}     Updated user model
+	 */
 	createUser(userData: UserModel): Observable<UserModel> {
-		/** Makes a POST request to /users/ endpoint to create a new user.
-		 * @param: userData - an object with at least email and password inside.
-		 */
 		return this.http.post<UserModel>(`${USERS_URL}/`, userData);
 	}
 
+
+	/**
+	 * Makes a PUT request to update current user.
+	 * @param {UserModel} user
+	 * @returns {Observable<UserModel>}
+	 */
 	updateCurrentUser(user: UserModel): Observable<UserModel> {
 		return this.http.put<UserModel>(`${CURRENT_USER_URL}/`, user);
 	}
 
-	currentUserData() {
-		/** Makes a GET request to /users/me to get current user's data */
-		return this.http.get(`${CURRENT_USER_URL}/`);
+
+	/**
+	 * Makes a get requrest to get current user's data.
+	 * @returns {Observable<UserModel>}
+	 */
+	currentUserData(): Observable<UserModel> {
+		return this.http.get<UserModel>(`${CURRENT_USER_URL}/`);
 	}
 
-	login(email: string, password: string) {
-		/** Makes a post request to receive a pair of tokens. */
-		return this.http.post(`${JWT_CREATE_URL}/`, {email, password});
+	/**
+	 * Makes a post request to receive a pair of tokens.
+	 * @param {string} email
+	 * @param {string} password
+	 * @returns {Observable<JwtModel>}
+	 */
+	login(email: string, password: string): Observable<JwtModel> {
+		return this.http.post<JwtModel>(`${JWT_CREATE_URL}/`, {email, password});
 	}
 
+
+	/**
+	 * Dispatches an action to login current user with credentials given
+	 * @param {string} email
+	 * @param {string} password
+	 */
 	loginAfterSignUp(email: string, password: string) {
 		this.store.dispatch(login({email, password}));
 	}
 
+
+	/**
+	 * Makes a request to refresh access token and sets access and refresh from response to cookies.
+	 * @returns {Observable<JwtModel>}
+	 */
 	refreshAccessToken() {
-		/** Makes a request to refresh access token and sets access and refresh from response to cookies. */
 		return this.http.post(`${JWT_REFRESH_URL}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
 			map((jwt: JwtModel) => {
 				this.setJwtToCookies(jwt);
 				return jwt;
-			})
-		);
+			}));
 	}
 
+
+	/**
+	 * Takes jwt object and sets two cookies, 'kanguri_access' and 'kanguri_refresh'.
+	 * Access token lifetime is 1 day, refresh token is 7 days
+	 *
+	 * @param {JwtModel} jwt         JsonWebToken Object
+	 */
 	setJwtToCookies(jwt: JwtModel) {
-		/**
-		 * Takes jwt object and sets two cookies, 'kanguri_access' and 'kanguri_refresh'.
-		 * Access token lifetime is 1 day, refresh token is 7 days
-		 * @param jwt
-		 */
 		const today = new Date();
 		const tomorrow: Date = new Date();
 		tomorrow.setDate(today.getDate() + 1);
 		const nextWeek: Date = new Date();
 		nextWeek.setDate(today.getDate() + 7);
-		if (jwt.access) {
-			// const tomorrow: Date = new Date();
-			// tomorrow.setSeconds(new Date().getSeconds() + 1);
+
+		if (jwt.access)
 			this.cookieService.set('kanguri_access', jwt.access, tomorrow);
-		}
-		if (jwt.refresh) {
+		if (jwt.refresh)
 			this.cookieService.set('kanguri_refresh', jwt.refresh, nextWeek);
-		}
 	}
 
+	/**
+	 * Get and return access and refresh tokens from cookies.
+	 * @returns {JwtModel}
+	 */
 	getJwtFromCookies(): JwtModel {
 		return {
 			access: this.cookieService.get('kanguri_access'),
@@ -91,25 +128,26 @@ export class CurrentUserService {
 		};
 	}
 
-	logout(): void {
-		/**
-		 * Logout with JWT does mean anything to server side.
-		 * We simply delete the JWT from the storage and navigate to login.
-		 */
+
+	/**
+	 * Logout with JWT does mean anything to server side.
+	 * We simply delete the JWT from the storage and navigate to login.
+	 */
+	logout() {
 		this.cookieService.delete('kanguri_access');
 		this.cookieService.delete('kanguri_refresh');
 		this.store.dispatch(clearCurrentUser());
 	}
 
+
+	/**
+	 * Checks if there is an access token in cookies
+	 * and dispatches action to get currentUser's details
+	 * from server and load them to the Store.
+	 */
 	loadUserIfLoggedIn() {
-		/**
-		 * Checks if there is an access token in cookies
-		 * and dispatches action to get currentUser's details
-		 * from server and load them to the Store.
-		 */
-		if (this.cookieService.get('kanguri_access') !== null) {
+		if (this.cookieService.get('kanguri_access') !== null)
 			this.store.dispatch(getCurrentUserDetails());
-		}
 	}
 
 }

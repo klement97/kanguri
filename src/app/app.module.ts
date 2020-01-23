@@ -19,7 +19,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {ServiceInterceptor} from 'src/app/_interceptor/service.interceptor';
 import {HeaderComponent} from './layout/header/header.component';
 import {MatButtonModule} from '@angular/material/button';
-import {ReactiveFormsModule} from '@angular/forms';
+
+const matModules: any[] = [
+	MatDialogModule,
+	MatButtonModule,
+];
 
 @NgModule({
 	declarations: [
@@ -32,7 +36,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 		AppRoutingModule,
 		RouterModule,
 		HttpClientModule,
-		MatDialogModule,
+		...matModules,
 		ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
 		EffectsModule.forRoot([]),
 		StoreModule.forRoot(reducers, {
@@ -46,7 +50,6 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 		// apps
 		AuthModule,
-		MatButtonModule,
 
 	],
 	providers: [
