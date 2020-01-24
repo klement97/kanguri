@@ -29,11 +29,11 @@ export class CurrentUserEffects {
     updateCurrentUser$ = createEffect(() => this.actions$.pipe(
         ofType(CurrentUserActions.updateCurrentUser),
         exhaustMap(({user}) => this.currentUserService.updateCurrentUser(user).pipe(
-            map(user => {
+            map(currentUser => {
                 this.snackbar.open('Profili u përditësua me sukses.', '', {
                     panelClass: 'success font-wg-400', duration: 3000
                 });
-                return CurrentUserActions.updateCurrentUserSuccess({user});
+                return CurrentUserActions.updateCurrentUserSuccess({user: currentUser});
             }),
             catchError(err => of(CurrentUserActions.getCurrentUserDetailsFailure({error: err.error})))
         ))

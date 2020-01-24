@@ -3,9 +3,9 @@ import {environment} from 'src/environments/environment';
 
 export const stateFeatureKey = 'state';
 
-export interface State {
 
-}
+// tslint:disable-next-line:no-empty-interface
+export interface State {}
 
 export const reducers: ActionReducerMap<State> = {};
 

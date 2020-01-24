@@ -50,8 +50,8 @@ export class UserProfileComponent implements OnInit {
         }
     }
 
-    getError(field: string): string {return this.errorHandler.getError(this.userForm, field);}
+    getError(field: string): string {return this.errorHandler.getError(this.userForm, field); }
 
-    setError(error) {this.errorHandler.setError(error, this.userForm);}
+    setError(error) {this.errorHandler.setError(error, this.userForm); }
 
 }

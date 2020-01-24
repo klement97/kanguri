@@ -44,12 +44,12 @@ export class SignupComponent implements OnInit, OnDestroy {
         });
     }
 
-    submit() {this.store.dispatch(createUser({userData: this.signupForm.value}));}
+    submit() {this.store.dispatch(createUser({userData: this.signupForm.value})); }
 
-    getError(field: string): string {return this.errorHandler.getError(this.signupForm, field);}
+    getError(field: string): string {return this.errorHandler.getError(this.signupForm, field); }
 
-    hasError(field: string): boolean {return this.errorHandler.hasError(this.signupForm.get(field));}
+    hasError(field: string): boolean {return this.errorHandler.hasError(this.signupForm.get(field)); }
 
-    setError(error): void {this.errorHandler.setError(error, this.signupForm);}
+    setError(error): void {this.errorHandler.setError(error, this.signupForm); }
 
 }

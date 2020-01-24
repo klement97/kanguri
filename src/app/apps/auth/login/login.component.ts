@@ -16,12 +16,12 @@ import {MatDialogRef} from '@angular/material/dialog';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-    showLogin: boolean = true;
-    showSignUp: boolean = false;
+    showLogin = true;
+    showSignUp = false;
     loginForm: FormGroup;
     loading$: Observable<boolean>;
     error$: Observable<any>;
-    serverErrorMessage: string = '';
+    serverErrorMessage = '';
 
     uns$ = new Subject();
 
@@ -34,10 +34,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     ) {
         this.error$ = store.select(selectLoginError);
         this.loading$ = store.select(selectCurrentUserLoading);
-        actions$.pipe(takeUntil(this.uns$)).subscribe(action => {
+        actions$.pipe(takeUntil(this.uns$)).subscribe((action: any) => {
             if (action.type === CurrentUserActions.loginSuccess.type) {
-                this.dialogRef.close(action['jwt']);
-                console.log('Dialog closed');
+                this.dialogRef.close(action.jwt);
             }
         });
     }
@@ -73,29 +72,20 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     listenAndSetServerError() {
-        this.error$.pipe(takeUntil(this.uns$)).subscribe(
-            error => {
-                if (error) {
-                    // todo: handle error here, for this case only a message is enough
-                    this.serverErrorMessage = 'E-mail ose Password është i gabuar';
-                } else {
-                    this.serverErrorMessage = '';
+        this.error$.pipe(takeUntil(this.uns$))
+            .subscribe(error => {
+                    if (error) {
+                        this.serverErrorMessage = 'E-mail ose Password është i gabuar';
+                    } else {
+                        this.serverErrorMessage = '';
+                    }
                 }
-            }
-        );
+            );
     }
 
 
-    getError(field: string): string {
-        return this.errorHandler.getError(this.loginForm, field);
-    }
+    getError(field: string): string {return this.errorHandler.getError(this.loginForm, field); }
 
-    setError(error) {
-        this.errorHandler.setError(error, this.loginForm);
-    }
-
-    hasError(field: string): boolean {
-        return this.errorHandler.hasError(this.loginForm.get(field));
-    }
+    setError(error) {this.errorHandler.setError(error, this.loginForm); }
 
 }

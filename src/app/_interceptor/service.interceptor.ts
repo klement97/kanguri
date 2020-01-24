@@ -20,14 +20,14 @@ export class ServiceInterceptor implements HttpInterceptor {
         }
 
         const {access, refresh} = this.userService.getJwtFromCookies();
+        /** If there is an access token then it has not expired yet */
         if (access) {
-            // If there is an access token then it has not expired yet
             request = request.clone({setHeaders: {Authorization: `Bearer ${access}`}});
             return next.handle(request);
         }
 
+        /** If there is no access but refresh, we use that refresh to get a new access token. */
         if (refresh) {
-            // If there is no access but refresh, we use that refresh to get a new access token.
             this.userService.refreshAccessToken().subscribe(
                 response => {
                     if (response) {
@@ -38,7 +38,7 @@ export class ServiceInterceptor implements HttpInterceptor {
                 () => this.userService.logout());
         }
 
-        // If there are neither access nor refresh we must log the user out!
+        /** If there are neither access nor refresh we must log the user out! */
         this.userService.logout();
     }
 }
