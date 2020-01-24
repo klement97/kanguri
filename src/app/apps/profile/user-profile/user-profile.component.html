@@ -1,20 +1,20 @@
-<form class="flex-center-column" [formGroup]="userForm" (ngSubmit)="submit()">
+<form (ngSubmit)="submit()" [formGroup]="userForm" class="flex-center-column">
 
     <div *ngIf="currentUser$ | async as user">
-        <img src="{{user.image}}" alt="profile_pic" width="150px" height="150px">
+        <img alt="profile_pic" height="150px" src="{{user.image}}" width="150px">
     </div>
 
     <div class="inline-fields">
         <!-- First Name -->
         <mat-form-field class="w-100">
-            <input required matInput type="text" formControlName="first_name" placeholder="Emri">
+            <input formControlName="first_name" matInput placeholder="Emri" required type="text">
             <mat-error>{{getError('first_name')}}</mat-error>
             <mat-icon matSuffix>person_pin</mat-icon>
         </mat-form-field>
 
         <!-- Last Name -->
         <mat-form-field class="w-100">
-            <input required matInput type="text" formControlName="last_name" placeholder="Mbiemri">
+            <input formControlName="last_name" matInput placeholder="Mbiemri" required type="text">
             <mat-error>{{getError('last_name')}}</mat-error>
             <mat-icon matSuffix>person_pin</mat-icon>
         </mat-form-field>
@@ -22,14 +22,14 @@
 
     <!-- Email -->
     <mat-form-field>
-        <input required matInput type="text" formControlName="email" placeholder="Email">
+        <input formControlName="email" matInput placeholder="Email" required type="text">
         <mat-error>{{getError('email')}}</mat-error>
         <mat-icon matSuffix>contact_mail</mat-icon>
     </mat-form-field>
 
     <!-- Phone -->
     <mat-form-field>
-        <input matInput type="text" formControlName="phone" placeholder="Telefoni">
+        <input formControlName="phone" matInput placeholder="Telefoni" type="text">
         <mat-error>{{getError('phone')}}</mat-error>
         <mat-hint>Numri i celularit që do t'i shfaqet të interesuarve</mat-hint>
         <mat-icon matSuffix>contact_phone</mat-icon>
@@ -37,8 +37,8 @@
 
     <!-- Address Line -->
     <mat-form-field>
-        <input matInput type="text" formControlName="address_line"
-               placeholder="Adresa">
+        <input formControlName="address_line" matInput placeholder="Adresa"
+               type="text">
         <mat-error>{{getError('address_line')}}</mat-error>
         <mat-hint>Emri i lagjes është i mjaftueshëm (psh. Komuna e Parisit, Blloku...)</mat-hint>
         <mat-icon matSuffix>my_location</mat-icon>
@@ -55,7 +55,7 @@
         <mat-icon matSuffix>location_city</mat-icon>
     </mat-form-field>
 
-    <button mat-flat-button class="primary-color" type="submit">
+    <button class="primary-color" mat-flat-button type="submit">
         <mat-icon>save</mat-icon>
         Ruaj
     </button>

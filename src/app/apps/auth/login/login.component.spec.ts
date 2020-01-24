@@ -4,29 +4,29 @@ import {LoginComponent} from 'src/app/apps/auth/login/login.component';
 import {Store, StoreModule} from '@ngrx/store';
 
 describe('LoginComponent', () => {
-	let component: LoginComponent;
-	let fixture: ComponentFixture<LoginComponent>;
-	let store: Store<any>;
+    let component: LoginComponent;
+    let fixture: ComponentFixture<LoginComponent>;
+    let store: Store<any>;
 
-	beforeEach(async () => {
-		TestBed.configureTestingModule({
-			imports: [StoreModule.forRoot({})],
-			declarations: [LoginComponent]
-		});
+    beforeEach(async () => {
+        TestBed.configureTestingModule({
+            imports: [StoreModule.forRoot({})],
+            declarations: [LoginComponent]
+        });
 
-		await TestBed.compileComponents();
-	});
+        await TestBed.compileComponents();
+    });
 
-	beforeEach(() => {
-		fixture = TestBed.createComponent(LoginComponent);
-		component = fixture.componentInstance;
-		store = TestBed.get<Store>(Store);
+    beforeEach(() => {
+        fixture = TestBed.createComponent(LoginComponent);
+        component = fixture.componentInstance;
+        store = TestBed.get<Store>(Store);
 
-		spyOn(store, 'dispatch').and.callThrough();
-		fixture.detectChanges();
-	});
+        spyOn(store, 'dispatch').and.callThrough();
+        fixture.detectChanges();
+    });
 
-	it('should create', () => {
-		expect(component).toBeTruthy();
-	});
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

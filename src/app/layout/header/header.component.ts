@@ -10,34 +10,34 @@ import {CurrentUserService} from 'src/app/apps/auth/_store/_services/current-use
 import {selectCurrentUser} from 'src/app/apps/auth/_store/_selectors/current-user.selectors';
 
 @Component({
-	selector: 'app-header',
-	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-	currentUser$: Observable<UserModel>;
+    currentUser$: Observable<UserModel>;
 
-	constructor(private dialog: MatDialog,
-	            private store: Store<fromCurrentUser.State>,
-	            private userService: CurrentUserService,
-	) {
-		this.currentUser$ = store.select(selectCurrentUser);
-	}
+    constructor(private dialog: MatDialog,
+                private store: Store<fromCurrentUser.State>,
+                private userService: CurrentUserService,
+    ) {
+        this.currentUser$ = store.select(selectCurrentUser);
+    }
 
-	ngOnInit() {
-	}
+    ngOnInit() {
+    }
 
-	openLoginDialog() {
-		const dialogRef = this.dialog.open(LoginComponent);
-		dialogRef.afterClosed().subscribe(() => this.getCurrentUserDetails());
-	}
+    openLoginDialog() {
+        const dialogRef = this.dialog.open(LoginComponent);
+        dialogRef.afterClosed().subscribe(() => this.getCurrentUserDetails());
+    }
 
-	logout() {
-		this.userService.logout();
-	}
+    logout() {
+        this.userService.logout();
+    }
 
-	getCurrentUserDetails() {
-		this.store.dispatch(CurrentUserActions.getCurrentUserDetails());
-	}
+    getCurrentUserDetails() {
+        this.store.dispatch(CurrentUserActions.getCurrentUserDetails());
+    }
 
 }

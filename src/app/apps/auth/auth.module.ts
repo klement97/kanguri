@@ -15,20 +15,20 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
-	declarations: [LoginComponent, SignupComponent],
-	imports: [
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
-		EffectsModule.forFeature([CurrentUserEffects]),
-		StoreModule.forFeature(fromCurrentUser.currentUserFeatureKey, fromCurrentUser.reducer),
-		AuthRoutingModule,
-		MatFormFieldModule,
-		MatInputModule,
-		MatButtonModule,
-		MatSnackBarModule
-	],
-	entryComponents: [LoginComponent],
+    declarations: [LoginComponent, SignupComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        EffectsModule.forFeature([CurrentUserEffects]),
+        StoreModule.forFeature(fromCurrentUser.currentUserFeatureKey, fromCurrentUser.reducer),
+        AuthRoutingModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSnackBarModule
+    ],
+    entryComponents: [LoginComponent],
 })
 export class AuthModule {
 }
