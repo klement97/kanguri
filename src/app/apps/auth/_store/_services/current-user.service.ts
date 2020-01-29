@@ -5,7 +5,7 @@ import {JwtModel} from 'src/app/common/const';
 import {CookieService} from 'ngx-cookie-service';
 import {map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
-import {clearCurrentUser, loadCurrentUser, login} from 'src/app/apps/auth/_store/_actions/current-user.actions';
+import {clearCurrentUser, getCurrentUserDetails, loadCurrentUser, login} from 'src/app/apps/auth/_store/_actions/current-user.actions';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 import {Observable} from 'rxjs';
 
@@ -139,6 +139,7 @@ export class CurrentUserService {
     logout() {
         this.cookieService.delete('kanguri_access');
         this.cookieService.delete('kanguri_refresh');
+        this.cookieService.delete('kanguri_user');
         this.store.dispatch(clearCurrentUser());
     }
 
@@ -151,7 +152,11 @@ export class CurrentUserService {
     loadUserIfLoggedIn() {
         if (this.cookieService.get('kanguri_access') !== null) {
             const user: UserModel = this.getUserDetailsFromCookies();
-            this.store.dispatch(loadCurrentUser({user}));
+            if (user) {
+                this.store.dispatch(loadCurrentUser({user}));
+            } else {
+                this.store.dispatch(getCurrentUserDetails());
+            }
         }
     }
 

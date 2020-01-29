@@ -1,25 +1,29 @@
-<form *ngIf="showLogin" [formGroup]="loginForm">
+<section class="container">
+    <form *ngIf="showLogin" [formGroup]="loginForm">
 
-    <div class="mat-error server-error">
-        <mat-error>{{serverErrorMessage}}</mat-error>
-    </div>
+        <div class="mat-error server-error">
+            <mat-error>{{serverErrorMessage}}</mat-error>
+        </div>
 
-    <mat-form-field>
-        <input formControlName="email" matInput type="text">
-        <mat-error>{{getError('email')}}</mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-        <input formControlName="password" matInput type="password">
-        <mat-error>{{getError('password')}}</mat-error>
-    </mat-form-field>
+        <!-- Email -->
+        <mat-form-field class="w-75">
+            <input formControlName="email" matInput type="text">
+            <mat-error></mat-error>
+        </mat-form-field>
 
-    <br>
-    <button (click)="submit()" [disabled]="loading$ | async" mat-flat-button type="submit">Login</button>
-    <button (click)="toggleLoginSignUp()" class="success" mat-flat-button type="button">Regjistrohu</button>
+        <!-- Password -->
+        <mat-form-field class="w-75">
+            <input formControlName="password" matInput type="password">
+            <mat-error></mat-error>
+        </mat-form-field>
 
-    <!--        <button mat-raised-button color="primary" (click)="socialSignIn('google')">Google</button>-->
-    <!--    <button mat-raised-button color="accent" (click)="socialSignIn('facebook')">Facebook</button>-->
-</form>
+        <br>
+        <button (click)="submit()" [disabled]="loading$ | async" mat-flat-button type="submit">Login</button>
+        <button (click)="toggleLoginSignUp()" class="success" mat-flat-button type="button">Regjistrohu</button>
 
-<app-signup *ngIf="showSignUp"></app-signup>
+        <!--        <button mat-raised-button color="primary" (click)="socialSignIn('google')">Google</button>-->
+        <!--    <button mat-raised-button color="accent" (click)="socialSignIn('facebook')">Facebook</button>-->
+    </form>
+
+    <app-signup *ngIf="showSignUp"></app-signup>
+</section>

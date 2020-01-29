@@ -25,12 +25,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     uns$ = new Subject();
 
-    constructor(private store: Store<fromCurrentUser.State>,
-                private fb: FormBuilder,
-                private errorHandler: ErrorHandler,
-                private service: CurrentUserService,
-                private dialogRef: MatDialogRef<LoginComponent>,
-                private actions$: ActionsSubject,
+    constructor(
+        private store: Store<fromCurrentUser.State>,
+        private fb: FormBuilder,
+        private errorHandler: ErrorHandler,
+        private service: CurrentUserService,
+        private dialogRef: MatDialogRef<LoginComponent>,
+        private actions$: ActionsSubject,
     ) {
         this.error$ = store.select(selectLoginError);
         this.loading$ = store.select(selectCurrentUserLoading);
@@ -59,7 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     initiateLoginForm() {
         this.loginForm = this.fb.group({
             email: ['klementomeri97@gmail.com', [Validators.required, Validators.email, Validators.maxLength(255)]],
-            password: ['Test2020!', [Validators.required]]
+            password: ['!Keli1997!@#', [Validators.required]]
         });
     }
 
@@ -84,8 +85,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
 
-    getError(field: string): string {return this.errorHandler.getError(this.loginForm, field); }
-
-    setError(error) {this.errorHandler.setError(error, this.loginForm); }
+    getError(field: string) {
+        console.log('entered');
+        this.loginForm.valueChanges.pipe(takeUntil(this.uns$))
+            .subscribe(values => {
+                return this.errorHandler.getError(this.loginForm, field);
+            });
+    }
 
 }
