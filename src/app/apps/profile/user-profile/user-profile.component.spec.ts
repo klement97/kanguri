@@ -4,29 +4,29 @@ import {UserProfileComponent} from 'src/app/apps/profile/user-profile/user-profi
 import {Store, StoreModule} from '@ngrx/store';
 
 describe('UserProfileComponent', () => {
-	let component: UserProfileComponent;
-	let fixture: ComponentFixture<UserProfileComponent>;
-	let store: Store<any>;
+    let component: UserProfileComponent;
+    let fixture: ComponentFixture<UserProfileComponent>;
+    let store: Store<any>;
 
-	beforeEach(async () => {
-		TestBed.configureTestingModule({
-			imports: [StoreModule.forRoot({})],
-			declarations: [UserProfileComponent]
-		});
+    beforeEach(async () => {
+        TestBed.configureTestingModule({
+            imports: [StoreModule.forRoot({})],
+            declarations: [UserProfileComponent]
+        });
 
-		await TestBed.compileComponents();
-	});
+        await TestBed.compileComponents();
+    });
 
-	beforeEach(() => {
-		fixture = TestBed.createComponent(UserProfileComponent);
-		component = fixture.componentInstance;
-		store = TestBed.get<Store>(Store);
+    beforeEach(() => {
+        fixture = TestBed.createComponent(UserProfileComponent);
+        component = fixture.componentInstance;
+        store = TestBed.get<Store<any>>(Store);
 
-		spyOn(store, 'dispatch').and.callThrough();
-		fixture.detectChanges();
-	});
+        spyOn(store, 'dispatch').and.callThrough();
+        fixture.detectChanges();
+    });
 
-	it('should create', () => {
-		expect(component).toBeTruthy();
-	});
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

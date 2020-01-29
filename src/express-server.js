@@ -14,4 +14,4 @@ const port = process.env.PORT || '4201';
 app.set('port', port);
 
 const server = http.createServer(app);
-server.listen(port, () => console.log('Running at port ' + port));
+server.listen(port, () => console.log('Running at http://localhost:' + port));

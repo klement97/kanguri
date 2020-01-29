@@ -9,47 +9,47 @@ import {takeUntil} from 'rxjs/operators';
 import {selectSignUpError} from 'src/app/apps/auth/_store/_selectors/current-user.selectors';
 
 @Component({
-	selector: 'app-signup',
-	templateUrl: './signup.component.html',
-	styleUrls: ['./signup.component.css'],
+    selector: 'app-signup',
+    templateUrl: './signup.component.html',
+    styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit, OnDestroy {
-	signupForm: FormGroup;
+    signupForm: FormGroup;
 
-	uns$ = new Subject();
+    uns$ = new Subject();
 
-	constructor(
-		private store: Store<fromCurrentUser.State>,
-		private fb: FormBuilder,
-		private errorHandler: ErrorHandler,
-	) {
-		store.select(selectSignUpError).pipe(takeUntil(this.uns$)).subscribe(error => this.setError(error));
-	}
+    constructor(
+        private store: Store<fromCurrentUser.State>,
+        private fb: FormBuilder,
+        private errorHandler: ErrorHandler,
+    ) {
+        store.select(selectSignUpError).pipe(takeUntil(this.uns$)).subscribe(error => this.setError(error));
+    }
 
-	ngOnInit() {
-		this.initiateSignupForm();
-	}
+    ngOnInit() {
+        this.initiateSignUpForm();
+    }
 
-	ngOnDestroy(): void {
-		this.uns$.next();
-		this.uns$.complete();
-	}
+    ngOnDestroy(): void {
+        this.uns$.next();
+        this.uns$.complete();
+    }
 
-	initiateSignupForm() {
-		this.signupForm = this.fb.group({
-			first_name: ['', [Validators.required, Validators.maxLength(30)]],
-			last_name: ['', [Validators.required, Validators.maxLength(30)]],
-			email: ['', [Validators.required, Validators.maxLength(255), Validators.email]],
-			password: ['', [Validators.required, Validators.maxLength(128)]],
-		});
-	}
+    initiateSignUpForm() {
+        this.signupForm = this.fb.group({
+            first_name: ['', [Validators.required, Validators.maxLength(30)]],
+            last_name: ['', [Validators.required, Validators.maxLength(30)]],
+            email: ['', [Validators.required, Validators.maxLength(255), Validators.email]],
+            password: ['', [Validators.required, Validators.maxLength(128)]],
+        });
+    }
 
-	submit() {this.store.dispatch(createUser({userData: this.signupForm.value}));}
+    submit() {this.store.dispatch(createUser({userData: this.signupForm.value})); }
 
-	getError(field: string): string {return this.errorHandler.getError(this.signupForm, field);}
+    getError(field: string): string {return this.errorHandler.getError(this.signupForm, field); }
 
-	hasError(field: string): boolean {return this.errorHandler.hasError(this.signupForm.get(field));}
+    hasError(field: string): boolean {return this.errorHandler.hasError(this.signupForm.get(field)); }
 
-	setError(error): void {this.errorHandler.setError(error, this.signupForm);}
+    setError(error): void {this.errorHandler.setError(error, this.signupForm); }
 
 }

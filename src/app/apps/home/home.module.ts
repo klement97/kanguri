@@ -6,13 +6,13 @@ import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
-	declarations: [LandingComponent],
-	imports: [
-		CommonModule,
-		HomeRoutingModule,
-		MatButtonModule
-	],
-	exports: [LandingComponent]
+    declarations: [LandingComponent],
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        MatButtonModule
+    ],
+    exports: [LandingComponent]
 })
 export class HomeModule {
 }

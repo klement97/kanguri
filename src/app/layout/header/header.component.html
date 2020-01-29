@@ -6,7 +6,7 @@
             <li>Njoftimet</li>
             <li>Suporti</li>
             <li *ngIf="currentUser$ | async as user" routerLink="/profile/user">Çkemi {{user.first_name}}</li>
-            <li *ngIf="!(currentUser$ | async)">
+            <li *ngIf="(currentUser$ | async) === null">
                 <button (click)="openLoginDialog()" class="login-btn" mat-flat-button>Hyrë</button>
             </li>
             <li *ngIf="currentUser$ | async">

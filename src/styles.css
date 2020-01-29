@@ -167,3 +167,7 @@ button:hover {
 .z-max {
     z-index: 9999;
 }
+
+.padding-0 .mat-dialog-container {
+    padding: 0;
+}

@@ -4,11 +4,11 @@ import {UserProfileComponent} from 'src/app/apps/profile/user-profile/user-profi
 
 
 const routes: Routes = [
-	{path: 'user', component: UserProfileComponent, pathMatch: 'full'},
+    {path: 'user', component: UserProfileComponent, pathMatch: 'full'},
 ];
 
 @NgModule({
-	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class ProfileRoutingModule {}

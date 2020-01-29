@@ -19,42 +19,45 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {ServiceInterceptor} from 'src/app/_interceptor/service.interceptor';
 import {HeaderComponent} from './layout/header/header.component';
 import {MatButtonModule} from '@angular/material/button';
-import {ReactiveFormsModule} from '@angular/forms';
+
+const matModules: any[] = [
+    MatDialogModule,
+    MatButtonModule,
+];
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		HeaderComponent,
-	],
-	imports: [
-		BrowserModule,
-		BrowserAnimationsModule,
-		AppRoutingModule,
-		RouterModule,
-		HttpClientModule,
-		MatDialogModule,
-		ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-		EffectsModule.forRoot([]),
-		StoreModule.forRoot(reducers, {
-			metaReducers,
-			runtimeChecks: {
-				strictStateImmutability: true,
-				strictActionImmutability: true
-			}
-		}),
-		StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        RouterModule,
+        HttpClientModule,
+        ...matModules,
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+        EffectsModule.forRoot([]),
+        StoreModule.forRoot(reducers, {
+            metaReducers,
+            runtimeChecks: {
+                strictStateImmutability: true,
+                strictActionImmutability: true
+            }
+        }),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
 
-		// apps
-		AuthModule,
-		MatButtonModule,
+        // apps
+        AuthModule,
 
-	],
-	providers: [
-		CookieService,
-		ErrorHandler,
-		{provide: HTTP_INTERCEPTORS, useClass: ServiceInterceptor, multi: true}, // interceptor
-	],
-	bootstrap: [AppComponent]
+    ],
+    providers: [
+        CookieService,
+        ErrorHandler,
+        {provide: HTTP_INTERCEPTORS, useClass: ServiceInterceptor, multi: true}, // interceptor
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
