@@ -17,9 +17,10 @@ import {selectCurrentUser} from 'src/app/apps/auth/_store/_selectors/current-use
 export class HeaderComponent implements OnInit {
     currentUser$: Observable<UserModel>;
 
-    constructor(private dialog: MatDialog,
-                private store: Store<fromCurrentUser.State>,
-                private userService: CurrentUserService,
+    constructor(
+        private dialog: MatDialog,
+        private store: Store<fromCurrentUser.State>,
+        private userService: CurrentUserService,
     ) {
         this.currentUser$ = store.select(selectCurrentUser);
     }
@@ -32,12 +33,8 @@ export class HeaderComponent implements OnInit {
         dialogRef.afterClosed().subscribe(() => this.getCurrentUserDetails());
     }
 
-    logout() {
-        this.userService.logout();
-    }
+    logout() {this.userService.logout(); }
 
-    getCurrentUserDetails() {
-        this.store.dispatch(CurrentUserActions.getCurrentUserDetails());
-    }
+    getCurrentUserDetails() {this.store.dispatch(CurrentUserActions.getCurrentUserDetails()); }
 
 }

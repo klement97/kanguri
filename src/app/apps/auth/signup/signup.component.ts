@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.initiateSignupForm();
+        this.initiateSignUpForm();
     }
 
     ngOnDestroy(): void {
@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.uns$.complete();
     }
 
-    initiateSignupForm() {
+    initiateSignUpForm() {
         this.signupForm = this.fb.group({
             first_name: ['', [Validators.required, Validators.maxLength(30)]],
             last_name: ['', [Validators.required, Validators.maxLength(30)]],

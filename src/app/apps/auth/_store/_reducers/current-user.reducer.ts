@@ -48,7 +48,7 @@ const currentUserReducer = createReducer(
     // -----------------------
 
     // Current user details
-    on(CurrentUserActions.getCurrentUserDetailsSuccess,
+    on(CurrentUserActions.getCurrentUserDetailsSuccess, CurrentUserActions.loadCurrentUser,
         (state, {user}) => ({...state, currentUser: user})
     ),
     on(CurrentUserActions.getCurrentUserDetailsFailure,

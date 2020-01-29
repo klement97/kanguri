@@ -5,7 +5,7 @@ import {JwtModel} from 'src/app/common/const';
 import {CookieService} from 'ngx-cookie-service';
 import {map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
-import {clearCurrentUser, getCurrentUserDetails, login} from 'src/app/apps/auth/_store/_actions/current-user.actions';
+import {clearCurrentUser, loadCurrentUser, login} from 'src/app/apps/auth/_store/_actions/current-user.actions';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 import {Observable} from 'rxjs';
 
@@ -33,7 +33,7 @@ export class CurrentUserService {
     /**
      * Makes a POST request to /users/ endpoint to create a new user.
      * @param   userData          An object with at least email and password inside.
-     * @returns response          Updated user model
+     * @return response          Updated user model
      */
     createUser(userData: UserModel): Observable<UserModel> {
         return this.http.post<UserModel>(`${USERS_URL}/`, userData);
@@ -46,7 +46,7 @@ export class CurrentUserService {
     }
 
 
-    /** Makes a get requrest to get current user's data. */
+    /** Makes a get request to get current user's data. */
     currentUserData(): Observable<UserModel> {
         return this.http.get<UserModel>(`${CURRENT_USER_URL}/`);
     }
@@ -63,7 +63,10 @@ export class CurrentUserService {
     }
 
 
-    /** Makes a request to refresh access token and sets access and refresh from response to cookies. */
+    /**
+     *  Makes a request to refresh access token and sets access and refresh from response to cookies.
+     *  This method is used automatically by interceptor if access_token has expired. No need to use it manually.
+     */
     refreshAccessToken() {
         return this.http.post(`${JWT_REFRESH_URL}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
             map((jwt: JwtModel) => {
@@ -92,6 +95,29 @@ export class CurrentUserService {
         if (jwt.refresh) {
             this.cookieService.set('kanguri_refresh', jwt.refresh, nextWeek);
         }
+    }
+
+    /**
+     * Takes a user instance and set's it to cookies as kanguri_user.
+     * This method is in use on getCurrentUserDetails$ effect.
+     * @param user      User Instance
+     */
+    setUserDetailsToCookies(user: UserModel): void {
+        this.cookieService.set('kanguri_user', JSON.stringify(user), 7, '', '', false, 'Lax');
+    }
+
+
+    /**
+     * Get kanguri_user from cookies, parses it into an object and returns it.
+     * Return null if there is no user.
+     * @returns user     Current User details
+     */
+    getUserDetailsFromCookies(): UserModel {
+        const user = this.cookieService.get('kanguri_user');
+        if (user) {
+            return JSON.parse(user);
+        }
+        return null;
     }
 
     /**
@@ -124,7 +150,8 @@ export class CurrentUserService {
      */
     loadUserIfLoggedIn() {
         if (this.cookieService.get('kanguri_access') !== null) {
-            this.store.dispatch(getCurrentUserDetails());
+            const user: UserModel = this.getUserDetailsFromCookies();
+            this.store.dispatch(loadCurrentUser({user}));
         }
     }
 

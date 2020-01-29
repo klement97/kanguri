@@ -72,3 +72,9 @@ export const updateCurrentUserFailure = createAction(
     '[Users/API] Current User Update Failure',
     props<{ error }>()
 );
+
+// Load Current User
+export const loadCurrentUser = createAction(
+    '[App Component] Load User To Store From Cookies',
+    props<{ user: UserModel }>()
+);
