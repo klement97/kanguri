@@ -5,7 +5,7 @@ import * as fromCurrentUser from 'src/app/apps/auth/_store/_reducers/current-use
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable, Subject} from 'rxjs';
 import {selectCurrentUserLoading, selectLoginError} from 'src/app/apps/auth/_store/_selectors/current-user.selectors';
-import {ErrorHandler} from 'src/app/common/error.handler';
+import {ErrorHandler} from 'src/app/common/error-handler/error.handler';
 import {takeUntil} from 'rxjs/operators';
 import {CurrentUserService} from 'src/app/apps/auth/_store/_services/current-user.service';
 import {MatDialogRef} from '@angular/material/dialog';
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     showLogin = true;
     showSignUp = false;
     loginForm: FormGroup;
+    errors: any = {};
     loading$: Observable<boolean>;
     error$: Observable<any>;
     serverErrorMessage = '';
@@ -50,6 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.initiateLoginForm();
         this.listenAndSetServerError();
+        this.errorHandler.handleErrors(this.loginForm, this.errors);
     }
 
     ngOnDestroy() {
@@ -74,23 +76,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     listenAndSetServerError() {
         this.error$.pipe(takeUntil(this.uns$))
-            .subscribe(error => {
-                    if (error) {
-                        this.serverErrorMessage = 'E-mail ose Password është i gabuar';
-                    } else {
-                        this.serverErrorMessage = '';
-                    }
+        .subscribe(error => {
+                if (error) {
+                    this.serverErrorMessage = 'E-mail ose Password është i gabuar';
+                } else {
+                    this.serverErrorMessage = '';
                 }
-            );
-    }
-
-
-    getError(field: string) {
-        console.log('entered');
-        this.loginForm.valueChanges.pipe(takeUntil(this.uns$))
-            .subscribe(values => {
-                return this.errorHandler.getError(this.loginForm, field);
-            });
+            }
+        );
     }
 
 }

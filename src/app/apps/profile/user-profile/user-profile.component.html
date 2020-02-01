@@ -1,36 +1,36 @@
 <form (ngSubmit)="submit()" [formGroup]="userForm" class="flex-center-column">
 
-    <div *ngIf="currentUser$ | async as user">
-        <img alt="profile_pic" height="150px" src="{{user.image}}" width="150px">
-    </div>
+    <!--    <div *ngIf="currentUser$ | async as user">-->
+    <!--        <img alt="profile_pic" height="150px" src="{{user.image}}" width="150px">-->
+    <!--    </div>-->
 
     <div class="inline-fields">
         <!-- First Name -->
         <mat-form-field class="w-100">
-            <input formControlName="first_name" matInput placeholder="Emri" required type="text">
-            <mat-error>{{getError('first_name')}}</mat-error>
+            <input autocomplete="off" formControlName="first_name" matInput placeholder="Emri" required type="text">
+            <mat-error>{{errors.first_name}}</mat-error>
             <mat-icon matSuffix>person_pin</mat-icon>
         </mat-form-field>
 
         <!-- Last Name -->
         <mat-form-field class="w-100">
-            <input formControlName="last_name" matInput placeholder="Mbiemri" required type="text">
-            <mat-error>{{getError('last_name')}}</mat-error>
+            <input autocomplete="off" formControlName="last_name" matInput placeholder="Mbiemri" required type="text">
+            <mat-error>{{errors.last_name}}</mat-error>
             <mat-icon matSuffix>person_pin</mat-icon>
         </mat-form-field>
     </div>
 
     <!-- Email -->
     <mat-form-field>
-        <input formControlName="email" matInput placeholder="Email" required type="text">
-        <mat-error>{{getError('email')}}</mat-error>
+        <input autocomplete="off" formControlName="email" matInput placeholder="Email" required type="text">
+        <mat-error>{{errors.email}}</mat-error>
         <mat-icon matSuffix>contact_mail</mat-icon>
     </mat-form-field>
 
     <!-- Phone -->
     <mat-form-field>
         <input formControlName="phone" matInput placeholder="Telefoni" type="text">
-        <mat-error>{{getError('phone')}}</mat-error>
+        <mat-error>{{errors.phone}}</mat-error>
         <mat-hint>Numri i celularit që do t'i shfaqet të interesuarve</mat-hint>
         <mat-icon matSuffix>contact_phone</mat-icon>
     </mat-form-field>
@@ -39,7 +39,7 @@
     <mat-form-field>
         <input formControlName="address_line" matInput placeholder="Adresa"
                type="text">
-        <mat-error>{{getError('address_line')}}</mat-error>
+        <mat-error>{{errors.address}}</mat-error>
         <mat-hint>Emri i lagjes është i mjaftueshëm (psh. Komuna e Parisit, Blloku...)</mat-hint>
         <mat-icon matSuffix>my_location</mat-icon>
     </mat-form-field>
@@ -50,7 +50,7 @@
             <mat-option [value]="null">Zgjidhni një qytet</mat-option>
             <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
         </mat-select>
-        <mat-error>{{getError('city')}}</mat-error>
+        <mat-error>{{errors.city}}</mat-error>
         <mat-hint>Qyteti në të cilin jetoni</mat-hint>
         <mat-icon matSuffix>location_city</mat-icon>
     </mat-form-field>

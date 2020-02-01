@@ -35,7 +35,7 @@ export class CurrentUserEffects {
                 });
                 return CurrentUserActions.updateCurrentUserSuccess({user: currentUser});
             }),
-            catchError(err => of(CurrentUserActions.getCurrentUserDetailsFailure({error: err.error})))
+            catchError(err => of(CurrentUserActions.updateCurrentUserFailure({error: err.error})))
         ))
     ));
 
