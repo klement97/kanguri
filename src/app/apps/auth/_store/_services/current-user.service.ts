@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {JwtModel} from 'src/app/common/const';
 import {CookieService} from 'ngx-cookie-service';
@@ -8,17 +7,7 @@ import {Store} from '@ngrx/store';
 import {clearCurrentUser, getCurrentUserDetails, loadCurrentUser, login} from 'src/app/apps/auth/_store/_actions/current-user.actions';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 import {Observable} from 'rxjs';
-
-const API_HOST = `${environment.apiHost}`;
-
-const AUTH_URL = `${API_HOST}/auth`;
-export const USERS_URL = `${AUTH_URL}/users`;
-const CURRENT_USER_URL = `${USERS_URL}/me`;
-
-const JWT_URL = `${AUTH_URL}/jwt`;
-export const JWT_CREATE_URL = `${JWT_URL}/create`;
-export const JWT_REFRESH_URL = `${JWT_URL}/refresh`;
-export const JWT_VERIFY_URL = `${JWT_URL}/verify`;
+import {ENDPOINTS} from 'src/app/common/endpoints';
 
 @Injectable({
     providedIn: 'root'
@@ -36,24 +25,24 @@ export class CurrentUserService {
      * @return response          Updated user model
      */
     createUser(userData: UserModel): Observable<UserModel> {
-        return this.http.post<UserModel>(`${USERS_URL}/`, userData);
+        return this.http.post<UserModel>(`${ENDPOINTS.USERS}/`, userData);
     }
 
 
     /** Makes a PUT request to update current user. */
     updateCurrentUser(user: UserModel): Observable<UserModel> {
-        return this.http.put<UserModel>(`${CURRENT_USER_URL}/`, user);
+        return this.http.put<UserModel>(`${ENDPOINTS.CURRENT_USER}/`, user);
     }
 
 
     /** Makes a get request to get current user's data. */
-    currentUserData(): Observable<UserModel> {
-        return this.http.get<UserModel>(`${CURRENT_USER_URL}/`);
+    getCurrentUserData(): Observable<UserModel> {
+        return this.http.get<UserModel>(`${ENDPOINTS.CURRENT_USER}/`);
     }
 
     /** Makes a post request to receive a pair of tokens. */
     login(email: string, password: string): Observable<JwtModel> {
-        return this.http.post<JwtModel>(`${JWT_CREATE_URL}/`, {email, password});
+        return this.http.post<JwtModel>(`${ENDPOINTS.JWT_CREATE}/`, {email, password});
     }
 
 
@@ -68,7 +57,7 @@ export class CurrentUserService {
      *  This method is used automatically by interceptor if access_token has expired. No need to use it manually.
      */
     refreshAccessToken() {
-        return this.http.post(`${JWT_REFRESH_URL}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
+        return this.http.post(`${ENDPOINTS.JWT_REFRESH}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
             map((jwt: JwtModel) => {
                 this.setJwtToCookies(jwt);
                 return jwt;

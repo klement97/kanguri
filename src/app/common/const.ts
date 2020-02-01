@@ -1,15 +1,15 @@
-import {JWT_CREATE_URL, JWT_REFRESH_URL, JWT_VERIFY_URL, USERS_URL} from '../apps/auth/_store/_services/current-user.service';
+import {ENDPOINTS} from 'src/app/common/endpoints';
 
 export class JwtModel {
     refresh: string;
     access: string;
 }
 
-export const noCredentialsUrls: string[] = [
-    `${JWT_CREATE_URL}/`,
-    `${JWT_REFRESH_URL}/`,
-    `${JWT_VERIFY_URL}/`,
-    `${USERS_URL}/`
+export const NO_TOKEN_ENDPOINTS: string[] = [
+    `${ENDPOINTS.JWT_CREATE}/`,
+    `${ENDPOINTS.JWT_REFRESH}/`,
+    `${ENDPOINTS.JWT_VERIFY}/`,
+    `${ENDPOINTS.USERS}/`
 ];
 
 export const CITIES = [
