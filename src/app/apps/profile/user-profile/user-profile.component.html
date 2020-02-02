@@ -55,6 +55,25 @@
         <mat-icon matSuffix>location_city</mat-icon>
     </mat-form-field>
 
+    <ng-container formArrayName="aliases">
+        <h4>Aliases</h4>
+        <button mat-stroked-button color="primary" (click)="addAlias()">Add Alias</button>
+
+        <div *ngFor="let alias of aliases.controls; let i=index">
+            <mat-form-field>
+                <input type="text" [formControl]="alias.get('short_name')" matInput placeholder="Short Name">
+                <mat-error>{{errors.aliases[i]?.short_name}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="text" [formControl]="alias.get('long_name')" matInput placeholder="Long Name">
+                <mat-error>{{errors.aliases[i]?.long_name}}</mat-error>
+            </mat-form-field>
+            <button mat-flat-button color="warn" (click)="aliases.removeAt(i)">remove</button>
+        </div>
+    </ng-container>
+    <br><br><br>
+
     <button class="primary-color" mat-flat-button type="submit">
         <mat-icon>save</mat-icon>
         Ruaj

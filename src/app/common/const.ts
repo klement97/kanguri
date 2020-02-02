@@ -1,16 +1,7 @@
-import {ENDPOINTS} from 'src/app/common/endpoints';
-
 export class JwtModel {
     refresh: string;
     access: string;
 }
-
-export const NO_TOKEN_ENDPOINTS: string[] = [
-    `${ENDPOINTS.JWT_CREATE}/`,
-    `${ENDPOINTS.JWT_REFRESH}/`,
-    `${ENDPOINTS.JWT_VERIFY}/`,
-    `${ENDPOINTS.USERS}/`
-];
 
 export const CITIES = [
     {id: 1, name: 'Tirana'},

@@ -2,7 +2,7 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/com
 import {Injectable} from '@angular/core';
 import {CurrentUserService} from '../apps/auth/_store/_services/current-user.service';
 import {Observable} from 'rxjs';
-import {NO_TOKEN_ENDPOINTS} from '../common/const';
+import {NO_TOKEN_ENDPOINTS} from 'src/app/common/endpoints';
 
 @Injectable()
 export class ServiceInterceptor implements HttpInterceptor {

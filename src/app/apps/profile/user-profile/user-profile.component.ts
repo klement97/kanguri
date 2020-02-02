@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 import {selectCurrentUser, selectUpdateUserError} from 'src/app/apps/auth/_store/_selectors/current-user.selectors';
@@ -17,11 +17,13 @@ export class UserProfileComponent implements OnInit {
     userForm: FormGroup;
     currentUser$: Observable<UserModel>;
     cities = CITIES;
-    errors: any = {};
+    errors: any = {
+        aliases: []
+    };
 
     constructor(
         private store: Store<any>,
-        private fb: FormBuilder,
+        private builder: FormBuilder,
         private errorHandler: ErrorHandler
     ) {
         this.currentUser$ = store.select(selectCurrentUser);
@@ -36,14 +38,30 @@ export class UserProfileComponent implements OnInit {
     }
 
     initiateUserForm() {
-        this.userForm = this.fb.group({
+        this.userForm = this.builder.group({
             first_name: ['', [Validators.required, Validators.maxLength(30)]],
             last_name: ['', [Validators.required, Validators.maxLength(30)]],
             email: ['', [Validators.required, Validators.maxLength(255), Validators.email]],
             // image: [user.image, []],
             phone: ['', [Validators.maxLength(20)]],
             address_line: ['', [Validators.maxLength(50)]],
-            city: ['', []]
+            city: ['', []],
+            aliases: this.builder.array([])
+        });
+    }
+
+    get aliases() {
+        return this.userForm.get('aliases') as FormArray;
+    }
+
+    addAlias() {
+        this.aliases.push(this.getNewAlias());
+    }
+
+    getNewAlias(): FormGroup {
+        return this.builder.group({
+            long_name: ['', [Validators.required, Validators.maxLength(10)]],
+            short_name: ['', [Validators.required, Validators.maxLength(10)]]
         });
     }
 

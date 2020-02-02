@@ -23,3 +23,10 @@ export const ENDPOINTS = {
     JWT_VERIFY,
     ANNOUNCEMENT
 };
+
+export const NO_TOKEN_ENDPOINTS: string[] = [
+    `${ENDPOINTS.JWT_CREATE}/`,
+    `${ENDPOINTS.JWT_REFRESH}/`,
+    `${ENDPOINTS.JWT_VERIFY}/`,
+    `${ENDPOINTS.USERS}/`
+];

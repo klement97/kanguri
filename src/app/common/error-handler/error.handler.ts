@@ -1,4 +1,4 @@
-import {AbstractControl, FormGroup, ValidationErrors} from '@angular/forms';
+import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
 import {Injectable} from '@angular/core';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
@@ -50,7 +50,7 @@ export class ErrorHandler {
     public handleErrors(form: FormGroup, errorObject: any) {
         this.form = form;
         this.errorObject = errorObject;
-        form.statusChanges.pipe(
+        form.valueChanges.pipe(
             debounceTime(350),
             distinctUntilChanged(),
         ).subscribe(() => {
@@ -107,12 +107,38 @@ export class ErrorHandler {
      * @param controls      Abstract Controls of the form which contains errors
      */
     private findErrors(controls: { [key: string]: AbstractControl }) {
-        Object.keys(controls).forEach(control => {
-            if (ErrorHandler.hasError(controls[control])) {
-                this.setErrorMessage(controls[control].errors);
-                this.setErrorToErrorObject(control);
+        Object.keys(controls).forEach((control: string) => {
+            if (controls[control] instanceof FormArray) {
+                Object.defineProperty(this.errorObject, control, {value: [], writable: true});
+                this.findErrorsOnFormArrays(controls[control] as FormArray, control);
+
+            } else if (controls[control] instanceof FormControl) {
+                this.findErrorsOnFormControls(controls, control);
             }
         });
+    }
+
+    private findErrorsOnFormArrays(formArray: FormArray, formArrayName: string) {
+        let i = 0;
+        for (const formGroup of formArray.controls as FormGroup[]) {
+            const controls = formGroup.controls;
+            const formArrayErrors: any[] = this.errorObject[formArrayName];
+            formArrayErrors.push({});
+            Object.keys(controls).forEach(control => {
+                if (ErrorHandler.hasError(controls[control])) {
+                    this.setErrorMessage(controls[control].errors);
+                    Object.defineProperty(formArrayErrors[i], control, {value: this.message, writable: true});
+                }
+            });
+            i++;
+        }
+    }
+
+    private findErrorsOnFormControls(controls: { [key: string]: AbstractControl }, control: string) {
+        if (ErrorHandler.hasError(controls[control])) {
+            this.setErrorMessage(controls[control].errors);
+            this.setErrorToErrorObject(control);
+        }
     }
 
     /**

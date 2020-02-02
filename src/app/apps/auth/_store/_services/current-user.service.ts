@@ -88,7 +88,6 @@ export class CurrentUserService {
 
     /**
      * Takes a user instance and set's it to cookies as kanguri_user.
-     * This method is in use on getCurrentUserDetails$ effect.
      * @param user      User Instance
      */
     setUserDetailsToCookies(user: UserModel): void {
