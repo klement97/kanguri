@@ -1,3 +1,5 @@
+import {FormControl} from '@angular/forms';
+
 export class JwtModel {
     refresh: string;
     access: string;
@@ -80,3 +82,11 @@ export const CITIES = [
     {id: 74, name: 'Kurbnesh'},
 ];
 
+
+export function clientSideSearch(formControl: FormControl, list: any[], filterList: any[], searchField: string) {
+    formControl.valueChanges.subscribe(
+        (value: string) => {
+            filterList = list.filter(item => item[searchField].toLowerCase().includes(value.toLowerCase()));
+        }
+    );
+}

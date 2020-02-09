@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 import {selectCurrentUser, selectUpdateUserError} from 'src/app/apps/auth/_store/_selectors/current-user.selectors';
-import {CITIES} from 'src/app/common/const';
+import {CITIES, clientSideSearch} from 'src/app/common/const';
 import {updateCurrentUser} from 'src/app/apps/auth/_store/_actions/current-user.actions';
 import {ErrorHandler} from 'src/app/common/error-handler/error.handler';
 
@@ -20,6 +20,7 @@ export class UserProfileComponent implements OnInit {
     errors: any = {
         aliases: []
     };
+    searchCityControl = new FormControl();
 
     constructor(
         private store: Store<any>,
@@ -35,6 +36,20 @@ export class UserProfileComponent implements OnInit {
         this.initiateUserForm();
         this.patchUserToForm();
         this.errorHandler.handleErrors(this.userForm, this.errors);
+        clientSideSearch(this.searchCityControl, CITIES, this.cities);
+
+        // this.searchCityControl.valueChanges.pipe(
+        //     debounceTime(500),
+        //     distinctUntilChanged()
+        // ).subscribe(
+        //     value => {
+        //         if (value) {
+        //             this.cities = CITIES.filter(city => city.name.includes(value));
+        //         } else {
+        //             this.cities = CITIES;
+        //         }
+        //     }
+        // );
     }
 
     initiateUserForm() {
@@ -54,8 +69,21 @@ export class UserProfileComponent implements OnInit {
         return this.userForm.get('aliases') as FormArray;
     }
 
+    addAliasAndMarkAsUntouched() {
+        this.addAlias();
+        this.setNewAliasUntouched();
+    }
+
     addAlias() {
         this.aliases.push(this.getNewAlias());
+    }
+
+    setNewAliasUntouched() {
+        const formGroups: FormGroup[] = this.aliases.controls as FormGroup[];
+        const lastFormGroup: FormGroup = formGroups[formGroups.length - 1];
+        Object.keys(lastFormGroup.controls).forEach(control => {
+            lastFormGroup.controls[control].markAsUntouched();
+        });
     }
 
     getNewAlias(): FormGroup {

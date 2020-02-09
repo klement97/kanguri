@@ -51,7 +51,7 @@ export class ErrorHandler {
         this.form = form;
         this.errorObject = errorObject;
         form.valueChanges.pipe(
-            debounceTime(350),
+            debounceTime(1000),
             distinctUntilChanged(),
         ).subscribe(() => {
             if (form.invalid) {
@@ -64,6 +64,8 @@ export class ErrorHandler {
      *  By setting error we emit a status changed event for the form.
      */
     public invalidFormHasSubmit() {
+        // fixme: changed listener to value changes so setErrors() wouldn't trigger it
+        // fixme: look up for another method to trigger value changes
         this.form?.markAllAsTouched();
         this.form?.setErrors({});
     }

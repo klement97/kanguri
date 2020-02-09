@@ -47,6 +47,10 @@
     <!-- City -->
     <mat-form-field>
         <mat-select formControlName="city">
+            <mat-option disabled>
+                <input #search type="text" matInput placeholder="Search" autocomplete="off"
+                       [formControl]="searchCityControl">
+            </mat-option>
             <mat-option [value]="null">Zgjidhni një qytet</mat-option>
             <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
         </mat-select>
@@ -57,7 +61,7 @@
 
     <ng-container formArrayName="aliases">
         <h4>Aliases</h4>
-        <button mat-stroked-button color="primary" (click)="addAlias()">Add Alias</button>
+        <button mat-stroked-button color="primary" (click)="addAliasAndMarkAsUntouched()">Add Alias</button>
 
         <div *ngFor="let alias of aliases.controls; let i=index">
             <mat-form-field>
