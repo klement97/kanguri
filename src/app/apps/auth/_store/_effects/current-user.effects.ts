@@ -35,7 +35,7 @@ export class CurrentUserEffects {
                 });
                 return CurrentUserActions.updateCurrentUserSuccess({user: currentUser});
             }),
-            catchError(err => of(CurrentUserActions.getCurrentUserDetailsFailure({error: err.error})))
+            catchError(err => of(CurrentUserActions.updateCurrentUserFailure({error: err.error})))
         ))
     ));
 
@@ -55,7 +55,7 @@ export class CurrentUserEffects {
 
     getCurrentUserDetails$ = createEffect(() => this.actions$.pipe(
         ofType(CurrentUserActions.getCurrentUserDetails),
-        switchMap(() => this.currentUserService.currentUserData().pipe(
+        switchMap(() => this.currentUserService.getCurrentUserData().pipe(
             map((user: UserModel) => {
                 this.currentUserService.setUserDetailsToCookies(user);
                 return CurrentUserActions.getCurrentUserDetailsSuccess({user});

@@ -14,7 +14,6 @@ import {EffectsModule} from '@ngrx/effects';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {CookieService} from 'ngx-cookie-service';
-import {ErrorHandler} from './common/error.handler';
 import {MatDialogModule} from '@angular/material/dialog';
 import {ServiceInterceptor} from 'src/app/_interceptor/service.interceptor';
 import {HeaderComponent} from './layout/header/header.component';
@@ -54,7 +53,6 @@ const matModules: any[] = [
     ],
     providers: [
         CookieService,
-        ErrorHandler,
         {provide: HTTP_INTERCEPTORS, useClass: ServiceInterceptor, multi: true}, // interceptor
     ],
     bootstrap: [AppComponent]

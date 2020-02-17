@@ -7,23 +7,21 @@
 
         <!-- Email -->
         <mat-form-field class="w-75">
-            <input formControlName="email" matInput type="text">
-            <mat-error></mat-error>
+            <input autocapitalize="off" autocomplete="off" autofocus formControlName="email"
+                   matInput type="email">
+            <mat-error>{{errors.email}}</mat-error>
         </mat-form-field>
 
         <!-- Password -->
         <mat-form-field class="w-75">
             <input formControlName="password" matInput type="password">
-            <mat-error></mat-error>
+            <mat-error>{{errors.password}}</mat-error>
         </mat-form-field>
 
         <br>
         <button (click)="submit()" [disabled]="loading$ | async" mat-flat-button type="submit">Login</button>
         <button (click)="toggleLoginSignUp()" class="success" mat-flat-button type="button">Regjistrohu</button>
-
-        <!--        <button mat-raised-button color="primary" (click)="socialSignIn('google')">Google</button>-->
-        <!--    <button mat-raised-button color="accent" (click)="socialSignIn('facebook')">Facebook</button>-->
     </form>
 
-    <app-signup *ngIf="showSignUp"></app-signup>
+    <app-sign-up *ngIf="showSignUp"></app-sign-up>
 </section>

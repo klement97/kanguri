@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import { environment } from 'src/environments/environment';
 
 const routes: Routes = [
     {path: '', loadChildren: () => import('./apps/home/home.module').then(m => m.HomeModule)},
@@ -14,7 +13,7 @@ const routes: Routes = [
     declarations: [],
     imports: [
         CommonModule,
-        RouterModule.forRoot(routes, {enableTracing: !environment.production})
+        RouterModule.forRoot(routes)
     ]
 })
 export class AppRoutingModule {

@@ -1,16 +1,9 @@
-import {JWT_CREATE_URL, JWT_REFRESH_URL, JWT_VERIFY_URL, USERS_URL} from '../apps/auth/_store/_services/current-user.service';
+import {FormControl} from '@angular/forms';
 
 export class JwtModel {
     refresh: string;
     access: string;
 }
-
-export const noCredentialsUrls: string[] = [
-    `${JWT_CREATE_URL}/`,
-    `${JWT_REFRESH_URL}/`,
-    `${JWT_VERIFY_URL}/`,
-    `${USERS_URL}/`
-];
 
 export const CITIES = [
     {id: 1, name: 'Tirana'},
@@ -89,3 +82,11 @@ export const CITIES = [
     {id: 74, name: 'Kurbnesh'},
 ];
 
+
+export function clientSideSearch(formControl: FormControl, list: any[], filterList: any[], searchField: string) {
+    formControl.valueChanges.subscribe(
+        (value: string) => {
+            filterList = list.filter(item => item[searchField].toLowerCase().includes(value.toLowerCase()));
+        }
+    );
+}

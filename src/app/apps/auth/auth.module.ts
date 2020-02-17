@@ -10,12 +10,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {SignupComponent} from 'src/app/apps/auth/signup/signup.component';
+import {SignUpComponent} from 'src/app/apps/auth/signup/sign-up.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
-    declarations: [LoginComponent, SignupComponent],
+    declarations: [LoginComponent, SignUpComponent],
     imports: [
         CommonModule,
         FormsModule,
