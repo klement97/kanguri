@@ -4,7 +4,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {Observable} from 'rxjs';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 import {selectCurrentUser, selectUpdateUserError} from 'src/app/apps/auth/_store/_selectors/current-user.selectors';
-import {CITIES, clientSideSearch} from 'src/app/common/const';
+import {CITIES} from 'src/app/common/const';
 import {updateCurrentUser} from 'src/app/apps/auth/_store/_actions/current-user.actions';
 import {ErrorHandler} from 'src/app/common/error-handler/error.handler';
 
@@ -36,7 +36,7 @@ export class UserProfileComponent implements OnInit {
         this.initiateUserForm();
         this.patchUserToForm();
         this.errorHandler.handleErrors(this.userForm, this.errors);
-        clientSideSearch(this.searchCityControl, CITIES, this.cities);
+        // clientSideSearch(this.searchCityControl, CITIES, this.cities);
 
         // this.searchCityControl.valueChanges.pipe(
         //     debounceTime(500),
