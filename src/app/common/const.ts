@@ -1,9 +1,60 @@
 import {FormControl} from '@angular/forms';
 
+
 export class JwtModel {
     refresh: string;
     access: string;
 }
+
+
+export function buildQueryString(payload) {
+    const queryString = [];
+    if (payload.page) {
+        queryString.push(`page=${payload.page}`);
+    }
+    if (payload.filter) {
+        queryString.push(`filter=${JSON.stringify(payload.filter)}`);
+    }
+    if (payload.sort) {
+        queryString.push(`sort_field=${payload.sort}`);
+    }
+    if (payload.order) {
+        queryString.push(`order=${payload.order}`);
+    }
+    if (queryString.length > 0) {
+        return '?' + queryString.join('&');
+    }
+    return '';
+
+}
+
+
+export function clientSideSearch(formControl: FormControl, list: any[], filterList: any[], searchField: string) {
+    formControl.valueChanges.subscribe(
+        (value: string) => {
+            filterList = list.filter(item => item[searchField].toLowerCase().includes(value.toLowerCase()));
+        }
+    );
+}
+
+
+export class APIResponse {
+    data: any;
+    pagination?: Pagination;
+}
+
+
+export class ErrorResponse {
+    type: string;
+    errors: any;
+    message: string;
+}
+
+
+class Pagination {
+    count: number;
+}
+
 
 export const CITIES = [
     {id: 1, name: 'Tirana'},
@@ -81,12 +132,3 @@ export const CITIES = [
     {id: 73, name: 'Ulëz'},
     {id: 74, name: 'Kurbnesh'},
 ];
-
-
-export function clientSideSearch(formControl: FormControl, list: any[], filterList: any[], searchField: string) {
-    formControl.valueChanges.subscribe(
-        (value: string) => {
-            filterList = list.filter(item => item[searchField].toLowerCase().includes(value.toLowerCase()));
-        }
-    );
-}

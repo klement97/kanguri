@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AnnouncementListComponent} from 'src/app/apps/announcement/announcement-list/announcement-list.component';
+import {AnnouncementListComponent} from 'src/app/apps/announcement/_components/announcement-list/announcement-list.component';
 
 
 const routes: Routes = [

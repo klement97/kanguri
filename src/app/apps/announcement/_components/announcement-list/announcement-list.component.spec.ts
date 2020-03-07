@@ -1,6 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {AnnouncementListComponent} from './announcement-list.component';
+import {AnnouncementListComponent} from 'src/app/apps/announcement/_components/announcement-list/announcement-list.component';
+
 
 describe('AnnouncementListComponent', () => {
   let component: AnnouncementListComponent;

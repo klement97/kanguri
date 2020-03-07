@@ -9,6 +9,7 @@ import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 import {Observable} from 'rxjs';
 import {ENDPOINTS} from 'src/app/common/endpoints';
 
+
 @Injectable({
     providedIn: 'root'
 })
@@ -79,10 +80,10 @@ export class CurrentUserService {
         nextWeek.setDate(today.getDate() + 7);
 
         if (jwt.access) {
-            this.cookieService.set('kanguri_access', jwt.access, tomorrow);
+            this.cookieService.set('kanguri_access', jwt.access, tomorrow, '', '', false, 'Strict');
         }
         if (jwt.refresh) {
-            this.cookieService.set('kanguri_refresh', jwt.refresh, nextWeek);
+            this.cookieService.set('kanguri_refresh', jwt.refresh, nextWeek, '', '', false, 'Strict');
         }
     }
 
@@ -91,7 +92,7 @@ export class CurrentUserService {
      * @param user      User Instance
      */
     setUserDetailsToCookies(user: UserModel): void {
-        this.cookieService.set('kanguri_user', JSON.stringify(user), 7, '', '', false, 'Lax');
+        this.cookieService.set('kanguri_user', JSON.stringify(user), 7, '', '', false, 'Strict');
     }
 
 
