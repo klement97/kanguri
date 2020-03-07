@@ -27,6 +27,7 @@ p {
 a {
     text-decoration: none;
     outline: unset;
+    color: unset;
 }
 
 .primary-color {
