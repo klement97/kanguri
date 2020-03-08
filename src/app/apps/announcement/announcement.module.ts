@@ -12,6 +12,14 @@ import {EffectsModule} from '@ngrx/effects';
 import {AnnouncementEffects} from 'src/app/apps/announcement/_store/announcement.effects';
 import {AnnouncementService} from 'src/app/apps/announcement/_store/announcement.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -24,7 +32,15 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
         MatCardModule,
         MatButtonModule,
         MatPaginatorModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSliderModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatIconModule
     ],
     providers: [AnnouncementService]
 })

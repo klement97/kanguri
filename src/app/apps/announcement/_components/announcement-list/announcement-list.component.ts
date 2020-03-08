@@ -13,6 +13,7 @@ import {
     selectAnnouncementsCount
 } from 'src/app/apps/announcement/_store/announcement.selectors';
 import {ErrorResponse} from 'src/app/common/const';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -28,11 +29,14 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     loading$: Observable<boolean> = this.store.select(selectAnnouncementLoading);
     error$: Observable<ErrorResponse> = this.store.select(selectAnnouncementError);
 
+    filterForm = this.getInitialFilterForm();
+
     uns$ = new Subject();
 
     constructor(
-        private store: Store<fromAnnouncement.State>
-    ) { }
+        private store: Store<fromAnnouncement.State>,
+        private fb: FormBuilder
+    ) {}
 
     ngOnInit() {
         this.getAnnouncements(1, 10);
@@ -47,13 +51,24 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
         this.changePage();
     }
 
-    getAnnouncements(page: number, pageSize: number) {
+    private getAnnouncements(page: number, pageSize: number) {
         this.store.dispatch(AnnouncementActions.loadAnnouncements({page, pageSize}));
     }
 
-    changePage() {
+    private changePage() {
         this.paginator.page.pipe(takeUntil(this.uns$))
         .subscribe((page) => this.getAnnouncements(page.pageIndex + 1, page.pageSize));
+    }
+
+    private getInitialFilterForm(): FormGroup {
+        return this.fb.group({
+            name: ['', [Validators.maxLength(255)]],
+            price_min: null,
+            price_max: null,
+            category: null,
+            date_created_min: '',
+            date_created_max: ''
+        });
     }
 
 }

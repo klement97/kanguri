@@ -1,6 +1,95 @@
 <main class="announcement-list w-100 flex-center-row pos-r over-hidden">
     <section class="filters w-25 pos-r over-hidden">
-        <mat-card>Klement Omeri</mat-card>
+        <mat-card>
+            <mat-card-content>
+                <h3>Kërko njoftime</h3>
+
+                <form novalidate [formGroup]="filterForm">
+
+                    <!-- Name Field -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Emri</mat-label>
+                        <input type="text" matInput formControlName="name" placeholder="Biçikleta...">
+                        <mat-hint>Emri i produktit që doni të kërkoni</mat-hint>
+                    </mat-form-field>
+
+                    <!-- Minimum Price Slider -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Çmimi më i ulët</mat-label>
+                        <mat-slider
+                                color="primary"
+                                [min]="0"
+                                [max]="1000"
+                                [step]="100"
+                                thumbLabel
+                                formControlName="price_min">
+                        </mat-slider>
+                        <mat-hint>Zgjidhni çmimin më të ulët që dëshironi</mat-hint>
+                        <textarea matInput hidden></textarea>
+                    </mat-form-field>
+
+                    <!-- Maximum Price Slider -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Çmimi më i lartë</mat-label>
+                        <mat-slider
+                                color="primary"
+                                [min]="0"
+                                [max]="1000"
+                                [step]="100"
+                                invert
+                                thumbLabel
+                                formControlName="price_max">
+                        </mat-slider>
+                        <mat-hint>Zgjidhni çmimin më të lartë që dëshironi</mat-hint>
+                        <textarea matInput hidden></textarea>
+                    </mat-form-field>
+
+                    <!-- Category Select -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Kategoria</mat-label>
+                        <mat-select placeholder="Zgjidhni një kategori" formControlName="category">
+                            <mat-option [value]="1">Kategoria 1</mat-option>
+                            <mat-option [value]="1">Kategoria 2</mat-option>
+                            <mat-option [value]="1">Kategoria 3</mat-option>
+                        </mat-select>
+                        <mat-hint>Zgjidhni një kategori për ta gjetur më shpejt njoftimin që doni</mat-hint>
+                    </mat-form-field>
+
+                    <!-- Minimum Date Created Picker -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Zgjidhni datën minimale</mat-label>
+                        <input matInput [matDatepicker]="picker_min" formControlName="date_create_min">
+                        <mat-datepicker-toggle matSuffix [for]="picker_min"></mat-datepicker-toggle>
+                        <mat-datepicker #picker_min></mat-datepicker>
+                        <mat-hint>Kërkimi do të bëhet për njoftimet e postuara pas kësaj date</mat-hint>
+                    </mat-form-field>
+
+                    <!-- Minimum Date Created Picker -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Zgjidhni datën maksimale</mat-label>
+                        <input matInput [matDatepicker]="picker_max" formControlName="date_create_max">
+                        <mat-datepicker-toggle matSuffix [for]="picker_max"></mat-datepicker-toggle>
+                        <mat-datepicker #picker_max></mat-datepicker>
+                        <mat-hint>Kërkimi do të bëhet për njoftimet e postuara përpara kësaj date</mat-hint>
+                    </mat-form-field>
+
+                    <!-- Search and Clear Buttons -->
+                    <button mat-raised-button type="submit">
+                        <span class="flex-center-row">
+                            <mat-icon>search</mat-icon>&nbsp;
+                            Kërko
+                        </span>
+                    </button>
+
+                    <button mat-stroked-button type="button">
+                        <span class="flex-center-row">
+                            <mat-icon>clear_all</mat-icon>&nbsp;
+                            Pastroje
+                        </span>
+                    </button>
+                </form>
+            </mat-card-content>
+        </mat-card>
     </section>
     <section class="list w-75 pos-r over-hidden pd-m">
         <div style="height: 4px">
