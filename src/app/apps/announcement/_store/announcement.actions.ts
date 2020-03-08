@@ -6,7 +6,7 @@ import {Announcement} from './announcement.model';
 
 export const loadAnnouncements = createAction(
     '[Announcement] Load Announcements',
-    props<{ page: number }>()
+    props<{ page: number, pageSize: number }>()
 );
 
 export const loadAnnouncementsSuccess = createAction(

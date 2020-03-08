@@ -35,7 +35,7 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     ) { }
 
     ngOnInit() {
-        this.getAnnouncements(1);
+        this.getAnnouncements(1, 10);
     }
 
     ngOnDestroy() {
@@ -47,13 +47,13 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
         this.changePage();
     }
 
-    getAnnouncements(page: number) {
-        this.store.dispatch(AnnouncementActions.loadAnnouncements({page}));
+    getAnnouncements(page: number, pageSize: number) {
+        this.store.dispatch(AnnouncementActions.loadAnnouncements({page, pageSize}));
     }
 
     changePage() {
         this.paginator.page.pipe(takeUntil(this.uns$))
-        .subscribe((page) => this.getAnnouncements(page.pageIndex));
+        .subscribe((page) => this.getAnnouncements(page.pageIndex + 1, page.pageSize));
     }
 
 }

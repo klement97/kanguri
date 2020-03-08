@@ -12,6 +12,9 @@ export function buildQueryString(payload) {
     if (payload.page) {
         queryString.push(`page=${payload.page}`);
     }
+    if (payload.pageSize) {
+        queryString.push(`page_size=${payload.pageSize}`);
+    }
     if (payload.filter) {
         queryString.push(`filter=${JSON.stringify(payload.filter)}`);
     }
