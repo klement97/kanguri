@@ -1,8 +1,16 @@
+.list {
+    background-color: #eff0f3;
+}
+
 .list-item {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 50px;
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.35);
+    background-color: white;
 }
 
 .list-item-img-container {
@@ -21,12 +29,26 @@
     padding: 30px;
 }
 
+.details-header {
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.details-header h2 {
+    padding: 5px 0;
+}
+
 .details-header a {
     padding: 3px 20px 3px 0;
 }
 
-
-.list-item-details {
-
+.description {
+    padding: 15px 0;
 }
 
+.list-item-button {
+    background: #f12711;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f5af19, #f12711);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f5af19, #f12711); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+}
