@@ -11,6 +11,7 @@ import * as fromAnnouncement from './_store/announcement.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {AnnouncementEffects} from 'src/app/apps/announcement/_store/announcement.effects';
 import {AnnouncementService} from 'src/app/apps/announcement/_store/announcement.service';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {AnnouncementService} from 'src/app/apps/announcement/_store/announcement
         EffectsModule.forFeature([AnnouncementEffects]),
         MatCardModule,
         MatButtonModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatProgressBarModule
     ],
     providers: [AnnouncementService]
 })

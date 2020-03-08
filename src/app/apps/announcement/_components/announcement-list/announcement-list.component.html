@@ -3,6 +3,9 @@
         <mat-card>Klement Omeri</mat-card>
     </section>
     <section class="list w-75 pos-r over-hidden pd-m">
+        <div style="height: 4px">
+            <mat-progress-bar *ngIf="loading$ | async" mode="indeterminate"></mat-progress-bar>
+        </div>
         <mat-card *ngFor="let announcement of announcements$ | async" class="list-item w-100 pos-r">
             <div class="list-item-img-container over-hidden">
                 <img [src]="announcement.images[0].image" alt="image">

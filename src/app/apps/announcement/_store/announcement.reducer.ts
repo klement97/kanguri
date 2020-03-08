@@ -36,7 +36,8 @@ const announcementReducer = createReducer(
         (state, {error}) => ({...state, loading: false, error})
     ),
     on(AnnouncementActions.upsertAnnouncement,
-        (state, action) => adapter.upsertOne(action.announcement, state)
+        (state, action) => adapter
+        .upsertOne(action.announcement, state)
     ),
     on(AnnouncementActions.updateAnnouncement,
         (state, action) => ({...state, loading: true})
@@ -52,13 +53,15 @@ const announcementReducer = createReducer(
         (state, {id}) => ({...state, loading: true})
     ),
     on(AnnouncementActions.deleteAnnouncementSuccess,
-        (state, {id}) => adapter.removeOne(id, {...state, loading: false, error: null})
+        (state, {id}) => adapter
+        .removeOne(id, {...state, loading: false, error: null})
     ),
     on(AnnouncementActions.loadAnnouncements,
         state => ({...state, loading: true})
     ),
     on(AnnouncementActions.loadAnnouncementsSuccess,
-        (state, {announcements, count}) => adapter.addAll(announcements, {...state, count})
+        (state, {announcements, count}) => adapter
+        .addAll(announcements, {...state, count, loading: false, error: null})
     ),
     on(AnnouncementActions.loadAnnouncementsFailure,
         (state, {error}) => ({...state, loading: false, error})
