@@ -63,8 +63,8 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     private getInitialFilterForm(): FormGroup {
         return this.fb.group({
             name: ['', [Validators.maxLength(255)]],
-            price_min: null,
-            price_max: null,
+            price_min: 0,
+            price_max: 1000,
             category: null,
             date_created_min: '',
             date_created_max: ''
