@@ -27,7 +27,7 @@ const matModules: any[] = [
 @NgModule({
     declarations: [
         AppComponent,
-        HeaderComponent,
+        HeaderComponent
     ],
     imports: [
         BrowserModule,
@@ -55,6 +55,7 @@ const matModules: any[] = [
         CookieService,
         {provide: HTTP_INTERCEPTORS, useClass: ServiceInterceptor, multi: true}, // interceptor
     ],
+    exports: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -14,7 +14,7 @@ import {ErrorHandler} from 'src/app/common/error-handler/error.handler';
     styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-    userForm: FormGroup;
+    userForm: FormGroup = new FormGroup({});
     currentUser$: Observable<UserModel>;
     cities = CITIES;
     errors: any = {
@@ -35,7 +35,7 @@ export class UserProfileComponent implements OnInit {
     ngOnInit() {
         this.initiateUserForm();
         this.patchUserToForm();
-        this.errorHandler.handleErrors(this.userForm, this.errors);
+        // this.errorHandler.handleErrors(this.userForm, this.errors);
         // clientSideSearch(this.searchCityControl, CITIES, this.cities);
 
         // this.searchCityControl.valueChanges.pipe(

@@ -11,3 +11,9 @@ export class UserModel {
     address_line: string;
     city: number;
 }
+
+
+export interface Seller {
+    id: number;
+    user: UserModel;
+}

@@ -1,9 +1,9 @@
-<nav class="navigation pos-f w-100 child-spaced-row z-medium">
+<nav class="navigation w-100 child-spaced-row z-medium">
     <div class="nav-logo" routerLink="/" style="cursor: pointer">Logo</div>
     <div class="menu">
         <ul>
             <li>Kreu</li>
-            <li>Njoftimet</li>
+            <li><a routerLink="/announcement/list">Njoftimet</a></li>
             <li>Suporti</li>
             <li *ngIf="currentUser$ | async as user" routerLink="/profile/user">Çkemi {{user.first_name}}</li>
             <li *ngIf="(currentUser$ | async) === null">
