@@ -24,7 +24,9 @@ export class AnnouncementService {
         const payload: QueryParam = {
             page: this.announcementPaginator?.pageIndex,
             pageSize: this.announcementPaginator?.pageSize,
-            filter: this.announcementFilterForm.value
+            filter: this.announcementFilterForm.value,
+            sort: this.announcementFilterForm.value.sort,
+            order: this.announcementFilterForm.value.order
         };
         const url = `${ENDPOINTS.ANNOUNCEMENT}/${buildQueryString(payload)}`;
 
@@ -51,7 +53,9 @@ export class AnnouncementService {
             price_max: 10000,
             category: null,
             date_created_min: null,
-            date_created_max: null
+            date_created_max: null,
+            sort: '',
+            order: ''
         });
     }
 }
