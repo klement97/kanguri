@@ -17,8 +17,8 @@ export class AnnouncementEffects {
     loadAnnouncements$ = createEffect(() => this.actions$.pipe(
         ofType(AnnouncementActions.loadAnnouncements),
         switchMap(() => this.announcementService.getAnnouncements().pipe(
-            map(({data, pagination}) => {
-                return AnnouncementActions.loadAnnouncementsSuccess({announcements: data, count: pagination.count});
+            map(({data, count}) => {
+                return AnnouncementActions.loadAnnouncementsSuccess({announcements: data, count});
             }),
             catchError(error => of(AnnouncementActions.loadAnnouncementsFailure({error}))))
         ))

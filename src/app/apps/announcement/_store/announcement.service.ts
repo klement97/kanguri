@@ -23,7 +23,7 @@ export class AnnouncementService {
         const payload: QueryParam = {
             page: this.announcementPaginator?.pageIndex,
             pageSize: this.announcementPaginator?.pageSize,
-            filter: this.announcementFilterForm?.value
+            filter: this.announcementFilterForm.value
         };
         const url = `${ENDPOINTS.ANNOUNCEMENT}/${buildQueryString(payload)}`;
 

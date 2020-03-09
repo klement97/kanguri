@@ -51,7 +51,7 @@ export function clientSideSearch(formControl: FormControl, list: any[], filterLi
 
 export class APIResponse {
     data: any;
-    pagination?: Pagination;
+    count: number;
 }
 
 
@@ -59,11 +59,6 @@ export class ErrorResponse {
     type: string;
     errors: any;
     message: string;
-}
-
-
-class Pagination {
-    count: number;
 }
 
 

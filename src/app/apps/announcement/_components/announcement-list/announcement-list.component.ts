@@ -39,7 +39,6 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     ) {}
 
     ngOnInit() {
-        this.setPaginator();
         this.getAnnouncements();
     }
 
@@ -49,7 +48,8 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     }
 
     ngAfterViewInit() {
-        this.changePage();
+        this.setPaginator();
+        this.watchPageChange();
     }
 
     public getAnnouncements() {
@@ -64,7 +64,7 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
         this.service.setPaginator(this.paginator);
     }
 
-    private changePage() {
+    private watchPageChange() {
         this.paginator.page.pipe(takeUntil(this.uns$)).subscribe(() => this.getAnnouncements());
     }
 
