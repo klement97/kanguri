@@ -9,14 +9,11 @@ export class JwtModel {
 
 export function buildQueryString(payload) {
     const queryString = [];
-    if (payload.page) {
-        queryString.push(`page=${payload.page}`);
+    if (payload.page !== undefined && payload.page !== null) {
+        queryString.push(`page=${payload.page + 1}`);
     }
     if (payload.pageSize) {
         queryString.push(`page_size=${payload.pageSize}`);
-    }
-    if (payload.filter) {
-        queryString.push(`filter=${JSON.stringify(payload.filter)}`);
     }
     if (payload.sort) {
         queryString.push(`sort_field=${payload.sort}`);
@@ -24,11 +21,22 @@ export function buildQueryString(payload) {
     if (payload.order) {
         queryString.push(`order=${payload.order}`);
     }
+    if (payload.filter) {
+        queryString.push(`filter=${JSON.stringify(payload.filter)}`);
+    }
     if (queryString.length > 0) {
         return '?' + queryString.join('&');
     }
     return '';
+}
 
+
+export interface QueryParam {
+    page: number;
+    pageSize: number;
+    sort?: string;
+    order?: 'asc' | 'desc';
+    filter: object;
 }
 
 

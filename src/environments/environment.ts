@@ -4,7 +4,8 @@
 
 export const environment = {
     production: false,
-    apiHost: 'https://kanguri-backend.herokuapp.com'
+//    apiHost: 'https://kanguri-backend.herokuapp.com',
+    apiHost: 'http://localhost:8000'
 };
 
 /*

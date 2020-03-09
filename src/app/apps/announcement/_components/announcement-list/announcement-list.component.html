@@ -32,7 +32,7 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Çmimi më i lartë</mat-label>
                         <mat-slider
-                                [max]="1000"
+                                [max]="10000"
                                 [min]="0"
                                 [step]="100"
                                 color="primary"
@@ -73,14 +73,14 @@
                     </mat-form-field>
 
                     <!-- Search and Clear Buttons -->
-                    <button mat-raised-button type="submit">
+                    <button (click)="getAnnouncements()" mat-raised-button type="submit">
                         <span class="flex-center-row">
                             <mat-icon>search</mat-icon>&nbsp;
                             Kërko
                         </span>
                     </button>
 
-                    <button mat-stroked-button type="button">
+                    <button (click)="resetForm()" mat-stroked-button type="button">
                         <span class="flex-center-row">
                             <mat-icon>clear_all</mat-icon>&nbsp;
                             Pastroje
@@ -94,6 +94,13 @@
         <div style="height: 4px">
             <mat-progress-bar *ngIf="loading$ | async" mode="indeterminate"></mat-progress-bar>
         </div>
+        <mat-paginator #paginator
+                       [length]="announcementCount$ | async"
+                       [pageSizeOptions]="[10, 15, 20]"
+                       [pageSize]="10"
+                       class="mat-elevation-z4"
+                       showFirstLastButtons>
+        </mat-paginator>
         <mat-card *ngFor="let announcement of announcements$ | async" class="list-item w-100 pos-r over-hidden">
             <div class="list-item-img-container over-hidden">
                 <img [src]="announcement.images[0].image" alt="image">
@@ -104,23 +111,18 @@
                     <div class="flex-row-start">
                         <a>{{announcement.category_name}}</a>
                         <a class="seller">{{announcement.seller_name}}</a>
+                        <p>{{announcement.date_created | date: 'd/M/y'}}</p>
                     </div>
                 </header>
                 <section class="description">
                     <p>{{announcement.description}}</p>
                 </section>
                 <section>
+                    <p>{{announcement.price | number: '1.0-1' : 'en'}}</p>
                     <button class="list-item-button" mat-stroked-button>Lexo Me Shume</button>
                 </section>
             </div>
         </mat-card>
-        <mat-paginator #paginator
-                       [length]="announcementCount$ | async"
-                       [pageSizeOptions]="[10, 15, 20]"
-                       [pageSize]="10"
-                       class="mat-elevation-z4"
-                       showFirstLastButtons>
-        </mat-paginator>
     </section>
 </main>
 

@@ -16,7 +16,7 @@ export class AnnouncementEffects {
 
     loadAnnouncements$ = createEffect(() => this.actions$.pipe(
         ofType(AnnouncementActions.loadAnnouncements),
-        switchMap(payload => this.announcementService.getAnnouncements(payload).pipe(
+        switchMap(() => this.announcementService.getAnnouncements().pipe(
             map(({data, pagination}) => {
                 return AnnouncementActions.loadAnnouncementsSuccess({announcements: data, count: pagination.count});
             }),
