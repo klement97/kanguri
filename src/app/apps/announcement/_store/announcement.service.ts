@@ -12,7 +12,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class AnnouncementService {
     announcementPaginator: MatPaginator;
-    announcementFilterForm: FormGroup = this.getFilterForm();
+    announcementFilterForm: FormGroup = this.buildFilterForm();
 
     constructor(
         private http: HttpClient,
@@ -39,6 +39,10 @@ export class AnnouncementService {
     }
 
     getFilterForm() {
+        return this.announcementFilterForm;
+    }
+
+    private buildFilterForm() {
         return this.fb.group({
             name: ['', [Validators.maxLength(255)]],
             price_min: 0,

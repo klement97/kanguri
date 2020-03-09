@@ -30,6 +30,10 @@ export function buildQueryString(payload) {
     return '';
 }
 
+export function formatToPostgresDate(date: Date) {
+
+}
+
 
 export interface QueryParam {
     page: number;
