@@ -19,6 +19,7 @@ export class AnnouncementService {
         private fb: FormBuilder
     ) { }
 
+    /** Makes request to API to get all announcements with required page and filter */
     getAnnouncements(): Observable<APIResponse> {
         const payload: QueryParam = {
             page: this.announcementPaginator?.pageIndex,
@@ -30,6 +31,7 @@ export class AnnouncementService {
         return this.http.get<APIResponse>(url);
     }
 
+    /** Makes a request to API to get an announcement by its ID */
     getAnnouncement(id: number) {
         return this.http.get<APIResponse>(`${ENDPOINTS.ANNOUNCEMENT}/${id}/`);
     }

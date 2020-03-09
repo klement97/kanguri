@@ -94,13 +94,6 @@
         <div style="height: 4px">
             <mat-progress-bar *ngIf="loading$ | async" mode="indeterminate"></mat-progress-bar>
         </div>
-        <mat-paginator #paginator
-                       [length]="announcementCount$ | async"
-                       [pageSizeOptions]="[10, 15, 20]"
-                       [pageSize]="10"
-                       class="mat-elevation-z4"
-                       showFirstLastButtons>
-        </mat-paginator>
 
         <!-- Announcement Card Element -->
         <mat-card *ngFor="let announcement of announcements$ | async" class="list-item w-100 pos-r over-hidden">
@@ -125,6 +118,14 @@
                 </section>
             </div>
         </mat-card>
+
+        <mat-paginator #paginator
+                       [length]="announcementCount$ | async"
+                       [pageSizeOptions]="[10, 15, 20]"
+                       [pageSize]="10"
+                       class="mat-elevation-z4"
+                       showFirstLastButtons>
+        </mat-paginator>
     </section>
 </main>
 
