@@ -25,8 +25,8 @@ export class AnnouncementService {
             page: this.announcementPaginator?.pageIndex,
             pageSize: this.announcementPaginator?.pageSize,
             filter: this.announcementFilterForm.value,
-            sort: this.announcementFilterForm.value.sort,
-            order: this.announcementFilterForm.value.order
+            sort_field: this.announcementFilterForm.value.sort_field,
+            sort: this.announcementFilterForm.value.sort
         };
         const url = `${ENDPOINTS.ANNOUNCEMENT}/${buildQueryString(payload)}`;
 
@@ -46,7 +46,7 @@ export class AnnouncementService {
         return this.announcementFilterForm;
     }
 
-    private buildFilterForm() {
+    private buildFilterForm(): FormGroup {
         return this.fb.group({
             name: ['', [Validators.maxLength(255)]],
             price_min: 0,
@@ -54,8 +54,8 @@ export class AnnouncementService {
             category: null,
             date_created_min: null,
             date_created_max: null,
-            sort: '',
-            order: ''
+            sort_field: '',
+            sort: ''
         });
     }
 }
