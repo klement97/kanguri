@@ -13,6 +13,7 @@ const JWT_REFRESH = `${JWT}/refresh`;
 const JWT_VERIFY = `${JWT}/verify`;
 
 const ANNOUNCEMENT = `${API_HOST}/announcement`;
+const CATEGORY = `${API_HOST}/category`;
 
 export const ENDPOINTS = {
     API_HOST,
@@ -22,7 +23,8 @@ export const ENDPOINTS = {
     JWT_CREATE,
     JWT_REFRESH,
     JWT_VERIFY,
-    ANNOUNCEMENT
+    ANNOUNCEMENT,
+    CATEGORY
 };
 
 export const NO_TOKEN_ENDPOINTS: string[] = [
@@ -30,5 +32,6 @@ export const NO_TOKEN_ENDPOINTS: string[] = [
     `${ENDPOINTS.JWT_REFRESH}/`,
     `${ENDPOINTS.JWT_VERIFY}/`,
     `${ENDPOINTS.USERS}/`,
-    `${ENDPOINTS.ANNOUNCEMENT}/`
+    `${ENDPOINTS.ANNOUNCEMENT}/`,
+    `${ENDPOINTS.CATEGORY}/`
 ];

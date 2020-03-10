@@ -21,7 +21,6 @@ export class AnnouncementEffects {
                 return AnnouncementActions.loadAnnouncementsSuccess({announcements: data, count});
             }),
             catchError(error => {
-                throw new Error(error);
                 return of(AnnouncementActions.loadAnnouncementsFailure({error}));
             }))
         ))
