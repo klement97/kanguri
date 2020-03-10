@@ -1,11 +1,12 @@
 import {createAction, props} from '@ngrx/store';
 
-import {Category} from 'src/app/apps/announcement/_store/_models/category.model';
+
 import {ErrorResponse} from 'src/app/common/const';
+import {Category} from 'src/app/apps/announcement/_store/_models/announcement.model';
 
 
 export const loadCategories = createAction(
-    '[Category] Load Categorys'
+    '[Category] Load Categories'
 );
 
 export const loadCategoriesSuccess = createAction(
@@ -14,7 +15,7 @@ export const loadCategoriesSuccess = createAction(
 );
 
 export const loadCategoriesFailure = createAction(
-    '[Category/API] Load Categories Failre',
+    '[Category/API] Load Categories Failure',
     props<{ error: ErrorResponse }>()
 );
 
