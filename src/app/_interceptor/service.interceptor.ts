@@ -4,9 +4,14 @@ import {CurrentUserService} from '../apps/auth/_store/_services/current-user.ser
 import {Observable} from 'rxjs';
 import {NO_TOKEN_ENDPOINTS} from 'src/app/common/endpoints';
 
+
 @Injectable()
 export class ServiceInterceptor implements HttpInterceptor {
     constructor(private userService: CurrentUserService) {
+    }
+
+    private static getUrlWithoutQueryString(url: string) {
+        return url.split('?')[0];
     }
 
     /**
@@ -15,7 +20,7 @@ export class ServiceInterceptor implements HttpInterceptor {
      */
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         /** Some url's like jwt/create, refresh or verify does not require headers to be set */
-        if (NO_TOKEN_ENDPOINTS.includes(request.url)) {
+        if (NO_TOKEN_ENDPOINTS.includes(ServiceInterceptor.getUrlWithoutQueryString(request.url))) {
             return next.handle(request);
         }
 

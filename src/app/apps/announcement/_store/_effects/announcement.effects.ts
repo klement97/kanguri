@@ -3,8 +3,8 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 
-import * as AnnouncementActions from './announcement.actions';
-import {AnnouncementService} from 'src/app/apps/announcement/_store/announcement.service';
+import * as AnnouncementActions from 'src/app/apps/announcement/_store/_actions/announcement.actions';
+import {AnnouncementService} from 'src/app/apps/announcement/_store/_services/announcement.service';
 
 
 @Injectable()
@@ -20,7 +20,10 @@ export class AnnouncementEffects {
             map(({data, count}) => {
                 return AnnouncementActions.loadAnnouncementsSuccess({announcements: data, count});
             }),
-            catchError(error => of(AnnouncementActions.loadAnnouncementsFailure({error}))))
+            catchError(error => {
+                throw new Error(error);
+                return of(AnnouncementActions.loadAnnouncementsFailure({error}));
+            }))
         ))
     );
 

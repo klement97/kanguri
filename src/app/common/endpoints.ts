@@ -1,5 +1,6 @@
 import {environment} from 'src/environments/environment';
 
+
 const API_HOST = `${environment.apiHost}`;
 
 const AUTH = `${API_HOST}/auth`;
@@ -28,5 +29,6 @@ export const NO_TOKEN_ENDPOINTS: string[] = [
     `${ENDPOINTS.JWT_CREATE}/`,
     `${ENDPOINTS.JWT_REFRESH}/`,
     `${ENDPOINTS.JWT_VERIFY}/`,
-    `${ENDPOINTS.USERS}/`
+    `${ENDPOINTS.USERS}/`,
+    `${ENDPOINTS.ANNOUNCEMENT}/`
 ];

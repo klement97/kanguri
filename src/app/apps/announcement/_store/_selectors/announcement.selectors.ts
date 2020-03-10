@@ -1,5 +1,5 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import * as fromAnnouncement from 'src/app/apps/announcement/_store/announcement.reducer';
+import * as fromAnnouncement from 'src/app/apps/announcement/_store/_reducers/announcement.reducer';
 
 
 export const selectAnnouncementState = createFeatureSelector<fromAnnouncement.State>(fromAnnouncement.announcementsFeatureKey);

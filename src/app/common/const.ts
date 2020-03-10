@@ -7,6 +7,11 @@ export class JwtModel {
 }
 
 
+export const KANGURI_ACCESS = '_kanguri_access';
+export const KANGURI_REFRESH = '_kanguri_refresh';
+export const KANGURI_USER = '_kanguri_user';
+
+
 export function buildQueryString(payload) {
     const queryString = [];
     if (payload.page !== undefined && payload.page !== null) {

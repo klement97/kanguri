@@ -21,13 +21,7 @@ export class AnnouncementService {
 
     /** Makes request to API to get all announcements with required page and filter */
     getAnnouncements(): Observable<APIResponse> {
-        const payload: QueryParam = {
-            page: this.announcementPaginator?.pageIndex,
-            pageSize: this.announcementPaginator?.pageSize,
-            filter: this.announcementFilterForm.value,
-            sort_field: this.announcementFilterForm.value.sort_field,
-            sort: this.announcementFilterForm.value.sort
-        };
+        const payload: QueryParam = this.buildQueryParams();
         const url = `${ENDPOINTS.ANNOUNCEMENT}/${buildQueryString(payload)}`;
 
         return this.http.get<APIResponse>(url);
@@ -57,5 +51,15 @@ export class AnnouncementService {
             sort_field: '',
             sort: ''
         });
+    }
+
+    private buildQueryParams(): QueryParam {
+        return {
+            page: this.announcementPaginator?.pageIndex,
+            pageSize: this.announcementPaginator?.pageSize,
+            filter: this.announcementFilterForm.value,
+            sort_field: this.announcementFilterForm.value.sort_field,
+            sort: this.announcementFilterForm.value.sort
+        };
     }
 }

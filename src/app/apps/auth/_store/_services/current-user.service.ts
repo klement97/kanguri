@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {JwtModel} from 'src/app/common/const';
+import {JwtModel, KANGURI_ACCESS, KANGURI_REFRESH, KANGURI_USER} from 'src/app/common/const';
 import {CookieService} from 'ngx-cookie-service';
 import {map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
@@ -67,7 +67,7 @@ export class CurrentUserService {
 
 
     /**
-     * Takes jwt object and sets two cookies, 'kanguri_access' and 'kanguri_refresh'.
+     * Takes jwt object and sets two cookies, KANGURI_ACCESS and KANGURI_REFRESH.
      * Access token lifetime is 1 day, refresh token is 7 days
      *
      * @param jwt         JsonWebToken Object
@@ -80,10 +80,10 @@ export class CurrentUserService {
         nextWeek.setDate(today.getDate() + 7);
 
         if (jwt.access) {
-            this.cookieService.set('kanguri_access', jwt.access, tomorrow, '', '', false, 'Strict');
+            this.cookieService.set(KANGURI_ACCESS, jwt.access, tomorrow, '', '', false, 'Strict');
         }
         if (jwt.refresh) {
-            this.cookieService.set('kanguri_refresh', jwt.refresh, nextWeek, '', '', false, 'Strict');
+            this.cookieService.set(KANGURI_REFRESH, jwt.refresh, nextWeek, '', '', false, 'Strict');
         }
     }
 
@@ -92,7 +92,7 @@ export class CurrentUserService {
      * @param user      User Instance
      */
     setUserDetailsToCookies(user: UserModel): void {
-        this.cookieService.set('kanguri_user', JSON.stringify(user), 7, '', '', false, 'Strict');
+        this.cookieService.set(KANGURI_USER, JSON.stringify(user), 7, '', '', false, 'Strict');
     }
 
 
@@ -102,7 +102,7 @@ export class CurrentUserService {
      * @returns user     Current User details
      */
     getUserDetailsFromCookies(): UserModel {
-        const user = this.cookieService.get('kanguri_user');
+        const user = this.cookieService.get(KANGURI_USER);
         if (user) {
             return JSON.parse(user);
         }
@@ -115,8 +115,8 @@ export class CurrentUserService {
      */
     getJwtFromCookies(): JwtModel {
         return {
-            access: this.cookieService.get('kanguri_access'),
-            refresh: this.cookieService.get('kanguri_refresh')
+            access: this.cookieService.get(KANGURI_ACCESS),
+            refresh: this.cookieService.get(KANGURI_REFRESH)
         };
     }
 
@@ -126,9 +126,9 @@ export class CurrentUserService {
      * We simply delete the JWT from the storage and navigate to login.
      */
     logout() {
-        this.cookieService.delete('kanguri_access');
-        this.cookieService.delete('kanguri_refresh');
-        this.cookieService.delete('kanguri_user');
+        this.cookieService.delete(KANGURI_ACCESS);
+        this.cookieService.delete(KANGURI_REFRESH);
+        this.cookieService.delete(KANGURI_USER);
         this.store.dispatch(clearCurrentUser());
     }
 
@@ -139,7 +139,7 @@ export class CurrentUserService {
      * from server and load them to the Store.
      */
     loadUserIfLoggedIn() {
-        if (this.cookieService.get('kanguri_access') !== null) {
+        if (this.cookieService.get(KANGURI_ACCESS) !== null) {
             const user: UserModel = this.getUserDetailsFromCookies();
             if (user) {
                 this.store.dispatch(loadCurrentUser({user}));
