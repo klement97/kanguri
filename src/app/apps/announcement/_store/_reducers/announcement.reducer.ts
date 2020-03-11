@@ -1,7 +1,7 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-import {Announcement} from './announcement.model';
-import * as AnnouncementActions from './announcement.actions';
+import {Announcement} from 'src/app/apps/announcement/_store/_models/announcement.model';
+import * as AnnouncementActions from 'src/app/apps/announcement/_store/_actions/announcement.actions';
 import {ErrorResponse} from 'src/app/common/const';
 
 

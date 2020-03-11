@@ -1,7 +1,7 @@
 import {createAction, props} from '@ngrx/store';
 import {Update} from '@ngrx/entity';
 
-import {Announcement} from './announcement.model';
+import {Announcement} from 'src/app/apps/announcement/_store/_models/announcement.model';
 
 
 export const loadAnnouncements = createAction(

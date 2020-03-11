@@ -7,10 +7,11 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {StoreModule} from '@ngrx/store';
-import * as fromAnnouncement from './_store/announcement.reducer';
+import * as fromAnnouncement from 'src/app/apps/announcement/_store/_reducers/announcement.reducer';
+import * as fromCategory from 'src/app/apps/announcement/_store/_reducers/category.reducer';
 import {EffectsModule} from '@ngrx/effects';
-import {AnnouncementEffects} from 'src/app/apps/announcement/_store/announcement.effects';
-import {AnnouncementService} from 'src/app/apps/announcement/_store/announcement.service';
+import {AnnouncementEffects} from 'src/app/apps/announcement/_store/_effects/announcement.effects';
+import {AnnouncementService} from 'src/app/apps/announcement/_store/_services/announcement.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -20,6 +21,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
+import {CategoryEffects} from 'src/app/apps/announcement/_store/_effects/category.effects';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import {MatIconModule} from '@angular/material/icon';
         CommonModule,
         AnnouncementRoutingModule,
         StoreModule.forFeature(fromAnnouncement.announcementsFeatureKey, fromAnnouncement.reducer),
-        EffectsModule.forFeature([AnnouncementEffects]),
+        StoreModule.forFeature(fromCategory.categoriesFeatureKey, fromCategory.reducer),
+        EffectsModule.forFeature([AnnouncementEffects, CategoryEffects]),
         MatCardModule,
         MatButtonModule,
         MatPaginatorModule,

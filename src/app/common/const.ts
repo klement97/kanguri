@@ -7,6 +7,11 @@ export class JwtModel {
 }
 
 
+export const KANGURI_ACCESS = '_kanguri_access';
+export const KANGURI_REFRESH = '_kanguri_refresh';
+export const KANGURI_USER = '_kanguri_user';
+
+
 export function buildQueryString(payload) {
     const queryString = [];
     if (payload.page !== undefined && payload.page !== null) {
@@ -15,11 +20,11 @@ export function buildQueryString(payload) {
     if (payload.pageSize) {
         queryString.push(`page_size=${payload.pageSize}`);
     }
-    if (payload.sort) {
-        queryString.push(`sort_field=${payload.sort}`);
+    if (payload.sort_field) {
+        queryString.push(`sort_field=${payload.sort_field}`);
     }
-    if (payload.order) {
-        queryString.push(`order=${payload.order}`);
+    if (payload.sort) {
+        queryString.push(`sort=${payload.sort}`);
     }
     if (payload.filter) {
         queryString.push(`filter=${JSON.stringify(payload.filter)}`);
@@ -34,8 +39,8 @@ export function buildQueryString(payload) {
 export interface QueryParam {
     page: number;
     pageSize: number;
-    sort?: string;
-    order?: 'asc' | 'desc';
+    sort_field?: string;
+    sort?: 'asc' | 'desc';
     filter: object;
 }
 
