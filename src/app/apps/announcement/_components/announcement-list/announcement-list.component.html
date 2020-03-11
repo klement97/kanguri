@@ -1,94 +1,91 @@
-<main class="announcement-list w-100 flex-row-start pos-r over-hidden">
-    <section class="filters w-25 pos-r flex-column-start pd-m over-hidden">
-        <mat-card>
-            <mat-card-content>
-                <h3>Kërko njoftime</h3>
+<main class="announcement-list w-100 flex-row-start pos-r">
+    <section class="filters w-25 pos-r flex-column-start">
+        <h3>Kërko njoftime</h3>
+        <form [formGroup]="filterForm" novalidate class="w-100 flex-column-start">
 
-                <form [formGroup]="filterForm" novalidate>
+            <!-- Name Field -->
+            <mat-form-field appearance="standard">
+                <mat-label>Emri</mat-label>
+                <input formControlName="name" matInput placeholder="Biçikleta..." type="text">
+                <mat-hint>Emri i produktit</mat-hint>
+            </mat-form-field>
 
-                    <!-- Name Field -->
-                    <mat-form-field appearance="fill">
-                        <mat-label>Emri</mat-label>
-                        <input formControlName="name" matInput placeholder="Biçikleta..." type="text">
-                        <mat-hint>Emri i produktit që doni të kërkoni</mat-hint>
-                    </mat-form-field>
+            <!-- Minimum Price Slider -->
+            <mat-form-field appearance="standard">
+                <mat-label>Çmimi më i ulët</mat-label>
+                <mat-slider
+                        [max]="1000"
+                        [min]="0"
+                        [step]="100"
+                        color="primary"
+                        formControlName="price_min"
+                        thumbLabel>
+                </mat-slider>
+                <mat-hint>Zgjidhni çmimin më të ulët</mat-hint>
+                <textarea hidden matInput></textarea>
+            </mat-form-field>
 
-                    <!-- Minimum Price Slider -->
-                    <mat-form-field appearance="fill">
-                        <mat-label>Çmimi më i ulët</mat-label>
-                        <mat-slider
-                                [max]="1000"
-                                [min]="0"
-                                [step]="100"
-                                color="primary"
-                                formControlName="price_min"
-                                thumbLabel>
-                        </mat-slider>
-                        <mat-hint>Zgjidhni çmimin më të ulët që dëshironi</mat-hint>
-                        <textarea hidden matInput></textarea>
-                    </mat-form-field>
+            <!-- Maximum Price Slider -->
+            <mat-form-field appearance="standard">
+                <mat-label>Çmimi më i lartë</mat-label>
+                <mat-slider
+                        [max]="10000"
+                        [min]="0"
+                        [step]="100"
+                        color="primary"
+                        formControlName="price_max"
+                        thumbLabel>
+                </mat-slider>
+                <mat-hint>Zgjidhni çmimin më të lartë</mat-hint>
+                <textarea hidden matInput></textarea>
+            </mat-form-field>
 
-                    <!-- Maximum Price Slider -->
-                    <mat-form-field appearance="fill">
-                        <mat-label>Çmimi më i lartë</mat-label>
-                        <mat-slider
-                                [max]="10000"
-                                [min]="0"
-                                [step]="100"
-                                color="primary"
-                                formControlName="price_max"
-                                thumbLabel>
-                        </mat-slider>
-                        <mat-hint>Zgjidhni çmimin më të lartë që dëshironi</mat-hint>
-                        <textarea hidden matInput></textarea>
-                    </mat-form-field>
+            <!-- Category Select -->
+            <mat-form-field appearance="standard">
+                <mat-label>Kategoria</mat-label>
+                <mat-select formControlName="category" placeholder="Zgjidhni një kategori">
+                    <mat-option [value]="1">Kategoria 1</mat-option>
+                    <mat-option [value]="1">Kategoria 2</mat-option>
+                    <mat-option [value]="1">Kategoria 3</mat-option>
+                </mat-select>
+                <mat-hint>Zgjidhni një kategori</mat-hint>
+            </mat-form-field>
 
-                    <!-- Category Select -->
-                    <mat-form-field appearance="fill">
-                        <mat-label>Kategoria</mat-label>
-                        <mat-select formControlName="category" placeholder="Zgjidhni një kategori">
-                            <mat-option [value]="1">Kategoria 1</mat-option>
-                            <mat-option [value]="1">Kategoria 2</mat-option>
-                            <mat-option [value]="1">Kategoria 3</mat-option>
-                        </mat-select>
-                        <mat-hint>Zgjidhni një kategori për ta gjetur më shpejt njoftimin që doni</mat-hint>
-                    </mat-form-field>
+            <!-- Minimum Date Created Picker -->
+            <mat-form-field appearance="standard">
+                <mat-label>Zgjidhni datën minimale</mat-label>
+                <input [matDatepicker]="picker_min" formControlName="date_created_min" matInput>
+                <mat-datepicker-toggle [for]="picker_min" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #picker_min></mat-datepicker>
+                <mat-hint>Kërkimi do të bëhet për njoftimet e postuara pas kësaj date</mat-hint>
+            </mat-form-field>
 
-                    <!-- Minimum Date Created Picker -->
-                    <mat-form-field appearance="fill">
-                        <mat-label>Zgjidhni datën minimale</mat-label>
-                        <input [matDatepicker]="picker_min" formControlName="date_created_min" matInput>
-                        <mat-datepicker-toggle [for]="picker_min" matSuffix></mat-datepicker-toggle>
-                        <mat-datepicker #picker_min></mat-datepicker>
-                        <mat-hint>Kërkimi do të bëhet për njoftimet e postuara pas kësaj date</mat-hint>
-                    </mat-form-field>
+            <!-- Minimum Date Created Picker -->
+            <mat-form-field appearance="standard">
+                <mat-label>Zgjidhni datën maksimale</mat-label>
+                <input [matDatepicker]="picker_max" formControlName="date_created_max" matInput>
+                <mat-datepicker-toggle [for]="picker_max" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #picker_max></mat-datepicker>
+                <mat-hint>Kërkimi do të bëhet për njoftimet e postuara përpara kësaj date</mat-hint>
+            </mat-form-field>
 
-                    <!-- Minimum Date Created Picker -->
-                    <mat-form-field appearance="fill">
-                        <mat-label>Zgjidhni datën maksimale</mat-label>
-                        <input [matDatepicker]="picker_max" formControlName="date_created_max" matInput>
-                        <mat-datepicker-toggle [for]="picker_max" matSuffix></mat-datepicker-toggle>
-                        <mat-datepicker #picker_max></mat-datepicker>
-                        <mat-hint>Kërkimi do të bëhet për njoftimet e postuara përpara kësaj date</mat-hint>
-                    </mat-form-field>
-
-                    <!-- Search and Clear Buttons -->
-                    <button (click)="getAnnouncements()" mat-raised-button type="submit">
+            <!-- Search and Clear Buttons -->
+            <div>
+                <button (click)="getAnnouncements()" mat-raised-button type="submit">
                         <span class="flex-center-row">
                             <mat-icon>search</mat-icon>&nbsp;
                             Kërko
                         </span>
-                    </button>
+                </button>
 
-                    <button (click)="resetForm()" mat-stroked-button type="button">
+                <button (click)="resetForm()" mat-stroked-button type="button">
                         <span class="flex-center-row">
                             <mat-icon>clear_all</mat-icon>&nbsp;
                             Pastroje
                         </span>
-                    </button>
-                </form>
-            </mat-card-content>
-        </mat-card>
+                </button>
+            </div>
+        </form>
     </section>
     <section class="list w-75 pos-r over-hidden pd-m">
         <div style="height: 4px">
@@ -103,19 +100,25 @@
             <div class="list-item-details flex-column-start">
                 <header class="details-header flex-column-start">
                     <h2>{{announcement.name}}</h2>
-                    <div class="flex-row-start">
-                        <a>{{announcement.category_name}}</a>
-                        <a class="seller">{{announcement.seller_name}}</a>
-                        <p>{{announcement.date_created | date: 'd/M/y'}}</p>
+                    <div class="child-spaced-row">
+                        <div>
+                            <a>{{announcement.category_name}}</a>
+                            <a class="seller">{{announcement.seller_name}}</a>
+                        </div>
+                        <a>{{announcement.date_created | date: 'd/M/y'}}</a>
                     </div>
                 </header>
-                <section class="description">
+                <article class="description">
                     <p>{{announcement.description}}</p>
-                </section>
-                <section>
-                    <p>{{announcement.price | number: '1.0-1' : 'en'}}</p>
+                </article>
+                <footer class="child-spaced-row">
+                    <h3>{{announcement.price | number: '1.0-1' : 'en'}}&nbsp;LEK</h3>
                     <button class="list-item-button" mat-stroked-button>Lexo Me Shume</button>
-                </section>
+                </footer>
+            </div>
+            <div class="top-design pos-a">
+                TOP
+                <div class="pos-a"></div>
             </div>
         </mat-card>
 
