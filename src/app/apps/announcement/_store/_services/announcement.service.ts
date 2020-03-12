@@ -40,6 +40,11 @@ export class AnnouncementService {
         return this.announcementFilterForm;
     }
 
+    resetFilterForm(): FormGroup {
+        this.announcementFilterForm = this.buildFilterForm();
+        return this.announcementFilterForm;
+    }
+
     private buildFilterForm(): FormGroup {
         return this.fb.group({
             name: ['', [Validators.maxLength(255)]],

@@ -61,7 +61,7 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     }
 
     public resetForm() {
-        this.filterForm = this.service.getFilterForm();
+        this.filterForm = this.service.resetFilterForm();
         this.getAnnouncements();
     }
 

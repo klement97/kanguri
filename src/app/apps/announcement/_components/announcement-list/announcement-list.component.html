@@ -44,9 +44,10 @@
             <mat-form-field appearance="standard">
                 <mat-label>Kategoria</mat-label>
                 <mat-select formControlName="category" placeholder="Zgjidhni një kategori">
-                    <mat-option [value]="1">Kategoria 1</mat-option>
-                    <mat-option [value]="1">Kategoria 2</mat-option>
-                    <mat-option [value]="1">Kategoria 3</mat-option>
+                    <mat-option [value]="null">Zgjidhni një kategori</mat-option>
+                    <mat-option *ngFor="let category of categories$ | async"
+                                [value]="category.id">{{category.name}}
+                    </mat-option>
                 </mat-select>
                 <mat-hint>Zgjidhni një kategori</mat-hint>
             </mat-form-field>
