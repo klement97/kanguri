@@ -7,6 +7,7 @@ const routes: Routes = [
     {path: 'user', component: UserProfileComponent, pathMatch: 'full'},
 ];
 
+
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]

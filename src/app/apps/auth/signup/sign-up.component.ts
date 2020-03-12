@@ -8,6 +8,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {selectSignUpError} from 'src/app/apps/auth/_store/_selectors/current-user.selectors';
 
+
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',

@@ -48,8 +48,8 @@
     <mat-form-field>
         <mat-select formControlName="city">
             <mat-option disabled>
-                <input #search type="text" matInput placeholder="Search" autocomplete="off"
-                       [formControl]="searchCityControl">
+                <input #search [formControl]="searchCityControl" autocomplete="off" matInput placeholder="Search"
+                       type="text">
             </mat-option>
             <mat-option [value]="null">Zgjidhni një qytet</mat-option>
             <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
@@ -61,19 +61,19 @@
 
     <ng-container formArrayName="aliases">
         <h4>Aliases</h4>
-        <button mat-stroked-button color="primary" (click)="addAliasAndMarkAsUntouched()">Add Alias</button>
+        <button (click)="addAliasAndMarkAsUntouched()" color="primary" mat-stroked-button>Add Alias</button>
 
         <div *ngFor="let alias of aliases.controls; let i=index">
             <mat-form-field>
-                <input type="text" [formControl]="alias.get('short_name')" matInput placeholder="Short Name">
+                <input [formControl]="alias.get('short_name')" matInput placeholder="Short Name" type="text">
                 <mat-error>{{errors.aliases[i]?.short_name}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
-                <input type="text" [formControl]="alias.get('long_name')" matInput placeholder="Long Name">
+                <input [formControl]="alias.get('long_name')" matInput placeholder="Long Name" type="text">
                 <mat-error>{{errors.aliases[i]?.long_name}}</mat-error>
             </mat-form-field>
-            <button mat-flat-button color="warn" (click)="aliases.removeAt(i)">remove</button>
+            <button (click)="aliases.removeAt(i)" color="warn" mat-flat-button>remove</button>
         </div>
     </ng-container>
     <br><br><br>

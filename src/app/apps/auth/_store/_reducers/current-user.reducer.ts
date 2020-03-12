@@ -2,7 +2,9 @@ import {Action, createReducer, on} from '@ngrx/store';
 import * as CurrentUserActions from 'src/app/apps/auth/_store/_actions/current-user.actions';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 
+
 export const currentUserFeatureKey = 'currentUser';
+
 
 export interface State {
     loading: boolean;
@@ -11,6 +13,7 @@ export interface State {
     signUpError: any;
     updateUserError: any;
 }
+
 
 export const initialState: State = {
     loading: false,

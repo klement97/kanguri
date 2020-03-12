@@ -3,6 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {UserProfileComponent} from 'src/app/apps/profile/user-profile/user-profile.component';
 import {Store, StoreModule} from '@ngrx/store';
 
+
 describe('UserProfileComponent', () => {
     let component: UserProfileComponent;
     let fixture: ComponentFixture<UserProfileComponent>;

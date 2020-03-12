@@ -4,11 +4,12 @@ import {AnnouncementListComponent} from 'src/app/apps/announcement/_components/a
 
 
 const routes: Routes = [
-  {path: 'list', component: AnnouncementListComponent, pathMatch: 'full'}
+    {path: 'list', component: AnnouncementListComponent, pathMatch: 'full'}
 ];
 
+
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class AnnouncementRoutingModule {}

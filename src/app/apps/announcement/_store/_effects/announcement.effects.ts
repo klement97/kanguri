@@ -9,11 +9,6 @@ import {AnnouncementService} from 'src/app/apps/announcement/_store/_services/an
 
 @Injectable()
 export class AnnouncementEffects {
-    constructor(
-        private actions$: Actions,
-        private announcementService: AnnouncementService
-    ) {}
-
     loadAnnouncements$ = createEffect(() => this.actions$.pipe(
         ofType(AnnouncementActions.loadAnnouncements),
         switchMap(() => this.announcementService.getAnnouncements().pipe(
@@ -25,5 +20,10 @@ export class AnnouncementEffects {
             }))
         ))
     );
+
+    constructor(
+        private actions$: Actions,
+        private announcementService: AnnouncementService
+    ) {}
 
 }

@@ -2,6 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SignUpComponent} from 'src/app/apps/auth/signup/sign-up.component';
 
+
 describe('SignupComponent', () => {
     let component: SignUpComponent;
     let fixture: ComponentFixture<SignUpComponent>;

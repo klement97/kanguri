@@ -6,21 +6,21 @@ import {CategoryEffects} from 'src/app/apps/announcement/_store/_effects/categor
 
 
 describe('CategoryEffects', () => {
-  let actions$: Observable<any>;
-  let effects: CategoryEffects;
+    let actions$: Observable<any>;
+    let effects: CategoryEffects;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        CategoryEffects,
-        provideMockActions(() => actions$)
-      ]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                CategoryEffects,
+                provideMockActions(() => actions$)
+            ]
+        });
+
+        effects = TestBed.get<CategoryEffects>(CategoryEffects);
     });
 
-    effects = TestBed.get<CategoryEffects>(CategoryEffects);
-  });
-
-  it('should be created', () => {
-    expect(effects).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(effects).toBeTruthy();
+    });
 });

@@ -9,6 +9,7 @@ import {DialogPosition, MatDialog, MatDialogConfig} from '@angular/material/dial
 import {CurrentUserService} from 'src/app/apps/auth/_store/_services/current-user.service';
 import {selectCurrentUser} from 'src/app/apps/auth/_store/_selectors/current-user.selectors';
 
+
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',

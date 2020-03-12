@@ -10,8 +10,6 @@ import {of} from 'rxjs';
 export class CategoryEffects {
 
 
-    constructor(private actions$: Actions, private service: CategoryService) {}
-
     loadCategories$ = createEffect(() => this.actions$.pipe(
         ofType(loadCategories),
         switchMap(() => this.service.getCategories().pipe(
@@ -19,5 +17,7 @@ export class CategoryEffects {
             catchError(err => of(loadCategoriesFailure({error: err.error})))
         ))
     ));
+
+    constructor(private actions$: Actions, private service: CategoryService) {}
 
 }
