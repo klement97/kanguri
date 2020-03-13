@@ -1,25 +1,25 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {LoginComponent} from 'src/app/apps/auth/login/login.component';
+import {UserProfileComponent} from 'src/app/apps/profile/_components/user-profile/user-profile.component';
 import {Store, StoreModule} from '@ngrx/store';
 
 
-describe('LoginComponent', () => {
-    let component: LoginComponent;
-    let fixture: ComponentFixture<LoginComponent>;
+describe('UserProfileComponent', () => {
+    let component: UserProfileComponent;
+    let fixture: ComponentFixture<UserProfileComponent>;
     let store: Store<any>;
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
             imports: [StoreModule.forRoot({})],
-            declarations: [LoginComponent]
+            declarations: [UserProfileComponent]
         });
 
         await TestBed.compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(LoginComponent);
+        fixture = TestBed.createComponent(UserProfileComponent);
         component = fixture.componentInstance;
         store = TestBed.get<Store<any>>(Store);
 

@@ -3,7 +3,7 @@ import {Store} from '@ngrx/store';
 import * as fromCurrentUser from 'src/app/apps/auth/_store/_reducers/current-user.reducer';
 import {Observable} from 'rxjs';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
-import {LoginComponent} from 'src/app/apps/auth/login/login.component';
+import {LoginComponent} from 'src/app/apps/auth/_components/login/login.component';
 import * as CurrentUserActions from 'src/app/apps/auth/_store/_actions/current-user.actions';
 import {DialogPosition, MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {CurrentUserService} from 'src/app/apps/auth/_store/_services/current-user.service';

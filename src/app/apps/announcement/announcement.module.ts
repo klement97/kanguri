@@ -22,10 +22,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {CategoryEffects} from 'src/app/apps/announcement/_store/_effects/category.effects';
+import {AnnouncementDetailComponent} from './_components/announcement-detail/announcement-detail.component';
 
 
 @NgModule({
-    declarations: [AnnouncementListComponent],
+    declarations: [AnnouncementListComponent, AnnouncementDetailComponent],
     imports: [
         CommonModule,
         AnnouncementRoutingModule,
