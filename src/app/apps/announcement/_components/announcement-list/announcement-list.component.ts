@@ -31,10 +31,10 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     loading$: Observable<boolean> = this.store.select(selectAnnouncementLoading);
     categories$: Observable<Category[]> = this.store.select(selectCategories);
     error$: Observable<ErrorResponse> = this.store.select(selectAnnouncementError);
+    uns$ = new Subject();
 
     filterForm = this.service.getFilterForm();
-
-    uns$ = new Subject();
+    isOpen = false;
 
     constructor(
         private store: Store<fromAnnouncement.State>,
@@ -63,6 +63,10 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     public resetForm() {
         this.filterForm = this.service.resetFilterForm();
         this.getAnnouncements();
+    }
+
+    public openDetails() {
+        this.isOpen = true;
     }
 
     private setPaginator() {

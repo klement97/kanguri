@@ -23,6 +23,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {CategoryEffects} from 'src/app/apps/announcement/_store/_effects/category.effects';
 import {AnnouncementDetailComponent} from './_components/announcement-detail/announcement-detail.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import {AnnouncementDetailComponent} from './_components/announcement-detail/ann
         MatSelectModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatIconModule
+        MatIconModule,
+        MatSidenavModule
     ],
     providers: [AnnouncementService]
 })
