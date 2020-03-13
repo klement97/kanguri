@@ -65,8 +65,13 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
         this.getAnnouncements();
     }
 
-    public openDetails() {
+    public openDetails(id: number) {
         this.isOpen = true;
+        this.getAnnouncement(id);
+    }
+
+    private getAnnouncement(id: number) {
+        this.store.dispatch(AnnouncementActions.loadAnnouncement({id}));
     }
 
     private setPaginator() {

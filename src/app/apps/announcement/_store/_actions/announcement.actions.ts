@@ -2,6 +2,7 @@ import {createAction, props} from '@ngrx/store';
 import {Update} from '@ngrx/entity';
 
 import {Announcement} from 'src/app/apps/announcement/_store/_models/announcement.model';
+import {ErrorResponse} from 'src/app/common/const';
 
 
 export const loadAnnouncements = createAction(
@@ -16,6 +17,22 @@ export const loadAnnouncementsSuccess = createAction(
 export const loadAnnouncementsFailure = createAction(
     '[Announcement/API] Load Announcements Failure',
     props<{ error }>()
+);
+
+export const loadAnnouncement = createAction(
+    '[Announcement Details] Load Announcement',
+    props<{ id: number }>()
+);
+
+export const loadAnnouncementSuccess = createAction(
+    '[Announcement/API] Load Announcement Success',
+    props<{ announcement: Announcement }>()
+);
+
+
+export const loadAnnouncementFailure = createAction(
+    '[Announcement/API] Load Announcement Failure',
+    props<{ error: ErrorResponse }>()
 );
 
 export const addAnnouncement = createAction(

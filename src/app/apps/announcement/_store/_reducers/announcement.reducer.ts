@@ -12,6 +12,7 @@ export interface State extends EntityState<Announcement> {
     loading: boolean;
     error: ErrorResponse;
     count: number;
+    announcement: Announcement;
 }
 
 
@@ -21,6 +22,7 @@ export const initialState: State = adapter.getInitialState({
     loading: false,
     error: null,
     count: 0,
+    announcement: null
 });
 
 const announcementReducer = createReducer(
@@ -64,6 +66,15 @@ const announcementReducer = createReducer(
         .addAll(announcements, {...state, count, loading: false, error: null})
     ),
     on(AnnouncementActions.loadAnnouncementsFailure,
+        (state, {error}) => ({...state, loading: false, error})
+    ),
+    on(AnnouncementActions.loadAnnouncement,
+        state => ({...state, loading: true})
+    ),
+    on(AnnouncementActions.loadAnnouncementSuccess,
+        (state, {announcement}) => ({...state, loading: false, announcement})
+    ),
+    on(AnnouncementActions.loadAnnouncementFailure,
         (state, {error}) => ({...state, loading: false, error})
     ),
     on(AnnouncementActions.clearAnnouncements,

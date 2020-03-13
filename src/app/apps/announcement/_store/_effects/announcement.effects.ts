@@ -21,6 +21,14 @@ export class AnnouncementEffects {
         ))
     );
 
+    loadAnnouncement$ = createEffect(() => this.actions$.pipe(
+        ofType(AnnouncementActions.loadAnnouncement),
+        switchMap(({id}) => this.announcementService.getAnnouncement(id).pipe(
+            map(({data}) => AnnouncementActions.loadAnnouncementSuccess({announcement: data})),
+            catchError((error) => of(AnnouncementActions.loadAnnouncementFailure({error: error.error})))
+        ))
+    ));
+
     constructor(
         private actions$: Actions,
         private announcementService: AnnouncementService

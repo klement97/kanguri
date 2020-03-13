@@ -118,7 +118,8 @@
                         </article>
                         <footer class="child-spaced-row">
                             <h3>{{announcement.price | number: '1.0-1' : 'en'}}&nbsp;LEK</h3>
-                            <button class="list-item-button" mat-stroked-button (click)="openDetails()">Lexo Me Shume
+                            <button class="list-item-button" mat-stroked-button (click)="openDetails(announcement.id)">
+                                Lexo Me Shume
                             </button>
                         </footer>
                     </div>

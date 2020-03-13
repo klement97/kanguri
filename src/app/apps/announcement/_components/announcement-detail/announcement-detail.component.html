@@ -1,1 +1,7 @@
 <p>announcement-detail works!</p>
+<ng-container *ngIf="announcement$ | async as announcement">
+    <p>{{announcement.id}}</p>
+    <p>{{announcement.category_name}}</p>
+    <p>{{announcement.date_created}}</p>
+    <p>{{announcement.name}}</p>
+</ng-container>

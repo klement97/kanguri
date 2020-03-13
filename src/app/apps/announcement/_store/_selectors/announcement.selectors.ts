@@ -23,3 +23,8 @@ export const selectAnnouncementError = createSelector(
     selectAnnouncementState,
     state => state.error
 );
+
+export const selectAnnouncement = createSelector(
+    selectAnnouncementState,
+    state => state.announcement
+);
