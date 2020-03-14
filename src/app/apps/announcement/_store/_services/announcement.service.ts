@@ -54,7 +54,7 @@ export class AnnouncementService {
             date_created_min: null,
             date_created_max: null,
             sort_field: '',
-            sort: ''
+            sort: 'asc'
         });
     }
 

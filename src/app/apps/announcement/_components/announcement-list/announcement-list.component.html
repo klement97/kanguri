@@ -1,8 +1,9 @@
 <mat-drawer-container>
 
-    <!-- Announcement List Here -->
     <mat-drawer-content>
         <main class="announcement-list w-100 flex-row-start pos-r">
+
+            <!-- BEGIN Filer Form -->
             <section class="filters w-25 pos-r flex-column-start">
                 <h3>Kërko njoftime</h3>
                 <form [formGroup]="filterForm" class="w-100 flex-column-start" novalidate>
@@ -74,6 +75,24 @@
                         <mat-hint>Kërkimi do të bëhet për njoftimet e postuara përpara kësaj date</mat-hint>
                     </mat-form-field>
 
+                    <div class="flex-center-row">
+                        <!-- Sort Field -->
+                        <mat-form-field>
+                            <mat-select placeholder="Rendit sipas" formControlName="sort_field">
+                                <mat-option value="price">Çmimi</mat-option>
+                                <mat-option value="date_created">Data</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <!-- Sort -->
+                        <mat-form-field>
+                            <mat-select formControlName="sort">
+                                <mat-option value="asc">Nga më i ulët në më të lartë</mat-option>
+                                <mat-option value="desc">Nga më i lartë në më të ulët</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
                     <!-- Search and Clear Buttons -->
                     <div>
                         <button (click)="getAnnouncements()" mat-raised-button type="submit">
@@ -92,6 +111,9 @@
                     </div>
                 </form>
             </section>
+            <!-- END Filer Form -->
+
+            <!-- BEGIN Announcement List -->
             <section class="list w-75 pos-r over-hidden pd-m">
                 <div style="height: 4px">
                     <mat-progress-bar *ngIf="loading$ | async" mode="indeterminate"></mat-progress-bar>
@@ -118,8 +140,17 @@
                         </article>
                         <footer class="child-spaced-row">
                             <h3>{{announcement.price | number: '1.0-1' : 'en'}}&nbsp;LEK</h3>
+                            <button class="list-item-button" mat-stroked-button>
+                                <span class="flex-center-row">
+                                    <span>Ruaje</span>&nbsp;
+                                    <mat-icon>library_add</mat-icon>
+                                </span>
+                            </button>
                             <button class="list-item-button" mat-stroked-button (click)="openDetails(announcement.id)">
-                                Lexo Me Shume
+                                <span class="flex-center-row">
+                                    <span>Lexo Me Shume</span>&nbsp;
+                                    <mat-icon>notes</mat-icon>
+                                </span>
                             </button>
                         </footer>
                     </div>
@@ -137,6 +168,8 @@
                                showFirstLastButtons>
                 </mat-paginator>
             </section>
+            <!-- END Announcement List -->
+
         </main>
     </mat-drawer-content>
 
