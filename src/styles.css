@@ -108,6 +108,14 @@ a {
     overflow: hidden;
 }
 
+.flex {
+    display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
 .flex-row-start {
     display: flex;
     justify-content: flex-start;
