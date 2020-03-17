@@ -91,7 +91,7 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
         this.readMorePage.style.pointerEvents = 'auto';
         this.readMoreContent.style.transform = 'translateX(0)';
 
-        document.querySelector('.read-more > div:nth-child(1)').addEventListener('click', () => {
+        document.querySelector('.close-read-more').addEventListener('click', () => {
             this.readMorePage.style.opacity = '0';
             this.readMorePage.style.pointerEvents = 'none';
             this.readMoreContent.style.transform = 'translateX(100%)';
