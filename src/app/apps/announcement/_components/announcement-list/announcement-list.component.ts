@@ -38,24 +38,44 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     error$: Observable<ErrorResponse> = this.store.select(selectAnnouncementError);
     uns$ = new Subject();
 
+    dateCreatedMinValue = null;
+    dateCreatedMaxValue = null;
+
     filterForm = this.service.getFilterForm();
-    isOpen = false;
 
     readMorePage;
 
     constructor(
         private store: Store<fromAnnouncement.State>,
         private service: AnnouncementService
-    ) {}
+    ) {
+        this.announcementMinMaxValues$.subscribe((values) => {
+                if (values) {
+                    this.dateCreatedMinValue = values.min_date_created;
+                    this.dateCreatedMaxValue = values.max_date_created;
+                }
+            }
+        );
+    }
 
     ngOnInit() {
         this.getAnnouncementsMinMaxValues();
         this.getAnnouncements();
         this.store.dispatch(loadCategories());
 
-        // this.filterForm.get('date_created_min').valueChanges.pipe(
-        //
-        // );
+        this.filterForm.get('date_created_min').valueChanges.subscribe(
+            (value) => {
+                if (value) {
+
+                }
+            }
+        );
+        this.filterForm.get('date_created_max').valueChanges.subscribe(
+            value => {
+                if (value) {
+                }
+            }
+        );
     }
 
     ngOnDestroy() {
