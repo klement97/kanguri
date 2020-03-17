@@ -57,7 +57,10 @@
             <!-- Minimum Date Created Picker -->
             <mat-form-field appearance="standard">
                 <mat-label>Zgjidhni datën minimale</mat-label>
-                <input [matDatepicker]="picker_min" formControlName="date_created_min" matInput>
+                <input [matDatepicker]="picker_min"
+                       [min]="(announcementMinMaxValues$ | async)?.min_date_created"
+                       [max]="(announcementMinMaxValues$ | async)?.max_date_created"
+                       formControlName="date_created_min" matInput>
                 <mat-datepicker-toggle [for]="picker_min" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #picker_min></mat-datepicker>
                 <mat-hint>Kërkimi do të bëhet për njoftimet e postuara pas kësaj date</mat-hint>
@@ -66,7 +69,10 @@
             <!-- Minimum Date Created Picker -->
             <mat-form-field appearance="standard">
                 <mat-label>Zgjidhni datën maksimale</mat-label>
-                <input [matDatepicker]="picker_max" formControlName="date_created_max" matInput>
+                <input [matDatepicker]="picker_max"
+                       [min]="(announcementMinMaxValues$ | async)?.min_date_created"
+                       [max]="(announcementMinMaxValues$ | async)?.max_date_created"
+                       formControlName="date_created_max" matInput>
                 <mat-datepicker-toggle [for]="picker_max" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #picker_max></mat-datepicker>
                 <mat-hint>Kërkimi do të bëhet për njoftimet e postuara përpara kësaj date</mat-hint>
