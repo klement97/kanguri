@@ -146,7 +146,8 @@
                                     <mat-icon>library_add</mat-icon>
                                 </span>
                     </button>
-                    <button class="list-item-button" mat-stroked-button (click)="openDetails()">
+                    <button class="list-item-button read-more-button" mat-stroked-button
+                            (click)="openDetails(announcement.id)">
                                 <span class="flex-center-row">
                                     <span>Lexo Me Shume</span>&nbsp;
                                     <mat-icon>notes</mat-icon>
@@ -168,9 +169,11 @@
                        showFirstLastButtons>
         </mat-paginator>
     </section>
-    <section class="read-more w-100 h-100 pos-f z-max flex-row-start">
+    <section class="read-more w-100 h-100 pos-f z-max flex-row-start" #readMore>
         <div class="close-read-more w-25 h-100"></div>
-        <div class="read-more-content w-75 h-100 pos-r"></div>
+        <div class="read-more-content w-75 h-100 pos-r" #readMoreContent>
+            <app-announcement-detail></app-announcement-detail>
+        </div>
     </section>
     <!-- END Announcement List -->
 

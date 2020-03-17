@@ -28,6 +28,8 @@ import {selectAnnouncementMinMaxValues} from 'src/app/apps/announcement/_store/_
 export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewInit {
 
     @ViewChild('paginator') paginator: MatPaginator;
+    @ViewChild('readMore') readMore;
+    @ViewChild('readMoreContent') readMoreContent;
     announcements$: Observable<Announcement[]> = this.store.select(selectAnnouncements);
     announcementCount$: Observable<number> = this.store.select(selectAnnouncementsCount);
     loading$: Observable<boolean> = this.store.select(selectAnnouncementLoading);
@@ -39,9 +41,7 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     filterForm = this.service.getFilterForm();
     isOpen = false;
 
-    readMorePage = document.querySelector('.read-more');
-    readMoreContent = document.querySelector('.read-more-content');
-    readMore = document.querySelectorAll('.list-item-button');
+    readMorePage;
 
     constructor(
         private store: Store<fromAnnouncement.State>,
@@ -66,6 +66,9 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     ngAfterViewInit() {
         this.setPaginator();
         this.watchPageChange();
+        this.readMorePage = document.querySelector('.read-more');
+        this.readMoreContent = document.querySelector('.read-more-content');
+        this.readMore = document.querySelectorAll('.read-more-button');
     }
 
     public getAnnouncements() {
@@ -81,15 +84,13 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
         this.getAnnouncements();
     }
 
-    public openDetails() {
-        // tslint:disable-next-line:prefer-for-of
-        for (let i = 0; i < this.readMore.length; i++) {
-            this.readMore[i].addEventListener('click', () => {
-                this.readMorePage.style.opacity = '1';
-                this.readMorePage.style.pointerEvents = 'auto';
-                this.readMoreContent.style.transform = 'translateX(0)';
-            });
-        }
+    public openDetails(id: number) {
+        this.getAnnouncement(id);
+
+        this.readMorePage.style.opacity = '1';
+        this.readMorePage.style.pointerEvents = 'auto';
+        this.readMoreContent.style.transform = 'translateX(0)';
+
         document.querySelector('.read-more > div:nth-child(1)').addEventListener('click', () => {
             this.readMorePage.style.opacity = '0';
             this.readMorePage.style.pointerEvents = 'none';
