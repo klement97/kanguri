@@ -1,10 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {
-    Announcement,
-    AnnouncementMinMaxValues,
-    Category
-} from 'src/app/apps/announcement/_store/_models/announcement.model';
+import {Announcement, AnnouncementMinMaxValues, Category} from 'src/app/apps/announcement/_store/_models/announcement.model';
 import {Store} from '@ngrx/store';
 import * as fromAnnouncement from 'src/app/apps/announcement/_store/_reducers/announcement.reducer';
 import {MatPaginator} from '@angular/material/paginator';
@@ -43,6 +39,10 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     filterForm = this.service.getFilterForm();
     isOpen = false;
 
+    readMorePage = document.querySelector('.read-more');
+    readMoreContent = document.querySelector('.read-more-content');
+    readMore = document.querySelectorAll('.list-item-button');
+
     constructor(
         private store: Store<fromAnnouncement.State>,
         private service: AnnouncementService
@@ -52,6 +52,10 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
         this.getAnnouncementsMinMaxValues();
         this.getAnnouncements();
         this.store.dispatch(loadCategories());
+
+        // this.filterForm.get('date_created_min').valueChanges.pipe(
+        //
+        // );
     }
 
     ngOnDestroy() {
@@ -78,20 +82,18 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     }
 
     public openDetails() {
-        const readMorePage = document.querySelector('.read-more');
-        const readMoreContent = document.querySelector('.read-more-content');
-        const readMore = document.querySelectorAll('.list-item-button');
-        for (let i = 0; i < readMore.length; i++) {
-            readMore[i].addEventListener('click', function (event) {
-                readMorePage.style.opacity = '1';
-                readMorePage.style.pointerEvents = 'auto';
-                readMoreContent.style.transform = 'translateX(0)';
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < this.readMore.length; i++) {
+            this.readMore[i].addEventListener('click', () => {
+                this.readMorePage.style.opacity = '1';
+                this.readMorePage.style.pointerEvents = 'auto';
+                this.readMoreContent.style.transform = 'translateX(0)';
             });
         }
-        document.querySelector('.read-more > div:nth-child(1)').addEventListener('click', function () {
-            readMorePage.style.opacity = '0';
-            readMorePage.style.pointerEvents = 'none';
-            readMoreContent.style.transform = 'translateX(100%)';
+        document.querySelector('.read-more > div:nth-child(1)').addEventListener('click', () => {
+            this.readMorePage.style.opacity = '0';
+            this.readMorePage.style.pointerEvents = 'none';
+            this.readMoreContent.style.transform = 'translateX(100%)';
         });
     }
 
