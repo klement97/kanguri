@@ -1,7 +1,7 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-import {Announcement} from './announcement.model';
-import * as AnnouncementActions from './announcement.actions';
+import {Announcement} from 'src/app/apps/announcement/_store/_models/announcement.model';
+import * as AnnouncementActions from 'src/app/apps/announcement/_store/_actions/announcement.actions';
 import {ErrorResponse} from 'src/app/common/const';
 
 
@@ -12,6 +12,7 @@ export interface State extends EntityState<Announcement> {
     loading: boolean;
     error: ErrorResponse;
     count: number;
+    announcement: Announcement;
 }
 
 
@@ -21,6 +22,7 @@ export const initialState: State = adapter.getInitialState({
     loading: false,
     error: null,
     count: 0,
+    announcement: null
 });
 
 const announcementReducer = createReducer(
@@ -36,7 +38,8 @@ const announcementReducer = createReducer(
         (state, {error}) => ({...state, loading: false, error})
     ),
     on(AnnouncementActions.upsertAnnouncement,
-        (state, action) => adapter.upsertOne(action.announcement, state)
+        (state, action) => adapter
+        .upsertOne(action.announcement, state)
     ),
     on(AnnouncementActions.updateAnnouncement,
         (state, action) => ({...state, loading: true})
@@ -52,15 +55,26 @@ const announcementReducer = createReducer(
         (state, {id}) => ({...state, loading: true})
     ),
     on(AnnouncementActions.deleteAnnouncementSuccess,
-        (state, {id}) => adapter.removeOne(id, {...state, loading: false, error: null})
+        (state, {id}) => adapter
+        .removeOne(id, {...state, loading: false, error: null})
     ),
     on(AnnouncementActions.loadAnnouncements,
         state => ({...state, loading: true})
     ),
     on(AnnouncementActions.loadAnnouncementsSuccess,
-        (state, {announcements, count}) => adapter.addAll(announcements, {...state, count})
+        (state, {announcements, count}) => adapter
+        .addAll(announcements, {...state, count, loading: false, error: null})
     ),
     on(AnnouncementActions.loadAnnouncementsFailure,
+        (state, {error}) => ({...state, loading: false, error})
+    ),
+    on(AnnouncementActions.loadAnnouncement,
+        state => ({...state, loading: true})
+    ),
+    on(AnnouncementActions.loadAnnouncementSuccess,
+        (state, {announcement}) => ({...state, loading: false, announcement})
+    ),
+    on(AnnouncementActions.loadAnnouncementFailure,
         (state, {error}) => ({...state, loading: false, error})
     ),
     on(AnnouncementActions.clearAnnouncements,

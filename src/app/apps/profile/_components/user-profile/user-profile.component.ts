@@ -8,6 +8,7 @@ import {CITIES} from 'src/app/common/const';
 import {updateCurrentUser} from 'src/app/apps/auth/_store/_actions/current-user.actions';
 import {ErrorHandler} from 'src/app/common/error-handler/error.handler';
 
+
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
@@ -30,6 +31,10 @@ export class UserProfileComponent implements OnInit {
         this.currentUser$ = store.select(selectCurrentUser);
         store.select(selectUpdateUserError)
         .subscribe(error => this.errorHandler.organizeServerErrors(error, this.userForm));
+    }
+
+    get aliases() {
+        return this.userForm.get('aliases') as FormArray;
     }
 
     ngOnInit() {
@@ -63,10 +68,6 @@ export class UserProfileComponent implements OnInit {
             city: ['', []],
             aliases: this.builder.array([])
         });
-    }
-
-    get aliases() {
-        return this.userForm.get('aliases') as FormArray;
     }
 
     addAliasAndMarkAsUntouched() {

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {CurrentUserService} from 'src/app/apps/auth/_store/_services/current-user.service';
 
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',

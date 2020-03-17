@@ -7,25 +7,41 @@ export class JwtModel {
 }
 
 
+export const KANGURI_ACCESS = '_kanguri_access';
+export const KANGURI_REFRESH = '_kanguri_refresh';
+export const KANGURI_USER = '_kanguri_user';
+
+
 export function buildQueryString(payload) {
     const queryString = [];
-    if (payload.page) {
-        queryString.push(`page=${payload.page}`);
+    if (payload.page !== undefined && payload.page !== null) {
+        queryString.push(`page=${payload.page + 1}`);
+    }
+    if (payload.pageSize) {
+        queryString.push(`page_size=${payload.pageSize}`);
+    }
+    if (payload.sort_field) {
+        queryString.push(`sort_field=${payload.sort_field}`);
+    }
+    if (payload.sort) {
+        queryString.push(`sort=${payload.sort}`);
     }
     if (payload.filter) {
         queryString.push(`filter=${JSON.stringify(payload.filter)}`);
-    }
-    if (payload.sort) {
-        queryString.push(`sort_field=${payload.sort}`);
-    }
-    if (payload.order) {
-        queryString.push(`order=${payload.order}`);
     }
     if (queryString.length > 0) {
         return '?' + queryString.join('&');
     }
     return '';
+}
 
+
+export interface QueryParam {
+    page: number;
+    pageSize: number;
+    sort_field?: string;
+    sort?: 'asc' | 'desc';
+    filter: object;
 }
 
 
@@ -40,7 +56,7 @@ export function clientSideSearch(formControl: FormControl, list: any[], filterLi
 
 export class APIResponse {
     data: any;
-    pagination?: Pagination;
+    count: number;
 }
 
 
@@ -48,11 +64,6 @@ export class ErrorResponse {
     type: string;
     errors: any;
     message: string;
-}
-
-
-class Pagination {
-    count: number;
 }
 
 

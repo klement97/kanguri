@@ -4,23 +4,23 @@ import {AnnouncementListComponent} from 'src/app/apps/announcement/_components/a
 
 
 describe('AnnouncementListComponent', () => {
-  let component: AnnouncementListComponent;
-  let fixture: ComponentFixture<AnnouncementListComponent>;
+    let component: AnnouncementListComponent;
+    let fixture: ComponentFixture<AnnouncementListComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [AnnouncementListComponent]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [AnnouncementListComponent]
+        })
+        .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AnnouncementListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(AnnouncementListComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

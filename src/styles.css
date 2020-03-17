@@ -12,6 +12,26 @@ html, body {
     box-sizing: border-box;
 }
 
+/* Width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 h1, h2, h3, h4, h5, h6, p {
     font-weight: 100;
 }
@@ -88,6 +108,14 @@ a {
     overflow: hidden;
 }
 
+.flex {
+    display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
 .flex-row-start {
     display: flex;
     justify-content: flex-start;
@@ -98,6 +126,7 @@ a {
     flex-direction: column;
     justify-content: flex-start;
 }
+
 /* Used for centering child of a parent in center in a horizontal direction */
 .flex-center-row {
     display: flex;
@@ -135,6 +164,7 @@ a {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 /* Padding system  */
 .pd-m {
     padding: 20px;

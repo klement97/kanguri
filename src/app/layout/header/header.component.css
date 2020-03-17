@@ -1,8 +1,9 @@
 .navigation {
+    height: 50px;
     background-color: #2F2E2E;
     color: white;
-    padding: 20px 100px;
-    position: sticky;
+    padding: 0 20px 0 45px;
+    align-items: center;
 }
 
 .menu ul li {
