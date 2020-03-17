@@ -74,6 +74,17 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     }
 
     public openDetails(id: number) {
+        alert('U kap js');
+        const readMorePage = document.querySelector('.read-more');
+        const readMoreContent = document.querySelector('.read-more-content');
+        const readMore = document.querySelectorAll('.list-item-button');
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < readMore.length; i++) {
+            // tslint:disable-next-line:only-arrow-functions
+            readMore[i].addEventListener('click', function(event) {
+                alert('U kap');
+            });
+        }
         this.isOpen = true;
         this.getAnnouncement(id);
     }
