@@ -96,13 +96,14 @@
     overflow: hidden;
     opacity: 0;
     pointer-events: none;
-    transition: opacity .4s linear;
+    transition: opacity .2s linear;
     backface-visibility: hidden;
     will-change: opacity;
 }
 
 .read-more > .read-more-content {
     background-color: white;
+    transform: translateX(100%);
     overflow: auto;
     transition: transform .4s ease-in-out;
     backface-visibility: hidden;
