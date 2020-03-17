@@ -1,6 +1,10 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {Announcement, AnnouncementMinMaxValues, Category} from 'src/app/apps/announcement/_store/_models/announcement.model';
+import {
+    Announcement,
+    AnnouncementMinMaxValues,
+    Category
+} from 'src/app/apps/announcement/_store/_models/announcement.model';
 import {Store} from '@ngrx/store';
 import * as fromAnnouncement from 'src/app/apps/announcement/_store/_reducers/announcement.reducer';
 import {MatPaginator} from '@angular/material/paginator';
@@ -73,20 +77,22 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
         this.getAnnouncements();
     }
 
-    public openDetails(id: number) {
-        alert('U kap js');
+    public openDetails() {
         const readMorePage = document.querySelector('.read-more');
         const readMoreContent = document.querySelector('.read-more-content');
         const readMore = document.querySelectorAll('.list-item-button');
-        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < readMore.length; i++) {
-            // tslint:disable-next-line:only-arrow-functions
-            readMore[i].addEventListener('click', function(event) {
-                alert('U kap');
+            readMore[i].addEventListener('click', function (event) {
+                readMorePage.style.opacity = '1';
+                readMorePage.style.pointerEvents = 'auto';
+                readMoreContent.style.transform = 'translateX(0)';
             });
         }
-        this.isOpen = true;
-        this.getAnnouncement(id);
+        document.querySelector('.read-more > div:nth-child(1)').addEventListener('click', function () {
+            readMorePage.style.opacity = '0';
+            readMorePage.style.pointerEvents = 'none';
+            readMoreContent.style.transform = 'translateX(100%)';
+        });
     }
 
     private getAnnouncement(id: number) {
