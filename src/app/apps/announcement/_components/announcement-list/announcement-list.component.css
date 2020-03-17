@@ -88,3 +88,23 @@
     border-right: 15px solid transparent;
     border-bottom: 15px solid white;
 }
+
+.read-more {
+    background-color: rgba(0,0,0,.8);
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .4s linear;
+    backface-visibility: hidden;
+    will-change: opacity;
+}
+
+.read-more > .read-more-content {
+    background-color: white;
+    overflow: auto;
+    transition: transform .4s ease-in-out;
+    backface-visibility: hidden;
+    will-change: transform;
+}

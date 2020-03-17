@@ -162,7 +162,22 @@
                        showFirstLastButtons>
         </mat-paginator>
     </section>
+    <section class="read-more w-100 h-100 pos-f z-max flex-row-start">
+        <div class="w-25 h-100"></div>
+        <div class="read-more-content w-75 h-100 pos-r"></div>
+    </section>
     <!-- END Announcement List -->
 
 </main>
+<script>
+    alert("U kap js");
+    let readMorePage = document.querySelector(".read-more");
+    let readMoreContent = document.querySelector(".read-more-content");
+    let readMore = document.querySelectorAll(".list-item-button");
+    for (let i = 0; i < readMore.length; i++) {
+        readMore[i].addEventListener('click', function(event) {
+            alert("U kap");
+        });
+    }
+</script>
 
