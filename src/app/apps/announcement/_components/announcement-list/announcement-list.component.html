@@ -16,9 +16,9 @@
             <mat-form-field appearance="standard">
                 <mat-label>Çmimi më i ulët</mat-label>
                 <mat-slider
-                        [max]="1000"
-                        [min]="0"
-                        [step]="100"
+                        [min]="(announcementMinMaxValues$ | async)?.min_price"
+                        [max]="(announcementMinMaxValues$ | async)?.max_price"
+                        [step]="1000"
                         color="primary"
                         formControlName="price_min"
                         thumbLabel>
@@ -31,9 +31,9 @@
             <mat-form-field appearance="standard">
                 <mat-label>Çmimi më i lartë</mat-label>
                 <mat-slider
-                        [max]="10000"
-                        [min]="0"
-                        [step]="100"
+                        [min]="(announcementMinMaxValues$ | async)?.min_price"
+                        [max]="(announcementMinMaxValues$ | async)?.max_price"
+                        [step]="1000"
                         color="primary"
                         formControlName="price_max"
                         thumbLabel>

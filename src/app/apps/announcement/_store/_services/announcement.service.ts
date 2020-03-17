@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpBackend, HttpClient} from '@angular/common/http';
 import {ENDPOINTS} from 'src/app/common/endpoints';
 import {APIResponse, buildQueryString, QueryParam} from 'src/app/common/const';
 import {Observable} from 'rxjs';
@@ -13,11 +13,15 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class AnnouncementService {
     announcementPaginator: MatPaginator;
     announcementFilterForm: FormGroup = this.buildFilterForm();
+    private httpWithoutInterceptor: HttpClient;
 
     constructor(
         private http: HttpClient,
+        private httpBackEnd: HttpBackend,
         private fb: FormBuilder
-    ) { }
+    ) {
+        this.httpWithoutInterceptor = new HttpClient(httpBackEnd);
+    }
 
     /** Makes request to API to get all announcements with required page and filter */
     getAnnouncements(): Observable<APIResponse> {
@@ -31,6 +35,14 @@ export class AnnouncementService {
     getAnnouncement(id: number) {
         return this.http.get<APIResponse>(`${ENDPOINTS.ANNOUNCEMENT}/${id}/`);
     }
+
+
+    getAnnouncementMinMaxValues(): Observable<any> {
+        const url = `${ENDPOINTS.ANNOUNCEMENT_MIN_MAX_VALUES}/`;
+        // const request = new HttpRequest('GET', url);
+        return this.httpWithoutInterceptor.get(url);
+    }
+
 
     setPaginator(paginator: MatPaginator) {
         this.announcementPaginator = paginator;

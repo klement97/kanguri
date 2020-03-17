@@ -14,6 +14,7 @@ const JWT_VERIFY = `${JWT}/verify`;
 
 const ANNOUNCEMENT = `${API_HOST}/announcement`;
 const CATEGORY = `${API_HOST}/category`;
+const ANNOUNCEMENT_MIN_MAX_VALUES = `${API_HOST}/announcement_min_max_values`;
 
 export const ENDPOINTS = {
     API_HOST,
@@ -24,7 +25,8 @@ export const ENDPOINTS = {
     JWT_REFRESH,
     JWT_VERIFY,
     ANNOUNCEMENT,
-    CATEGORY
+    CATEGORY,
+    ANNOUNCEMENT_MIN_MAX_VALUES
 };
 
 export const NO_TOKEN_ENDPOINTS: string[] = [

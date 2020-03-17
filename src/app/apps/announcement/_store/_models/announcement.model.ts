@@ -27,3 +27,11 @@ export interface Image {
     id: number;
     image: string;
 }
+
+
+export interface AnnouncementMinMaxValues {
+    min_price: number;
+    max_price: number;
+    min_date_created: string;
+    max_date_created: string;
+}

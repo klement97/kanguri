@@ -9,6 +9,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {StoreModule} from '@ngrx/store';
 import * as fromAnnouncement from 'src/app/apps/announcement/_store/_reducers/announcement.reducer';
 import * as fromCategory from 'src/app/apps/announcement/_store/_reducers/category.reducer';
+import * as fromAnnouncementMinMax from 'src/app/apps/announcement/_store/_reducers/announcement-min-max-values.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {AnnouncementEffects} from 'src/app/apps/announcement/_store/_effects/announcement.effects';
 import {AnnouncementService} from 'src/app/apps/announcement/_store/_services/announcement.service';
@@ -24,6 +25,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {CategoryEffects} from 'src/app/apps/announcement/_store/_effects/category.effects';
 import {AnnouncementDetailComponent} from './_components/announcement-detail/announcement-detail.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {AnnouncementMinMaxValuesEffects} from 'src/app/apps/announcement/_store/_effects/announcement-min-max-values.effects';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
         AnnouncementRoutingModule,
         StoreModule.forFeature(fromAnnouncement.announcementsFeatureKey, fromAnnouncement.reducer),
         StoreModule.forFeature(fromCategory.categoriesFeatureKey, fromCategory.reducer),
-        EffectsModule.forFeature([AnnouncementEffects, CategoryEffects]),
+        StoreModule.forFeature(fromAnnouncementMinMax.announcementMinMaxValuesFeatureKey, fromAnnouncementMinMax.reducer),
+        EffectsModule.forFeature([AnnouncementEffects, CategoryEffects, AnnouncementMinMaxValuesEffects]),
         MatCardModule,
         MatButtonModule,
         MatPaginatorModule,
