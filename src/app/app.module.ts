@@ -18,6 +18,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {ServiceInterceptor} from 'src/app/_interceptor/service.interceptor';
 import {HeaderComponent} from './layout/header/header.component';
 import {MatButtonModule} from '@angular/material/button';
+import {AnnouncementSearchComponent} from './layout/announcement-search/announcement-search.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
 
 
 const matModules: any[] = [
@@ -29,7 +33,8 @@ const matModules: any[] = [
 @NgModule({
     declarations: [
         AppComponent,
-        HeaderComponent
+        HeaderComponent,
+        AnnouncementSearchComponent
     ],
     imports: [
         BrowserModule,
@@ -51,6 +56,9 @@ const matModules: any[] = [
 
         // apps
         AuthModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatIconModule,
 
     ],
     providers: [
