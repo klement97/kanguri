@@ -28,12 +28,3 @@ export const ENDPOINTS = {
     CATEGORY,
     ANNOUNCEMENT_MIN_MAX_VALUES
 };
-
-export const NO_TOKEN_ENDPOINTS: string[] = [
-    `${ENDPOINTS.JWT_CREATE}/`,
-    `${ENDPOINTS.JWT_REFRESH}/`,
-    `${ENDPOINTS.JWT_VERIFY}/`,
-    `${ENDPOINTS.USERS}/`,
-    `${ENDPOINTS.ANNOUNCEMENT}/`,
-    `${ENDPOINTS.CATEGORY}/`
-];

@@ -16,7 +16,6 @@ export class AnnouncementService {
     private httpWithoutInterceptor: HttpClient;
 
     constructor(
-        private http: HttpClient,
         private httpBackEnd: HttpBackend,
         private fb: FormBuilder
     ) {
@@ -28,12 +27,12 @@ export class AnnouncementService {
         const payload: QueryParam = this.buildQueryParams();
         const url = `${ENDPOINTS.ANNOUNCEMENT}/${buildQueryString(payload)}`;
 
-        return this.http.get<APIResponse>(url);
+        return this.httpWithoutInterceptor.get<APIResponse>(url);
     }
 
     /** Makes a request to API to get an announcement by its ID */
     getAnnouncement(id: number) {
-        return this.http.get<APIResponse>(`${ENDPOINTS.ANNOUNCEMENT}/${id}/`);
+        return this.httpWithoutInterceptor.get<APIResponse>(`${ENDPOINTS.ANNOUNCEMENT}/${id}/`);
     }
 
 
