@@ -81,6 +81,7 @@
             <!-- Sort Field -->
             <mat-form-field>
                 <mat-select placeholder="Rendit sipas" formControlName="sort_field">
+                    <mat-option value="views_count">Shikimet</mat-option>
                     <mat-option value="price">Çmimi</mat-option>
                     <mat-option value="date_created">Data</mat-option>
                 </mat-select>
@@ -140,7 +141,10 @@
                 </article>
                 <footer class="child-spaced-row">
                     <h3>{{announcement.price | number: '1.0-1' : 'en'}}&nbsp;LEK</h3>
-                    <span>{{announcement.views_count}}&nbsp;shikime</span>
+                    <span class="flex-center-row">
+                        <span>{{announcement.views_count | number: '' : 'en'}}</span>&nbsp;
+                        <mat-icon color="warn">remove_red_eye</mat-icon>
+                    </span>
                     <button class="list-item-button read-more-button" mat-stroked-button
                             (click)="openDetails(announcement.id)">
                                 <span class="flex-center-row">
