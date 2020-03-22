@@ -81,25 +81,22 @@ const announcementReducer = createReducer(
         state => adapter.removeAll(state)
     ),
     on(AnnouncementActions.incrementAnnouncementViewsSuccess,
-        (state, {id}) => adapter.updateOne(updateAnnouncementViewsCount(id, state), state))
+        (state, {id}) => adapter
+            .updateOne(updateAnnouncementViewsCount(
+                id, state),
+                {...state, announcement: incrementAnnouncementView(state.announcement)})
+    )
 );
 
 function updateAnnouncementViewsCount(id: number, state): Update<Announcement> {
     const oldViewsCount = state.entities[id].views_count;
-    return {
-        id,
-        changes: {
-            views_count: oldViewsCount + 1
-        }
-    };
+    return {id, changes: {views_count: oldViewsCount + 1}};
 }
 
-function incrementAnnouncementView(state, id) {
-    const newState = {...state};
-    console.log(newState);
-    newState[id].views_count += 1;
-    newState.announcement.views_count += 1;
-    return newState.entities;
+function incrementAnnouncementView(announcement) {
+    const incrementedAnnouncement = {...announcement};
+    incrementedAnnouncement.views_count += 1;
+    return incrementedAnnouncement;
 }
 
 export function reducer(state: State | undefined, action: Action) {
