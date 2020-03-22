@@ -5,6 +5,7 @@ import {APIResponse, buildQueryString, QueryParam} from 'src/app/common/const';
 import {Observable} from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {View} from 'src/app/apps/announcement/_store/_models/announcement.model';
 
 
 @Injectable({
@@ -38,8 +39,21 @@ export class AnnouncementService {
 
     getAnnouncementMinMaxValues(): Observable<any> {
         const url = `${ENDPOINTS.ANNOUNCEMENT_MIN_MAX_VALUES}/`;
-        // const request = new HttpRequest('GET', url);
         return this.httpWithoutInterceptor.get(url);
+    }
+
+    incrementAnnouncementViews(id: number): Observable<any> {
+        const request = new XMLHttpRequest();
+        request.open('GET', ENDPOINTS.IP_API, false);
+        request.send();
+        const res: any = JSON.parse(request.response);
+        res.announcement = id;
+        res.country_code = res.countryCode;
+        res.region_name = res.regionName;
+        res.ip_address = res.query;
+        res.is_mobile = res.mobile;
+
+        return this.httpWithoutInterceptor.post(`${ENDPOINTS.NEW_VIEW}/`, res);
     }
 
 

@@ -140,10 +140,11 @@
                 </article>
                 <footer class="child-spaced-row">
                     <h3>{{announcement.price | number: '1.0-1' : 'en'}}&nbsp;LEK</h3>
+                    <span>{{announcement.views_count}}&nbsp;shikime</span>
                     <button class="list-item-button read-more-button" mat-stroked-button
                             (click)="openDetails(announcement.id)">
                                 <span class="flex-center-row">
-                                    <span>Lexo Me Shume</span>&nbsp;
+                                    <span>Lexo më shumë</span>&nbsp;
                                     <mat-icon>notes</mat-icon>
                                 </span>
                     </button>

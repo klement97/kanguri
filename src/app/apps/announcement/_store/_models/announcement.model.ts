@@ -6,6 +6,7 @@ export interface Announcement {
     name: string;
     price: string;
     description: string;
+    views_count: number;
     sold: boolean;
     images: Image[];
     category: Category;
@@ -35,4 +36,16 @@ export interface AnnouncementMinMaxValues {
     max_price: number;
     min_date_created: string;
     max_date_created: string;
+}
+
+export interface View {
+    user: number;
+    announcement: number;
+    country: string;
+    country_code: string;
+    region: string;
+    region_name: string;
+    city: string;
+    ip_address: string;
+    is_mobile: boolean;
 }

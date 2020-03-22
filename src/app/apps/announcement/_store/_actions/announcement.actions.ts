@@ -6,99 +6,114 @@ import {ErrorResponse} from 'src/app/common/const';
 
 
 export const loadAnnouncements = createAction(
-    '[Announcement] Load Announcements'
+  '[Announcement] Load Announcements'
 );
 
 export const loadAnnouncementsSuccess = createAction(
-    '[Announcement/API] Load Announcements Success',
-    props<{ announcements: Announcement[], count: number }>()
+  '[Announcement/API] Load Announcements Success',
+  props<{ announcements: Announcement[], count: number }>()
 );
 
 export const loadAnnouncementsFailure = createAction(
-    '[Announcement/API] Load Announcements Failure',
-    props<{ error }>()
+  '[Announcement/API] Load Announcements Failure',
+  props<{ error }>()
 );
 
 export const loadAnnouncement = createAction(
-    '[Announcement Details] Load Announcement',
-    props<{ id: number }>()
+  '[Announcement Details] Load Announcement',
+  props<{ id: number }>()
 );
 
 export const loadAnnouncementSuccess = createAction(
-    '[Announcement/API] Load Announcement Success',
-    props<{ announcement: Announcement }>()
+  '[Announcement/API] Load Announcement Success',
+  props<{ announcement: Announcement }>()
 );
 
 
 export const loadAnnouncementFailure = createAction(
-    '[Announcement/API] Load Announcement Failure',
-    props<{ error: ErrorResponse }>()
+  '[Announcement/API] Load Announcement Failure',
+  props<{ error: ErrorResponse }>()
 );
 
 export const addAnnouncement = createAction(
-    '[Announcement Form] Add Announcement',
-    props<{ announcement: Announcement }>()
+  '[Announcement Form] Add Announcement',
+  props<{ announcement: Announcement }>()
 );
 
 export const addAnnouncementSuccess = createAction(
-    '[Announcement/API] Add Announcement Success',
-    props<{ announcement: Announcement }>()
+  '[Announcement/API] Add Announcement Success',
+  props<{ announcement: Announcement }>()
 );
 
 export const addAnnouncementFailure = createAction(
-    '[Announcement/API] Add Announcement Failure',
-    props<{ error }>()
+  '[Announcement/API] Add Announcement Failure',
+  props<{ error }>()
 );
 
 export const upsertAnnouncement = createAction(
-    '[Announcement/API] Upsert Announcement',
-    props<{ announcement: Announcement }>()
+  '[Announcement/API] Upsert Announcement',
+  props<{ announcement: Announcement }>()
 );
 
 export const updateAnnouncement = createAction(
-    '[Announcement Form] Update Announcement',
-    props<{ announcement: Announcement }>()
+  '[Announcement Form] Update Announcement',
+  props<{ announcement: Announcement }>()
 );
 
 export const updateAnnouncementSuccess = createAction(
-    '[Announcement/API] Update Announcement Success',
-    props<{ announcement: Update<Announcement> }>()
+  '[Announcement/API] Update Announcement Success',
+  props<{ announcement: Update<Announcement> }>()
 );
 
 export const updateAnnouncementFailure = createAction(
-    '[Announcement/API] Update Announcement Failure',
-    props<{ error }>()
+  '[Announcement/API] Update Announcement Failure',
+  props<{ error }>()
 );
 
 export const deleteAnnouncement = createAction(
-    '[Announcement] Delete Announcement',
-    props<{ id: number }>()
+  '[Announcement] Delete Announcement',
+  props<{ id: number }>()
 );
 
 export const deleteAnnouncementSuccess = createAction(
-    '[Announcement/API] Delete Announcement Success',
-    props<{ id: number }>()
+  '[Announcement/API] Delete Announcement Success',
+  props<{ id: number }>()
 );
 
 export const deleteAnnouncementFailure = createAction(
-    '[Announcement/API] Delete Announcement Failure',
-    props<{ error }>()
+  '[Announcement/API] Delete Announcement Failure',
+  props<{ error }>()
 );
 
 export const deleteAnnouncements = createAction(
-    '[Announcement] Delete Announcements',
-    props<{ ids: string[] }>()
+  '[Announcement] Delete Announcements',
+  props<{ ids: string[] }>()
 );
 
 export const deleteAnnouncementsSuccess = createAction(
-    '[Announcement/API] Delete Announcements Success'
+  '[Announcement/API] Delete Announcements Success'
 );
 
 export const deleteAnnouncementsFailure = createAction(
-    '[Announcement/API] Delete Announcements Failure',
-    props<{ error }>()
+  '[Announcement/API] Delete Announcements Failure',
+  props<{ error }>()
 );
 
 export const clearAnnouncements = createAction(
-    '[Announcement/API] Clear Announcements'
+  '[Announcement/API] Clear Announcements'
+);
+
+export const incrementAnnouncementViews = createAction(
+  '[Announcement/Detail Page] Increment Announcement Views By One',
+  props<{ id: number }>()
+);
+
+export const incrementAnnouncementViewsSuccess = createAction(
+  '[Announcement/API] Increment Announcement Views Success',
+  props<{ id: number }>()
+);
+
+export const incrementAnnouncementViewsFailure = createAction(
+  '[Announcement/API] Increment Announcement Views Failure',
+  props<{ error }>()
 );

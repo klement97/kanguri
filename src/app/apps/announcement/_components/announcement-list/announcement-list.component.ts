@@ -1,6 +1,10 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {Announcement, AnnouncementMinMaxValues, Category} from 'src/app/apps/announcement/_store/_models/announcement.model';
+import {
+    Announcement,
+    AnnouncementMinMaxValues,
+    Category
+} from 'src/app/apps/announcement/_store/_models/announcement.model';
 import {Store} from '@ngrx/store';
 import * as fromAnnouncement from 'src/app/apps/announcement/_store/_reducers/announcement.reducer';
 import {MatPaginator} from '@angular/material/paginator';
@@ -62,20 +66,6 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
         this.getAnnouncementsMinMaxValues();
         this.getAnnouncements();
         this.store.dispatch(loadCategories());
-
-        this.filterForm.get('date_created_min').valueChanges.subscribe(
-            (value) => {
-                if (value) {
-
-                }
-            }
-        );
-        this.filterForm.get('date_created_max').valueChanges.subscribe(
-            value => {
-                if (value) {
-                }
-            }
-        );
     }
 
     ngOnDestroy() {
@@ -120,6 +110,7 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
 
     private getAnnouncement(id: number) {
         this.store.dispatch(AnnouncementActions.loadAnnouncement({id}));
+        this.store.dispatch(AnnouncementActions.incrementAnnouncementViews({id}));
     }
 
     private setPaginator() {
