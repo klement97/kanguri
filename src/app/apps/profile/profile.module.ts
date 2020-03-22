@@ -24,4 +24,5 @@ import {MatIconModule} from '@angular/material/icon';
         MatIconModule,
     ]
 })
-export class ProfileModule {}
+export class ProfileModule {
+}

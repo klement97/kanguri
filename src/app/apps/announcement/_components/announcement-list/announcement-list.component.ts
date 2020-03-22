@@ -22,6 +22,7 @@ import {loadCategories} from 'src/app/apps/announcement/_store/_actions/category
 import {selectCategories} from 'src/app/apps/announcement/_store/_selectors/category.selectors';
 import {loadAnnouncementMinMaxValues} from 'src/app/apps/announcement/_store/_actions/announcement-min-max-values.actions';
 import {selectAnnouncementMinMaxValues} from 'src/app/apps/announcement/_store/_selectors/announcement-min-max-values.selectors';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -51,18 +52,19 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
 
     constructor(
         private store: Store<fromAnnouncement.State>,
-        private service: AnnouncementService
+        private service: AnnouncementService,
+        private route: ActivatedRoute
     ) {
         this.announcementMinMaxValues$.subscribe((values) => {
-                if (values) {
-                    this.dateCreatedMinValue = values.min_date_created;
-                    this.dateCreatedMaxValue = values.max_date_created;
-                }
+            if (values) {
+                this.dateCreatedMinValue = values.min_date_created;
+                this.dateCreatedMaxValue = values.max_date_created;
             }
-        );
+        });
     }
 
     ngOnInit() {
+        this.watchQueryParams();
         this.getAnnouncementsMinMaxValues();
         this.getAnnouncements();
         this.store.dispatch(loadCategories());
@@ -85,10 +87,6 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
         this.store.dispatch(AnnouncementActions.loadAnnouncements());
     }
 
-    public getAnnouncementsMinMaxValues() {
-        this.store.dispatch(loadAnnouncementMinMaxValues());
-    }
-
     public resetForm() {
         this.filterForm = this.service.resetFilterForm();
         this.getAnnouncements();
@@ -106,6 +104,22 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
             this.readMorePage.style.pointerEvents = 'none';
             this.readMoreContent.style.transform = 'translateX(100%)';
         });
+    }
+
+    private watchQueryParams(): void {
+        this.route.queryParams
+            .subscribe(params => {
+                if (params.name) {
+                    this.service.announcementFilterForm.get('name').patchValue(params.name);
+                    this.getAnnouncements();
+                } else {
+                    this.resetForm();
+                }
+            });
+    }
+
+    private getAnnouncementsMinMaxValues() {
+        this.store.dispatch(loadAnnouncementMinMaxValues());
     }
 
     private getAnnouncement(id: number) {

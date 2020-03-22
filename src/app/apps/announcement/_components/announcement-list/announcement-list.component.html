@@ -16,8 +16,8 @@
             <mat-form-field appearance="standard">
                 <mat-label>Çmimi më i ulët</mat-label>
                 <mat-slider
-                        [min]="(announcementMinMaxValues$ | async)?.min_price"
                         [max]="(announcementMinMaxValues$ | async)?.max_price"
+                        [min]="(announcementMinMaxValues$ | async)?.min_price"
                         [step]="1000"
                         color="primary"
                         formControlName="price_min"
@@ -31,8 +31,8 @@
             <mat-form-field appearance="standard">
                 <mat-label>Çmimi më i lartë</mat-label>
                 <mat-slider
-                        [min]="(announcementMinMaxValues$ | async)?.min_price"
                         [max]="(announcementMinMaxValues$ | async)?.max_price"
+                        [min]="(announcementMinMaxValues$ | async)?.min_price"
                         [step]="1000"
                         color="primary"
                         formControlName="price_max"
@@ -58,8 +58,8 @@
             <mat-form-field appearance="standard">
                 <mat-label>Zgjidhni datën minimale</mat-label>
                 <input [matDatepicker]="picker_min"
-                       [min]="dateCreatedMinValue"
                        [max]="dateCreatedMaxValue"
+                       [min]="dateCreatedMinValue"
                        formControlName="date_created_min" matInput>
                 <mat-datepicker-toggle [for]="picker_min" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #picker_min></mat-datepicker>
@@ -70,8 +70,8 @@
             <mat-form-field appearance="standard">
                 <mat-label>Zgjidhni datën maksimale</mat-label>
                 <input [matDatepicker]="picker_max"
-                       [min]="dateCreatedMinValue"
                        [max]="dateCreatedMaxValue"
+                       [min]="dateCreatedMinValue"
                        formControlName="date_created_max" matInput>
                 <mat-datepicker-toggle [for]="picker_max" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #picker_max></mat-datepicker>
@@ -80,7 +80,7 @@
 
             <!-- Sort Field -->
             <mat-form-field>
-                <mat-select placeholder="Rendit sipas" formControlName="sort_field">
+                <mat-select formControlName="sort_field" placeholder="Rendit sipas">
                     <mat-option value="views_count">Shikimet</mat-option>
                     <mat-option value="price">Çmimi</mat-option>
                     <mat-option value="date_created">Data</mat-option>
@@ -145,8 +145,8 @@
                         <span>{{announcement.views_count | number: '' : 'en'}}</span>&nbsp;
                         <mat-icon color="warn">remove_red_eye</mat-icon>
                     </span>
-                    <button class="list-item-button read-more-button" mat-stroked-button
-                            (click)="openDetails(announcement.id)">
+                    <button (click)="openDetails(announcement.id)" class="list-item-button read-more-button"
+                            mat-stroked-button>
                                 <span class="flex-center-row">
                                     <span>Lexo më shumë</span>&nbsp;
                                     <mat-icon>notes</mat-icon>
@@ -168,9 +168,9 @@
                        showFirstLastButtons>
         </mat-paginator>
     </section>
-    <section class="read-more w-100 h-100 pos-f z-max flex-row-start" #readMore>
+    <section #readMore class="read-more w-100 h-100 pos-f z-max flex-row-start">
         <div class="close-read-more w-25 h-100"></div>
-        <div class="read-more-content w-75 h-100 pos-r" #readMoreContent>
+        <div #readMoreContent class="read-more-content w-75 h-100 pos-r">
             <app-announcement-detail></app-announcement-detail>
         </div>
     </section>

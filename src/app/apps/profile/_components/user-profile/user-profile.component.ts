@@ -30,7 +30,7 @@ export class UserProfileComponent implements OnInit {
     ) {
         this.currentUser$ = store.select(selectCurrentUser);
         store.select(selectUpdateUserError)
-        .subscribe(error => this.errorHandler.organizeServerErrors(error, this.userForm));
+            .subscribe(error => this.errorHandler.organizeServerErrors(error, this.userForm));
     }
 
     get aliases() {

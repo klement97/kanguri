@@ -7,14 +7,14 @@ export const announcementMinMaxValuesFeatureKey = 'announcementMinMaxValues';
 
 
 export interface State {
-  data: AnnouncementMinMaxValues;
-  error: any;
+    data: AnnouncementMinMaxValues;
+    error: any;
 }
 
 
 export const initialState: State = {
-  data: null,
-  error: null
+    data: null,
+    error: null
 };
 
 const announcementMinMaxValuesReducer = createReducer(
@@ -27,5 +27,5 @@ const announcementMinMaxValuesReducer = createReducer(
 );
 
 export function reducer(state: State | undefined, action: Action) {
-  return announcementMinMaxValuesReducer(state, action);
+    return announcementMinMaxValuesReducer(state, action);
 }

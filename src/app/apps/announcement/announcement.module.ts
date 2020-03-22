@@ -53,4 +53,5 @@ import {AnnouncementMinMaxValuesEffects} from 'src/app/apps/announcement/_store/
     ],
     providers: [AnnouncementService]
 })
-export class AnnouncementModule {}
+export class AnnouncementModule {
+}

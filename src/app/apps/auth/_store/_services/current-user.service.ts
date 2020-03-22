@@ -24,10 +24,10 @@ export class CurrentUserService {
     httpWithoutInterceptor;
 
     constructor(
-            private http: HttpClient,
-            private cookieService: CookieService,
-            private store: Store<any>,
-            private httpBackend: HttpBackend
+        private http: HttpClient,
+        private cookieService: CookieService,
+        private store: Store<any>,
+        private httpBackend: HttpBackend
     ) {
         this.httpWithoutInterceptor = new HttpClient(httpBackend);
     }
@@ -72,10 +72,10 @@ export class CurrentUserService {
      */
     refreshAccessToken() {
         return this.httpWithoutInterceptor.post(`${ENDPOINTS.JWT_REFRESH}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
-                map((jwt: JwtModel) => {
-                    this.setJwtToCookies(jwt);
-                    return jwt;
-                }));
+            map((jwt: JwtModel) => {
+                this.setJwtToCookies(jwt);
+                return jwt;
+            }));
     }
 
 

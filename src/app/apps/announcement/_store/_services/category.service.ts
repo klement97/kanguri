@@ -11,7 +11,7 @@ export class CategoryService {
     httpWithoutInterceptor;
 
     constructor(
-            private httpBackEnd: HttpBackend
+        private httpBackEnd: HttpBackend
     ) {
         this.httpWithoutInterceptor = new HttpClient(httpBackEnd);
     }

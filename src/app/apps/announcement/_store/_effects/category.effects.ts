@@ -1,7 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {CategoryService} from 'src/app/apps/announcement/_store/_services/category.service';
-import {loadCategories, loadCategoriesFailure, loadCategoriesSuccess} from 'src/app/apps/announcement/_store/_actions/category.actions';
+import {
+    loadCategories,
+    loadCategoriesFailure,
+    loadCategoriesSuccess
+} from 'src/app/apps/announcement/_store/_actions/category.actions';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 
@@ -18,6 +22,7 @@ export class CategoryEffects {
         ))
     ));
 
-    constructor(private actions$: Actions, private service: CategoryService) {}
+    constructor(private actions$: Actions, private service: CategoryService) {
+    }
 
 }

@@ -22,6 +22,7 @@ import {AnnouncementSearchComponent} from './layout/announcement-search/announce
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
 
 
 const matModules: any[] = [
@@ -59,6 +60,7 @@ const matModules: any[] = [
         // apps
         AuthModule,
         ReactiveFormsModule,
+        MatSelectModule,
 
     ],
     providers: [

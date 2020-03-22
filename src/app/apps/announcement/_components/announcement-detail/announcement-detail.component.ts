@@ -6,16 +6,17 @@ import {selectAnnouncement} from 'src/app/apps/announcement/_store/_selectors/an
 
 
 @Component({
-  selector: 'app-announcement-detail',
-  templateUrl: './announcement-detail.component.html',
-  styleUrls: ['./announcement-detail.component.css']
+    selector: 'app-announcement-detail',
+    templateUrl: './announcement-detail.component.html',
+    styleUrls: ['./announcement-detail.component.css']
 })
 export class AnnouncementDetailComponent implements OnInit {
-  announcement$: Observable<Announcement> = this.store.select(selectAnnouncement);
+    announcement$: Observable<Announcement> = this.store.select(selectAnnouncement);
 
-  constructor(private store: Store<any>) { }
+    constructor(private store: Store<any>) {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

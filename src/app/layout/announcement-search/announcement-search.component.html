@@ -16,3 +16,11 @@
     >
     <mat-icon matSuffix class="search-icon">search</mat-icon>
 </mat-form-field>
+
+<div class="autocomplete" *ngIf="showSearchResults">
+    <div class="search-result" *ngFor="let result of searchResults">
+        <a [routerLink]="['/announcement/list']" [queryParams]="{name: result[1]}">
+            {{result[1]}}
+        </a>
+    </div>
+</div>

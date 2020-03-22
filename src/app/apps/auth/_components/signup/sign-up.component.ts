@@ -25,7 +25,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
         private errorHandler: ErrorHandler,
     ) {
         store.select(selectSignUpError).pipe(takeUntil(this.unsubscribe$))
-        .subscribe((error: ServerError) => errorHandler.organizeServerErrors(error, this.signUpForm));
+            .subscribe((error: ServerError) => errorHandler.organizeServerErrors(error, this.signUpForm));
     }
 
     ngOnInit() {

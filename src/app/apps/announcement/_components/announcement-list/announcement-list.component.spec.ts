@@ -11,7 +11,7 @@ describe('AnnouncementListComponent', () => {
         TestBed.configureTestingModule({
             declarations: [AnnouncementListComponent]
         })
-        .compileComponents();
+            .compileComponents();
     }));
 
     beforeEach(() => {

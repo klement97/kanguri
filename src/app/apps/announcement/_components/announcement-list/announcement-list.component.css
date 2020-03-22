@@ -92,8 +92,8 @@
     left: 0;
     top: 0;
     z-index: 1;
-    transform:translateX(-100%) translateY(-100%) rotate(-45deg);
-    animation-name:blue-light;
+    transform: translateX(-100%) translateY(-100%) rotate(-45deg);
+    animation-name: blue-light;
     animation-duration: 2s;
     animation-timing-function: linear;
     animation-fill-mode: forwards;
@@ -102,15 +102,15 @@
 
 @keyframes blue-light {
     0% {
-        transform:translateX(-100%) translateY(-100%) rotate(-45deg);
+        transform: translateX(-100%) translateY(-100%) rotate(-45deg);
     }
     100% {
-        transform:translateX(100%) translateY(100%) rotate(-45deg);
+        transform: translateX(100%) translateY(100%) rotate(-45deg);
     }
 }
 
 .read-more {
-    background-color: rgba(0,0,0,.8);
+    background-color: rgba(0, 0, 0, .8);
     top: 0;
     left: 0;
     overflow: hidden;

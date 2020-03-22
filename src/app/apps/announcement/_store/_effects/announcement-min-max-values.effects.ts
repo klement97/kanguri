@@ -24,6 +24,7 @@ export class AnnouncementMinMaxValuesEffects {
     );
 
 
-    constructor(private actions$: Actions, private announcementService: AnnouncementService) {}
+    constructor(private actions$: Actions, private announcementService: AnnouncementService) {
+    }
 
 }

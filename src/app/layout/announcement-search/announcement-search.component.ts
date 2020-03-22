@@ -11,19 +11,33 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 })
 export class AnnouncementSearchComponent implements OnInit {
     searchControl = new FormControl('');
-    showSuggestions = false;
-    suggestions: string[];
+    showSearchResults = false;
+    searchResults: string[];
 
 
-    constructor(private service: AnnouncementSearchService) {
+    constructor(
+        private service: AnnouncementSearchService
+    ) {
     }
 
     ngOnInit(): void {
+        this.watchSearchControl();
+    }
+
+    watchSearchControl(): void {
         this.searchControl.valueChanges.pipe(
-                debounceTime(150),
-                distinctUntilChanged()
-        ).subscribe((value) => {
-            // call service and fill suggestions here
+            debounceTime(150),
+            distinctUntilChanged()
+        ).subscribe(value => {
+            if (value) {
+                this.showSearchResults = true;
+                this.service.search(value).subscribe(res => {
+                    this.searchResults = res.data;
+                    console.log(res.data);
+                });
+            } else {
+                this.showSearchResults = false;
+            }
         });
     }
 

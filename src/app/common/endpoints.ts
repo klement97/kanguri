@@ -17,6 +17,7 @@ const CATEGORY = `${API_HOST}/category`;
 const ANNOUNCEMENT_MIN_MAX_VALUES = `${API_HOST}/announcement_min_max_values`;
 const IP_API = 'http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,mobile,query';
 const NEW_VIEW = `${API_HOST}/view`;
+const ANNOUNCEMENT_SEARCH = `${ANNOUNCEMENT}/search`;
 
 export const ENDPOINTS = {
     API_HOST,
@@ -30,5 +31,6 @@ export const ENDPOINTS = {
     CATEGORY,
     ANNOUNCEMENT_MIN_MAX_VALUES,
     IP_API,
-    NEW_VIEW
+    NEW_VIEW,
+    ANNOUNCEMENT_SEARCH
 };
