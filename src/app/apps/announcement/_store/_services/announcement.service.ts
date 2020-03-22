@@ -5,7 +5,6 @@ import {APIResponse, buildQueryString, QueryParam} from 'src/app/common/const';
 import {Observable} from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {View} from 'src/app/apps/announcement/_store/_models/announcement.model';
 
 
 @Injectable({
@@ -23,7 +22,7 @@ export class AnnouncementService {
         this.httpWithoutInterceptor = new HttpClient(httpBackEnd);
     }
 
-    /** Makes request to API to get all announcements with required page and filter */
+
     getAnnouncements(): Observable<APIResponse> {
         const payload: QueryParam = this.buildQueryParams();
         const url = `${ENDPOINTS.ANNOUNCEMENT}/${buildQueryString(payload)}`;
@@ -31,7 +30,7 @@ export class AnnouncementService {
         return this.httpWithoutInterceptor.get<APIResponse>(url);
     }
 
-    /** Makes a request to API to get an announcement by its ID */
+
     getAnnouncement(id: number) {
         return this.httpWithoutInterceptor.get<APIResponse>(`${ENDPOINTS.ANNOUNCEMENT}/${id}/`);
     }
@@ -78,8 +77,8 @@ export class AnnouncementService {
             category: null,
             date_created_min: null,
             date_created_max: null,
-            sort_field: '',
-            sort: 'asc'
+            sort_field: 'views_count',
+            sort: 'desc'
         });
     }
 

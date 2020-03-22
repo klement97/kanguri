@@ -27,6 +27,8 @@ import {MatIconModule} from '@angular/material/icon';
 const matModules: any[] = [
     MatDialogModule,
     MatButtonModule,
+    MatInputModule,
+    MatIconModule,
 ];
 
 
@@ -57,8 +59,6 @@ const matModules: any[] = [
         // apps
         AuthModule,
         ReactiveFormsModule,
-        MatInputModule,
-        MatIconModule,
 
     ],
     providers: [
