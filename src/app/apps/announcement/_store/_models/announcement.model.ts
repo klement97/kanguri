@@ -20,6 +20,7 @@ export interface Announcement {
 export interface Category {
     id: number;
     name: string;
+    announcement_count: number;
 }
 
 

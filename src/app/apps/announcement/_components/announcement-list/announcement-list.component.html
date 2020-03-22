@@ -48,7 +48,7 @@
                 <mat-select formControlName="category" placeholder="Zgjidhni një kategori">
                     <mat-option [value]="null">Zgjidhni një kategori</mat-option>
                     <mat-option *ngFor="let category of categories$ | async"
-                                [value]="category.id">{{category.name}}
+                                [value]="category.id">{{category.name}}&nbsp;({{category.announcement_count}})
                     </mat-option>
                 </mat-select>
                 <mat-hint>Zgjidhni një kategori</mat-hint>
@@ -140,12 +140,6 @@
                 </article>
                 <footer class="child-spaced-row">
                     <h3>{{announcement.price | number: '1.0-1' : 'en'}}&nbsp;LEK</h3>
-                    <button class="list-item-button" mat-stroked-button>
-                                <span class="flex-center-row">
-                                    <span>Ruaje</span>&nbsp;
-                                    <mat-icon>library_add</mat-icon>
-                                </span>
-                    </button>
                     <button class="list-item-button read-more-button" mat-stroked-button
                             (click)="openDetails(announcement.id)">
                                 <span class="flex-center-row">
