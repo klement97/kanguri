@@ -14,6 +14,10 @@ const JWT_VERIFY = `${JWT}/verify`;
 
 const ANNOUNCEMENT = `${API_HOST}/announcement`;
 const CATEGORY = `${API_HOST}/category`;
+const ANNOUNCEMENT_MIN_MAX_VALUES = `${API_HOST}/announcement_min_max_values`;
+const IP_API = 'http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,mobile,query';
+const NEW_VIEW = `${API_HOST}/view`;
+const ANNOUNCEMENT_SEARCH = `${ANNOUNCEMENT}/search`;
 
 export const ENDPOINTS = {
     API_HOST,
@@ -24,14 +28,9 @@ export const ENDPOINTS = {
     JWT_REFRESH,
     JWT_VERIFY,
     ANNOUNCEMENT,
-    CATEGORY
+    CATEGORY,
+    ANNOUNCEMENT_MIN_MAX_VALUES,
+    IP_API,
+    NEW_VIEW,
+    ANNOUNCEMENT_SEARCH
 };
-
-export const NO_TOKEN_ENDPOINTS: string[] = [
-    `${ENDPOINTS.JWT_CREATE}/`,
-    `${ENDPOINTS.JWT_REFRESH}/`,
-    `${ENDPOINTS.JWT_VERIFY}/`,
-    `${ENDPOINTS.USERS}/`,
-    `${ENDPOINTS.ANNOUNCEMENT}/`,
-    `${ENDPOINTS.CATEGORY}/`
-];

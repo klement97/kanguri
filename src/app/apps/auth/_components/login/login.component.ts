@@ -77,14 +77,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     listenAndSetServerError() {
         this.error$.pipe(takeUntil(this.uns$))
-        .subscribe(error => {
-                if (error) {
-                    this.serverErrorMessage = 'E-mail ose Password është i gabuar';
-                } else {
-                    this.serverErrorMessage = '';
+            .subscribe(error => {
+                    if (error) {
+                        this.serverErrorMessage = 'E-mail ose Password është i gabuar';
+                    } else {
+                        this.serverErrorMessage = '';
+                    }
                 }
-            }
-        );
+            );
     }
 
 }

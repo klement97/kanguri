@@ -102,3 +102,18 @@ export const deleteAnnouncementsFailure = createAction(
 export const clearAnnouncements = createAction(
     '[Announcement/API] Clear Announcements'
 );
+
+export const incrementAnnouncementViews = createAction(
+    '[Announcement/Detail Page] Increment Announcement Views By One',
+    props<{ id: number }>()
+);
+
+export const incrementAnnouncementViewsSuccess = createAction(
+    '[Announcement/API] Increment Announcement Views Success',
+    props<{ id: number }>()
+);
+
+export const incrementAnnouncementViewsFailure = createAction(
+    '[Announcement/API] Increment Announcement Views Failure',
+    props<{ error }>()
+);

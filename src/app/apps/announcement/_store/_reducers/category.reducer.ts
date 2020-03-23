@@ -40,8 +40,8 @@ export function reducer(state: State | undefined, action: Action) {
 }
 
 export const {
-                 selectIds,
-                 selectEntities,
-                 selectAll,
-                 selectTotal,
-             } = adapter.getSelectors();
+    selectIds,
+    selectEntities,
+    selectAll,
+    selectTotal,
+} = adapter.getSelectors();

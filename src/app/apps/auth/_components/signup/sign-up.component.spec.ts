@@ -11,7 +11,7 @@ describe('SignupComponent', () => {
         TestBed.configureTestingModule({
             declarations: [SignUpComponent]
         })
-        .compileComponents();
+            .compileComponents();
     }));
 
     beforeEach(() => {

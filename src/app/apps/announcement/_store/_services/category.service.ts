@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpBackend, HttpClient} from '@angular/common/http';
 import {ENDPOINTS} from 'src/app/common/endpoints';
-import {APIResponse} from 'src/app/common/const';
 import {Observable} from 'rxjs';
 
 
@@ -9,12 +8,15 @@ import {Observable} from 'rxjs';
     providedIn: 'root'
 })
 export class CategoryService {
+    httpWithoutInterceptor;
 
     constructor(
-        private http: HttpClient
-    ) { }
+        private httpBackEnd: HttpBackend
+    ) {
+        this.httpWithoutInterceptor = new HttpClient(httpBackEnd);
+    }
 
-    getCategories(): Observable<APIResponse> {
-        return this.http.get<APIResponse>(`${ENDPOINTS.CATEGORY}/`);
+    getCategories(): Observable<any> {
+        return this.httpWithoutInterceptor.get(`${ENDPOINTS.CATEGORY}/`);
     }
 }

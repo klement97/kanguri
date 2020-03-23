@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpBackend, HttpClient} from '@angular/common/http';
 import {ENDPOINTS} from 'src/app/common/endpoints';
 import {APIResponse, buildQueryString, QueryParam} from 'src/app/common/const';
 import {Observable} from 'rxjs';
@@ -13,24 +13,48 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class AnnouncementService {
     announcementPaginator: MatPaginator;
     announcementFilterForm: FormGroup = this.buildFilterForm();
+    private httpWithoutInterceptor: HttpClient;
 
     constructor(
-        private http: HttpClient,
+        private httpBackEnd: HttpBackend,
         private fb: FormBuilder
-    ) { }
+    ) {
+        this.httpWithoutInterceptor = new HttpClient(httpBackEnd);
+    }
 
-    /** Makes request to API to get all announcements with required page and filter */
+
     getAnnouncements(): Observable<APIResponse> {
         const payload: QueryParam = this.buildQueryParams();
         const url = `${ENDPOINTS.ANNOUNCEMENT}/${buildQueryString(payload)}`;
 
-        return this.http.get<APIResponse>(url);
+        return this.httpWithoutInterceptor.get<APIResponse>(url);
     }
 
-    /** Makes a request to API to get an announcement by its ID */
+
     getAnnouncement(id: number) {
-        return this.http.get<APIResponse>(`${ENDPOINTS.ANNOUNCEMENT}/${id}/`);
+        return this.httpWithoutInterceptor.get<APIResponse>(`${ENDPOINTS.ANNOUNCEMENT}/${id}/`);
     }
+
+
+    getAnnouncementMinMaxValues(): Observable<any> {
+        const url = `${ENDPOINTS.ANNOUNCEMENT_MIN_MAX_VALUES}/`;
+        return this.httpWithoutInterceptor.get(url);
+    }
+
+    incrementAnnouncementViews(id: number): Observable<any> {
+        const request = new XMLHttpRequest();
+        request.open('GET', ENDPOINTS.IP_API, false);
+        request.send();
+        const res: any = JSON.parse(request.response);
+        res.announcement = id;
+        res.country_code = res.countryCode;
+        res.region_name = res.regionName;
+        res.ip_address = res.query;
+        res.is_mobile = res.mobile;
+
+        return this.httpWithoutInterceptor.post(`${ENDPOINTS.NEW_VIEW}/`, res);
+    }
+
 
     setPaginator(paginator: MatPaginator) {
         this.announcementPaginator = paginator;
@@ -53,8 +77,8 @@ export class AnnouncementService {
             category: null,
             date_created_min: null,
             date_created_max: null,
-            sort_field: '',
-            sort: 'asc'
+            sort_field: 'views_count',
+            sort: 'desc'
         });
     }
 

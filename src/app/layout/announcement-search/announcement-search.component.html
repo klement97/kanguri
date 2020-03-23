@@ -1,0 +1,26 @@
+<mat-form-field appearance="none">
+    <mat-label></mat-label>
+    <input [formControl]="searchControl"
+           matInput
+           type="text"
+           class="search"
+           placeholder="Kërko"
+           autocapitalize="off"
+           autocomplete="off"
+           spellcheck="false"
+           role="combobox"
+           dir="ltr"
+           style="outline: none"
+           aria-label="Kërko"
+           aria-haspopup="false"
+    >
+    <mat-icon matSuffix class="search-icon">search</mat-icon>
+</mat-form-field>
+
+<div class="autocomplete" *ngIf="showSearchResults">
+    <div class="search-result" *ngFor="let result of searchResults">
+        <a [routerLink]="['/announcement/list']" [queryParams]="{name: result[1]}">
+            {{result[1]}}
+        </a>
+    </div>
+</div>

@@ -1,10 +1,15 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpBackend, HttpClient} from '@angular/common/http';
 import {JwtModel, KANGURI_ACCESS, KANGURI_REFRESH, KANGURI_USER} from 'src/app/common/const';
 import {CookieService} from 'ngx-cookie-service';
 import {map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
-import {clearCurrentUser, getCurrentUserDetails, loadCurrentUser, login} from 'src/app/apps/auth/_store/_actions/current-user.actions';
+import {
+    clearCurrentUser,
+    getCurrentUserDetails,
+    loadCurrentUser,
+    login
+} from 'src/app/apps/auth/_store/_actions/current-user.actions';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 import {Observable} from 'rxjs';
 import {ENDPOINTS} from 'src/app/common/endpoints';
@@ -16,7 +21,15 @@ import {ENDPOINTS} from 'src/app/common/endpoints';
 export class CurrentUserService {
     /** Service to deal with operations related to Current User */
 
-    constructor(private http: HttpClient, private cookieService: CookieService, private store: Store<any>) {
+    httpWithoutInterceptor;
+
+    constructor(
+        private http: HttpClient,
+        private cookieService: CookieService,
+        private store: Store<any>,
+        private httpBackend: HttpBackend
+    ) {
+        this.httpWithoutInterceptor = new HttpClient(httpBackend);
     }
 
 
@@ -26,7 +39,7 @@ export class CurrentUserService {
      * @return response          Updated user model
      */
     createUser(userData: UserModel): Observable<UserModel> {
-        return this.http.post<UserModel>(`${ENDPOINTS.USERS}/`, userData);
+        return this.httpWithoutInterceptor.post(`${ENDPOINTS.USERS}/`, userData);
     }
 
 
@@ -43,7 +56,7 @@ export class CurrentUserService {
 
     /** Makes a post request to receive a pair of tokens. */
     login(email: string, password: string): Observable<JwtModel> {
-        return this.http.post<JwtModel>(`${ENDPOINTS.JWT_CREATE}/`, {email, password});
+        return this.httpWithoutInterceptor.post(`${ENDPOINTS.JWT_CREATE}/`, {email, password});
     }
 
 
@@ -58,7 +71,7 @@ export class CurrentUserService {
      *  This method is used automatically by interceptor if access_token has expired. No need to use it manually.
      */
     refreshAccessToken() {
-        return this.http.post(`${ENDPOINTS.JWT_REFRESH}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
+        return this.httpWithoutInterceptor.post(`${ENDPOINTS.JWT_REFRESH}/`, {refresh: this.getJwtFromCookies().refresh}).pipe(
             map((jwt: JwtModel) => {
                 this.setJwtToCookies(jwt);
                 return jwt;

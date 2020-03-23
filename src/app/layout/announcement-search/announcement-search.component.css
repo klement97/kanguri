@@ -1,0 +1,21 @@
+.search {
+    color: white;
+    padding: 5px 3px;
+    border: 1px solid #4d4d4a;
+    box-shadow: 1px 2px rgb(48, 48, 48);
+}
+
+.search::placeholder {
+    color: white;
+}
+
+.search:focus {
+    border: 1px solid rgb(62, 166, 255);
+}
+
+.search-icon {
+}
+
+.autocomplete {
+    position: relative;
+}

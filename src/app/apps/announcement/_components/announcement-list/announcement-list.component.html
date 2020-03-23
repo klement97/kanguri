@@ -16,9 +16,9 @@
             <mat-form-field appearance="standard">
                 <mat-label>Çmimi më i ulët</mat-label>
                 <mat-slider
-                        [max]="1000"
-                        [min]="0"
-                        [step]="100"
+                        [max]="(announcementMinMaxValues$ | async)?.max_price"
+                        [min]="(announcementMinMaxValues$ | async)?.min_price"
+                        [step]="1000"
                         color="primary"
                         formControlName="price_min"
                         thumbLabel>
@@ -31,9 +31,9 @@
             <mat-form-field appearance="standard">
                 <mat-label>Çmimi më i lartë</mat-label>
                 <mat-slider
-                        [max]="10000"
-                        [min]="0"
-                        [step]="100"
+                        [max]="(announcementMinMaxValues$ | async)?.max_price"
+                        [min]="(announcementMinMaxValues$ | async)?.min_price"
+                        [step]="1000"
                         color="primary"
                         formControlName="price_max"
                         thumbLabel>
@@ -48,7 +48,7 @@
                 <mat-select formControlName="category" placeholder="Zgjidhni një kategori">
                     <mat-option [value]="null">Zgjidhni një kategori</mat-option>
                     <mat-option *ngFor="let category of categories$ | async"
-                                [value]="category.id">{{category.name}}
+                                [value]="category.id">{{category.name}}&nbsp;({{category.announcement_count}})
                     </mat-option>
                 </mat-select>
                 <mat-hint>Zgjidhni një kategori</mat-hint>
@@ -57,16 +57,22 @@
             <!-- Minimum Date Created Picker -->
             <mat-form-field appearance="standard">
                 <mat-label>Zgjidhni datën minimale</mat-label>
-                <input [matDatepicker]="picker_min" formControlName="date_created_min" matInput>
+                <input [matDatepicker]="picker_min"
+                       [max]="dateCreatedMaxValue"
+                       [min]="dateCreatedMinValue"
+                       formControlName="date_created_min" matInput>
                 <mat-datepicker-toggle [for]="picker_min" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #picker_min></mat-datepicker>
                 <mat-hint>Kërkimi do të bëhet për njoftimet e postuara pas kësaj date</mat-hint>
             </mat-form-field>
 
-            <!-- Minimum Date Created Picker -->
+            <!-- Maximum Date Created Picker -->
             <mat-form-field appearance="standard">
                 <mat-label>Zgjidhni datën maksimale</mat-label>
-                <input [matDatepicker]="picker_max" formControlName="date_created_max" matInput>
+                <input [matDatepicker]="picker_max"
+                       [max]="dateCreatedMaxValue"
+                       [min]="dateCreatedMinValue"
+                       formControlName="date_created_max" matInput>
                 <mat-datepicker-toggle [for]="picker_max" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #picker_max></mat-datepicker>
                 <mat-hint>Kërkimi do të bëhet për njoftimet e postuara përpara kësaj date</mat-hint>
@@ -74,7 +80,8 @@
 
             <!-- Sort Field -->
             <mat-form-field>
-                <mat-select placeholder="Rendit sipas" formControlName="sort_field">
+                <mat-select formControlName="sort_field" placeholder="Rendit sipas">
+                    <mat-option value="views_count">Shikimet</mat-option>
                     <mat-option value="price">Çmimi</mat-option>
                     <mat-option value="date_created">Data</mat-option>
                 </mat-select>
@@ -134,23 +141,22 @@
                 </article>
                 <footer class="child-spaced-row">
                     <h3>{{announcement.price | number: '1.0-1' : 'en'}}&nbsp;LEK</h3>
-                    <button class="list-item-button" mat-stroked-button>
+                    <span class="flex-center-row">
+                        <span>{{announcement.views_count | number: '' : 'en'}}</span>&nbsp;
+                        <mat-icon color="warn">remove_red_eye</mat-icon>
+                    </span>
+                    <button (click)="openDetails(announcement.id)" class="list-item-button read-more-button"
+                            mat-stroked-button>
                                 <span class="flex-center-row">
-                                    <span>Ruaje</span>&nbsp;
-                                    <mat-icon>library_add</mat-icon>
-                                </span>
-                    </button>
-                    <button class="list-item-button" mat-stroked-button (click)="openDetails(announcement.id)">
-                                <span class="flex-center-row">
-                                    <span>Lexo Me Shume</span>&nbsp;
+                                    <span>Lexo më shumë</span>&nbsp;
                                     <mat-icon>notes</mat-icon>
                                 </span>
                     </button>
                 </footer>
             </div>
-            <div class="top-design pos-a">
-                TOP
-                <div class="pos-a"></div>
+            <div class="top-design pos-a over-hidden">
+                <div class="top-product pos-r">TOP</div>
+                <span class="blue-light-design pos-a"></span>
             </div>
         </mat-card>
 
@@ -161,6 +167,12 @@
                        class="mat-elevation-z4"
                        showFirstLastButtons>
         </mat-paginator>
+    </section>
+    <section #readMore class="read-more w-100 h-100 pos-f z-max flex-row-start">
+        <div class="close-read-more w-25 h-100"></div>
+        <div #readMoreContent class="read-more-content w-75 h-100 pos-r">
+            <app-announcement-detail></app-announcement-detail>
+        </div>
     </section>
     <!-- END Announcement List -->
 
