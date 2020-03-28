@@ -5,11 +5,17 @@ import {of} from 'rxjs';
 
 import * as AnnouncementActions from 'src/app/apps/announcement/_store/_actions/announcement.actions';
 import {AnnouncementService} from 'src/app/apps/announcement/_store/_services/announcement.service';
+import {
+    addAnnouncementToFavourites,
+    addAnnouncementToFavouritesFailure,
+    addAnnouncementToFavouritesSuccess
+} from 'src/app/apps/announcement/_store/_actions/favourite-announcement.actions';
+import {FavouriteAnnouncementService} from 'src/app/apps/announcement/_store/_services/favourite-announcement.service';
 
 
 @Injectable()
 export class AnnouncementEffects {
-    loadAnnouncements$ = createEffect(() => this.actions$.pipe(
+    loadAnnouncementList$ = createEffect(() => this.actions$.pipe(
         ofType(AnnouncementActions.loadAnnouncements),
         switchMap(() => this.announcementService.getAnnouncements().pipe(
             map(({data, count}) => {
@@ -37,9 +43,18 @@ export class AnnouncementEffects {
         ))
     ));
 
+    addAnnouncementToFav$ = createEffect(() => this.actions$.pipe(
+        ofType(addAnnouncementToFavourites),
+        mergeMap(({announcement_id}) => this.favAnnouncementService.addAnnouncementToFavourites(announcement_id).pipe(
+            map(() => addAnnouncementToFavouritesSuccess({announcement_id})),
+            catchError(error => of(addAnnouncementToFavouritesFailure({error})))
+        ))
+    ));
+
     constructor(
         private actions$: Actions,
-        private announcementService: AnnouncementService
+        private announcementService: AnnouncementService,
+        private favAnnouncementService: FavouriteAnnouncementService
     ) {
     }
 

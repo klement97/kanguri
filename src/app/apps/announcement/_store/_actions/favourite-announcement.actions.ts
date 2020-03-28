@@ -1,51 +1,49 @@
 import {createAction, props} from '@ngrx/store';
-import {Update} from '@ngrx/entity';
 
 import {FavouriteAnnouncement} from 'src/app/apps/announcement/_store/_models/favourite-announcement.model';
 
 export const loadFavouriteAnnouncements = createAction(
-    '[FavouriteAnnouncement/API] Load FavouriteAnnouncements',
+    '[FavouriteAnnouncement] Load FavouriteAnnouncements',
+    props<{}>()
+);
+
+export const loadFavouriteAnnouncementsSuccess = createAction(
+    '[FavouriteAnnouncement/API] Load FavouriteAnnouncements Success',
     props<{ favouriteAnnouncements: FavouriteAnnouncement[] }>()
 );
 
-export const addFavouriteAnnouncement = createAction(
-    '[FavouriteAnnouncement/API] Add FavouriteAnnouncement',
-    props<{ favouriteAnnouncement: FavouriteAnnouncement }>()
+export const loadFavouriteAnnouncementsFailure = createAction(
+    '[FavouriteAnnouncement/API] Load FavouriteAnnouncements Failure',
+    props<{ error }>()
 );
 
-export const upsertFavouriteAnnouncement = createAction(
-    '[FavouriteAnnouncement/API] Upsert FavouriteAnnouncement',
-    props<{ favouriteAnnouncement: FavouriteAnnouncement }>()
+export const addAnnouncementToFavourites = createAction(
+    '[Announcement List] Add Announcement to Favourites',
+    props<{ announcement_id: number }>()
 );
 
-export const addFavouriteAnnouncements = createAction(
-    '[FavouriteAnnouncement/API] Add FavouriteAnnouncements',
-    props<{ favouriteAnnouncements: FavouriteAnnouncement[] }>()
+export const addAnnouncementToFavouritesSuccess = createAction(
+    '[FavouriteAnnouncement/API] Add Announcement to Favourites Success',
+    props<{ announcement_id: number }>()
 );
 
-export const upsertFavouriteAnnouncements = createAction(
-    '[FavouriteAnnouncement/API] Upsert FavouriteAnnouncements',
-    props<{ favouriteAnnouncements: FavouriteAnnouncement[] }>()
+export const addAnnouncementToFavouritesFailure = createAction(
+    '[FavouriteAnnouncement/API] Add Announcement to Favourites Failure',
+    props<{ error }>()
 );
 
-export const updateFavouriteAnnouncement = createAction(
-    '[FavouriteAnnouncement/API] Update FavouriteAnnouncement',
-    props<{ favouriteAnnouncement: Update<FavouriteAnnouncement> }>()
-);
-
-export const updateFavouriteAnnouncements = createAction(
-    '[FavouriteAnnouncement/API] Update FavouriteAnnouncements',
-    props<{ favouriteAnnouncements: Update<FavouriteAnnouncement>[] }>()
-);
-
-export const deleteFavouriteAnnouncement = createAction(
-    '[FavouriteAnnouncement/API] Delete FavouriteAnnouncement',
+export const removeAnnouncementFromFavourites = createAction(
+    '[Announcement List] Remove Announcement From Favourites',
     props<{ id: string }>()
 );
 
-export const deleteFavouriteAnnouncements = createAction(
-    '[FavouriteAnnouncement/API] Delete FavouriteAnnouncements',
-    props<{ ids: string[] }>()
+export const removeAnnouncementFromFavouritesSuccess = createAction(
+    '[FavAnnouncement/API] Remove Announcement From Favourites Success'
+);
+
+export const removeAnnouncementFromFavouritesFailure = createAction(
+    '[FavAnnouncement/API] Remove Announcement From Favourites Failure',
+    props<{ error }>()
 );
 
 export const clearFavouriteAnnouncements = createAction(
