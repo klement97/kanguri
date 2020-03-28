@@ -97,7 +97,7 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
 
         this.readMorePage.style.opacity = '1';
         this.readMorePage.style.pointerEvents = 'auto';
-        this.readMoreContent.style.transform = 'translateX(0)';
+        this.readMoreContent.nativeElement.style.transform = 'translateX(0)';
 
         document.querySelector('.close-read-more').addEventListener('click', () => {
             this.readMorePage.style.opacity = '0';
@@ -133,6 +133,7 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     private getAnnouncement(id: number) {
         this.store.dispatch(AnnouncementActions.loadAnnouncement({id}));
         this.store.dispatch(AnnouncementActions.incrementAnnouncementViews({id}));
+        // todo: move this one to ngOnInit of detail page
     }
 
     private setPaginator() {
