@@ -22,7 +22,7 @@ export class ServiceInterceptor implements HttpInterceptor {
         }
 
         if (refresh) {
-            this.userService.refreshAccessToken().subscribe(
+            return this.userService.refreshAccessToken().subscribe(
                 response => {
                     if (response) {
                         request = request.clone({setHeaders: {Authorization: `Bearer ${response.access}`}});

@@ -23,6 +23,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 
 const matModules: any[] = [
@@ -30,6 +31,7 @@ const matModules: any[] = [
     MatButtonModule,
     MatInputModule,
     MatIconModule,
+    FlexLayoutModule
 ];
 
 

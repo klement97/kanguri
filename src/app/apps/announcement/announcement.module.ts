@@ -26,6 +26,9 @@ import {CategoryEffects} from 'src/app/apps/announcement/_store/_effects/categor
 import {AnnouncementDetailComponent} from './_components/announcement-detail/announcement-detail.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {AnnouncementMinMaxValuesEffects} from 'src/app/apps/announcement/_store/_effects/announcement-min-max-values.effects';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import * as fromFavAnnouncement from './_store/_reducers/favourite-announcement.reducer';
+import {FavouriteAnnouncementEffects} from 'src/app/apps/announcement/_store/_effects/favourite-announcement.effects';
 
 
 @NgModule({
@@ -36,7 +39,13 @@ import {AnnouncementMinMaxValuesEffects} from 'src/app/apps/announcement/_store/
         StoreModule.forFeature(fromAnnouncement.announcementsFeatureKey, fromAnnouncement.reducer),
         StoreModule.forFeature(fromCategory.categoriesFeatureKey, fromCategory.reducer),
         StoreModule.forFeature(fromAnnouncementMinMax.announcementMinMaxValuesFeatureKey, fromAnnouncementMinMax.reducer),
-        EffectsModule.forFeature([AnnouncementEffects, CategoryEffects, AnnouncementMinMaxValuesEffects]),
+        StoreModule.forFeature(fromFavAnnouncement.favouriteAnnouncementsFeatureKey, fromFavAnnouncement.reducer),
+        EffectsModule.forFeature([
+            AnnouncementEffects,
+            CategoryEffects,
+            AnnouncementMinMaxValuesEffects,
+            FavouriteAnnouncementEffects
+        ]),
         MatCardModule,
         MatButtonModule,
         MatPaginatorModule,
@@ -49,7 +58,8 @@ import {AnnouncementMinMaxValuesEffects} from 'src/app/apps/announcement/_store/
         MatDatepickerModule,
         MatNativeDateModule,
         MatIconModule,
-        MatSidenavModule
+        MatSidenavModule,
+        FlexLayoutModule
     ],
     providers: [AnnouncementService]
 })

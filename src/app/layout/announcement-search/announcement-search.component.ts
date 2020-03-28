@@ -22,22 +22,35 @@ export class AnnouncementSearchComponent implements OnInit {
 
     ngOnInit(): void {
         this.watchSearchControl();
+        this.listenForEnter();
     }
 
-    watchSearchControl(): void {
+    private listenForEnter() {
+        document.getElementById('search-control')
+            .addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.search();
+                }
+            });
+    }
+
+    private watchSearchControl(): void {
         this.searchControl.valueChanges.pipe(
             debounceTime(150),
             distinctUntilChanged()
         ).subscribe(value => {
             if (value) {
-                this.showSearchResults = true;
-                this.service.search(value).subscribe(res => {
-                    this.searchResults = res.data;
-                    console.log(res.data);
-                });
+                this.search();
             } else {
                 this.showSearchResults = false;
             }
+        });
+    }
+
+    public search(): void {
+        this.showSearchResults = true;
+        this.service.search(this.searchControl.value).subscribe(res => {
+            this.searchResults = res.data;
         });
     }
 
