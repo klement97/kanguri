@@ -177,7 +177,7 @@
         </mat-paginator>
     </section>
     <section #readMore class="read-more w-100 h-100 pos-f z-max flex-row-start">
-        <div class="close-read-more w-25 h-100"></div>
+        <div class="close-read-more w-25 h-100" (click)="closeDetails()"></div>
         <div #readMoreContent class="read-more-content w-75 h-100 pos-r">
             <app-announcement-detail></app-announcement-detail>
         </div>

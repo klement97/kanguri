@@ -98,12 +98,12 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
         this.readMorePage.style.opacity = '1';
         this.readMorePage.style.pointerEvents = 'auto';
         this.readMoreContent.nativeElement.style.transform = 'translateX(0)';
+    }
 
-        document.querySelector('.close-read-more').addEventListener('click', () => {
-            this.readMorePage.style.opacity = '0';
-            this.readMorePage.style.pointerEvents = 'none';
-            this.readMoreContent.nativeElement.style.transform = 'translateX(100%)';
-        });
+    public closeDetails() {
+        this.readMorePage.style.opacity = '0';
+        this.readMorePage.style.pointerEvents = 'none';
+        this.readMoreContent.nativeElement.style.transform = 'translateX(100%)';
     }
 
     public addAnnouncementToFavourites(announcement_id: number) {
