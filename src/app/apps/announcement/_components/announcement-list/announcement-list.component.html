@@ -145,6 +145,14 @@
                         <span>{{announcement.views_count | number: '' : 'en'}}</span>&nbsp;
                         <mat-icon color="warn">remove_red_eye</mat-icon>
                     </span>
+                    <button mat-icon-button *ngIf="!announcement.is_favourite"
+                            (click)="addAnnouncementToFavourites(announcement.id)">
+                        <mat-icon class="mat-24">favorite_border</mat-icon>
+                    </button>
+                    <button mat-icon-button *ngIf="announcement.is_favourite"
+                            (click)="removeAnnouncementFromFavourites(announcement.id)">
+                        <mat-icon class="mat-24">favorite</mat-icon>
+                    </button>
                     <button (click)="openDetails(announcement.id)" class="list-item-button read-more-button"
                             mat-stroked-button>
                                 <span class="flex-center-row">

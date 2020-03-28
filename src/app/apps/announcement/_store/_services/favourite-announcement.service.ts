@@ -19,4 +19,8 @@ export class FavouriteAnnouncementService {
     addAnnouncementToFavourites(announcement_id: number): Observable<any> {
         return this.http.post(`${ENDPOINTS.FAV_ANNOUNCEMENT}/`, {announcement: announcement_id});
     }
+
+    removeAnnouncementFromFavourites(announcement_id: number) {
+        return this.http.delete(`${ENDPOINTS.FAV_ANNOUNCEMENT}/${announcement_id}/`);
+    }
 }

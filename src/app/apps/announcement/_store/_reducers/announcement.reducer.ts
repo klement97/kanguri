@@ -2,6 +2,7 @@ import {Action, createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityAdapter, EntityState, Update} from '@ngrx/entity';
 import {Announcement} from 'src/app/apps/announcement/_store/_models/announcement.model';
 import * as AnnouncementActions from 'src/app/apps/announcement/_store/_actions/announcement.actions';
+import * as FavAnnouncementActions from 'src/app/apps/announcement/_store/_actions/favourite-announcement.actions';
 import {ErrorResponse} from 'src/app/common/const';
 
 
@@ -85,7 +86,15 @@ const announcementReducer = createReducer(
             .updateOne(updateAnnouncementViewsCount(
                 id, state),
                 {...state, announcement: incrementAnnouncementView(state.announcement)})
-    )
+    ),
+    on(FavAnnouncementActions.addAnnouncementToFavouritesSuccess,
+        (state, {announcement_id}) =>
+            ({...state, entities: changeAnnouncementFavState(announcement_id, state.entities, true)})
+    ),
+    on(FavAnnouncementActions.removeAnnouncementFromFavouritesSuccess,
+        (state, {announcement_id}) =>
+            ({...state, entities: changeAnnouncementFavState(announcement_id, state.entities, false)})
+    ),
 );
 
 function updateAnnouncementViewsCount(id: number, state): Update<Announcement> {
@@ -99,13 +108,22 @@ function incrementAnnouncementView(announcement) {
     return incrementedAnnouncement;
 }
 
+function changeAnnouncementFavState(id: number, entities, isFav: boolean) {
+    const newEntities = {...entities};
+    const announcement = {...newEntities[id]};
+    announcement.is_favourite = isFav;
+    newEntities[id] = announcement;
+
+    return newEntities;
+}
+
 export function reducer(state: State | undefined, action: Action) {
     return announcementReducer(state, action);
 }
 
 export const {
-    selectIds,
-    selectEntities,
-    selectAll,
-    selectTotal,
-} = adapter.getSelectors();
+                 selectIds,
+                 selectEntities,
+                 selectAll,
+                 selectTotal,
+             } = adapter.getSelectors();

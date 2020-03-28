@@ -17,7 +17,8 @@ export class AnnouncementService {
 
     constructor(
         private httpBackEnd: HttpBackend,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private http: HttpClient
     ) {
         this.httpWithoutInterceptor = new HttpClient(httpBackEnd);
     }
@@ -27,7 +28,7 @@ export class AnnouncementService {
         const payload: QueryParam = this.buildQueryParams();
         const url = `${ENDPOINTS.ANNOUNCEMENT}/${buildQueryString(payload)}`;
 
-        return this.httpWithoutInterceptor.get<APIResponse>(url);
+        return this.http.get<APIResponse>(url);
     }
 
 

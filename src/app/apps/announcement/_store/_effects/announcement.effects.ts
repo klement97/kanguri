@@ -8,7 +8,10 @@ import {AnnouncementService} from 'src/app/apps/announcement/_store/_services/an
 import {
     addAnnouncementToFavourites,
     addAnnouncementToFavouritesFailure,
-    addAnnouncementToFavouritesSuccess
+    addAnnouncementToFavouritesSuccess,
+    removeAnnouncementFromFavourites,
+    removeAnnouncementFromFavouritesFailure,
+    removeAnnouncementFromFavouritesSuccess
 } from 'src/app/apps/announcement/_store/_actions/favourite-announcement.actions';
 import {FavouriteAnnouncementService} from 'src/app/apps/announcement/_store/_services/favourite-announcement.service';
 
@@ -49,6 +52,15 @@ export class AnnouncementEffects {
             map(() => addAnnouncementToFavouritesSuccess({announcement_id})),
             catchError(error => of(addAnnouncementToFavouritesFailure({error})))
         ))
+    ));
+
+    removeAnnouncementFromFav$ = createEffect(() => this.actions$.pipe(
+        ofType(removeAnnouncementFromFavourites),
+        mergeMap(({announcement_id}) =>
+            this.favAnnouncementService.removeAnnouncementFromFavourites(announcement_id).pipe(
+                map(() => removeAnnouncementFromFavouritesSuccess({announcement_id})),
+                catchError((error) => of(removeAnnouncementFromFavouritesFailure({error})))
+            ))
     ));
 
     constructor(

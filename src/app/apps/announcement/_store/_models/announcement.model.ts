@@ -15,6 +15,7 @@ export interface Announcement {
 
     category_name: string;
     seller_name: string;
+    is_favourite: boolean;
 }
 
 

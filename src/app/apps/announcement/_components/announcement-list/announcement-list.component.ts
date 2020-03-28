@@ -1,10 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {
-    Announcement,
-    AnnouncementMinMaxValues,
-    Category
-} from 'src/app/apps/announcement/_store/_models/announcement.model';
+import {Announcement, AnnouncementMinMaxValues, Category} from 'src/app/apps/announcement/_store/_models/announcement.model';
 import {Store} from '@ngrx/store';
 import * as fromAnnouncement from 'src/app/apps/announcement/_store/_reducers/announcement.reducer';
 import {MatPaginator} from '@angular/material/paginator';
@@ -23,6 +19,10 @@ import {selectCategories} from 'src/app/apps/announcement/_store/_selectors/cate
 import {loadAnnouncementMinMaxValues} from 'src/app/apps/announcement/_store/_actions/announcement-min-max-values.actions';
 import {selectAnnouncementMinMaxValues} from 'src/app/apps/announcement/_store/_selectors/announcement-min-max-values.selectors';
 import {ActivatedRoute} from '@angular/router';
+import {
+    addAnnouncementToFavourites,
+    removeAnnouncementFromFavourites
+} from 'src/app/apps/announcement/_store/_actions/favourite-announcement.actions';
 
 
 @Component({
@@ -104,6 +104,14 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
             this.readMorePage.style.pointerEvents = 'none';
             this.readMoreContent.style.transform = 'translateX(100%)';
         });
+    }
+
+    public addAnnouncementToFavourites(announcement_id: number) {
+        this.store.dispatch(addAnnouncementToFavourites({announcement_id}));
+    }
+
+    public removeAnnouncementFromFavourites(announcement_id: number) {
+        this.store.dispatch(removeAnnouncementFromFavourites({announcement_id}));
     }
 
     private watchQueryParams(): void {

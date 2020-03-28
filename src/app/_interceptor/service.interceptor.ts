@@ -6,7 +6,9 @@ import {Observable} from 'rxjs';
 
 @Injectable()
 export class ServiceInterceptor implements HttpInterceptor {
-    constructor(private userService: CurrentUserService) {
+    constructor(
+        private userService: CurrentUserService
+    ) {
     }
 
     /**
@@ -18,20 +20,21 @@ export class ServiceInterceptor implements HttpInterceptor {
         const {access, refresh} = this.userService.getJwtFromCookies();
         if (access) {
             request = request.clone({setHeaders: {Authorization: `Bearer ${access}`}});
-            return next.handle(request);
+        } else if (refresh) {
+            //
         }
 
-        if (refresh) {
-            return this.userService.refreshAccessToken().subscribe(
-                response => {
-                    if (response) {
-                        request = request.clone({setHeaders: {Authorization: `Bearer ${response.access}`}});
-                        return next.handle(request);
-                    }
-                },
-                () => this.userService.logout());
-        }
+        return next.handle(request);
 
-        this.userService.logout();
+        // if (refresh) {
+        //     return this.userService.refreshAccessToken().subscribe(
+        //         response => {
+        //             if (response) {
+        //                 request = request.clone({setHeaders: {Authorization: `Bearer ${response.access}`}});
+        //                 return next.handle(request);
+        //             }
+        //         },
+        //         () => this.userService.logout());
+        // }
     }
 }

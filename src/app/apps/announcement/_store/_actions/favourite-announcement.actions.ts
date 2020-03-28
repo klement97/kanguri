@@ -34,11 +34,12 @@ export const addAnnouncementToFavouritesFailure = createAction(
 
 export const removeAnnouncementFromFavourites = createAction(
     '[Announcement List] Remove Announcement From Favourites',
-    props<{ id: string }>()
+    props<{ announcement_id: number }>()
 );
 
 export const removeAnnouncementFromFavouritesSuccess = createAction(
-    '[FavAnnouncement/API] Remove Announcement From Favourites Success'
+    '[FavAnnouncement/API] Remove Announcement From Favourites Success',
+    props<{ announcement_id: number }>()
 );
 
 export const removeAnnouncementFromFavouritesFailure = createAction(
