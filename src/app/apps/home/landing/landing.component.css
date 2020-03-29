@@ -1,49 +1,40 @@
-.navigation {
-    background-color: #2F2E2E;
-    color: white;
-    padding: 20px 100px;
+.landing-page {
+    min-height: calc(100vh - 50px);
 }
 
-.menu ul li {
-    list-style-type: none;
-    display: inline-block;
-    margin-left: 80px;
-    cursor: pointer;
+
+.landing-logo > img {
+    border: 5px solid white;
+    z-index: 2;
 }
 
-.impact {
-    height: 100vh;
-    background-image: url("../../../../assets/images/impact-background.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.landing-logo:before {
+    content: "";
+    width: 750%;
+    height: calc(100% - 10px);
+    position: absolute;
+    top: 5px;
+    left: 0;
+    background: linear-gradient(to right, #f5af19,#f5af19, #f5af19,#FF4B2B, #DA4453, #89216B, #ad5389, #3c1053, #8A2387, #E94057, #F27121, #FF416C, #FF4B2B, #f5af19,#f5af19,#f5af19);
+    transform: translate3d(-86.66%, 0, 0);
+    will-change: translate;
+    -webkit-animation-name: logo-color-before;
+    -moz-animation-name: logo-color-before;
+    -o-animation-name: logo-color-before;
+    animation-name: logo-color-before;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
 }
 
-.impact > div {
-    padding: 0 0 0 100px;
-    align-items: flex-start;
+
+@keyframes logo-color-before {
+    0% {
+        transform: translate3d(-86.66%, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
 }
 
-.impact > div > * {
-    margin-bottom: 30px;
-}
-
-.slogan {
-    font-size: 3.5em;
-}
-
-.slogan-p {
-    font-size: 1em;
-}
-
-.impact > div > div {
-    width: 150px;
-    padding: 15px 0;
-    cursor: pointer;
-}
-
-.login-btn {
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
-}
