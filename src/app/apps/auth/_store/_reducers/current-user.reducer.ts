@@ -43,7 +43,13 @@ const currentUserReducer = createReducer(
         state => ({...state, loading: true})
     ),
     on(CurrentUserActions.loginSuccess,
-        state => ({...state, loading: false, loginError: null})
+        (state, action) => {
+            if (action.jwt.user) {
+                return ({...state, loading: false, loginError: null, currentUser: action.jwt.user});
+            } else {
+                return ({...state, loading: false, loginError: null});
+            }
+        }
     ),
     on(CurrentUserActions.loginFailure,
         (state, {error}) => ({...state, loading: false, loginError: error})

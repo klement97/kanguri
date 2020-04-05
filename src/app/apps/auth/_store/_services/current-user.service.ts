@@ -147,9 +147,7 @@ export class CurrentUserService {
      * We simply delete the JWT from the storage and navigate to login.
      */
     logout() {
-        this.cookieService.delete(KANGURI_ACCESS);
-        this.cookieService.delete(KANGURI_REFRESH);
-        this.cookieService.delete(KANGURI_USER);
+        this.cookieService.deleteAll();
         this.store.dispatch(clearCurrentUser());
     }
 

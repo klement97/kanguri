@@ -1,9 +1,11 @@
 import {FormControl} from '@angular/forms';
+import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 
 
 export class JwtModel {
     refresh: string;
     access: string;
+    user?: UserModel;
 }
 
 

@@ -55,10 +55,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.initiateLoginForm();
         this.listenAndSetServerError();
         this.errorHandler.handleErrors(this.loginForm, this.errors);
-
-        this.socialAuthService.authState.subscribe((user) => {
-            console.log('User: ', user);
-        });
     }
 
     ngOnDestroy() {
@@ -68,8 +64,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     initiateLoginForm() {
         this.loginForm = this.fb.group({
-            email: ['klementomeri97@gmail.com', [Validators.required, Validators.email, Validators.maxLength(255)]],
-            password: ['!Keli1997!@#', [Validators.required]]
+            email: ['tester@kanguri.al', [Validators.required, Validators.email, Validators.maxLength(255)]],
+            password: ['Test2020', [Validators.required]]
         });
     }
 
@@ -104,7 +100,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     signOut() {
         this.socialAuthService.signOut()
-            .then(r => console.log(r));
+            .then(() => this.service.logout());
     }
 
 }

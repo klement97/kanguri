@@ -8,6 +8,7 @@ import * as CurrentUserActions from 'src/app/apps/auth/_store/_actions/current-u
 import {DialogPosition, MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {CurrentUserService} from 'src/app/apps/auth/_store/_services/current-user.service';
 import {selectCurrentUser} from 'src/app/apps/auth/_store/_selectors/current-user.selectors';
+import {AuthService} from 'angularx-social-login';
 
 
 @Component({
@@ -22,11 +23,22 @@ export class HeaderComponent implements OnInit {
         private dialog: MatDialog,
         private store: Store<fromCurrentUser.State>,
         private userService: CurrentUserService,
+        private authService: AuthService
     ) {
         this.currentUser$ = store.select(selectCurrentUser);
     }
 
     ngOnInit() {
+        this.authService.readyState.subscribe(r => {
+            console.log('Ready State', r);
+        });
+
+        this.authService.authState.subscribe((r => {
+            console.log('Auth State', r);
+            if (r.authToken) {
+                this.store.dispatch(CurrentUserActions.socialLogin({authToken: r.authToken}));
+            }
+        }));
     }
 
     openLoginDialog() {
@@ -41,7 +53,10 @@ export class HeaderComponent implements OnInit {
         dialogRef.afterClosed().subscribe(() => this.getCurrentUserDetails());
     }
 
-    logout() {this.userService.logout(); }
+    logout() {
+        this.authService.signOut(true).then();
+        this.userService.logout();
+    }
 
     getCurrentUserDetails() {this.store.dispatch(CurrentUserActions.getCurrentUserDetails()); }
 
