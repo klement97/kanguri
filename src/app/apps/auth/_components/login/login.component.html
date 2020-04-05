@@ -1,27 +1,34 @@
 <section class="container">
-    <form *ngIf="showLogin" [formGroup]="loginForm">
+    <button mat-raised-button color="primary" (click)="signInWithFacebook()">
+        Login with facebook
+    </button>
 
-        <div class="mat-error server-error">
-            <mat-error>{{serverErrorMessage}}</mat-error>
-        </div>
+    <button mat-raised-button color="primary" (click)="signOut()">
+        Logout
+    </button>
+    <!--    <form *ngIf="showLogin" [formGroup]="loginForm">-->
 
-        <!-- Email -->
-        <mat-form-field class="w-75">
-            <input autocapitalize="off" autocomplete="off" autofocus formControlName="email"
-                   matInput type="email">
-            <mat-error>{{errors.email}}</mat-error>
-        </mat-form-field>
+    <!--        <div class="mat-error server-error">-->
+    <!--            <mat-error>{{serverErrorMessage}}</mat-error>-->
+    <!--        </div>-->
 
-        <!-- Password -->
-        <mat-form-field class="w-75">
-            <input formControlName="password" matInput type="password">
-            <mat-error>{{errors.password}}</mat-error>
-        </mat-form-field>
+    <!--        &lt;!&ndash; Email &ndash;&gt;-->
+    <!--        <mat-form-field class="w-75">-->
+    <!--            <input autocapitalize="off" autocomplete="off" autofocus formControlName="email"-->
+    <!--                   matInput type="email">-->
+    <!--            <mat-error>{{errors.email}}</mat-error>-->
+    <!--        </mat-form-field>-->
 
-        <br>
-        <button (click)="submit()" [disabled]="loading$ | async" mat-flat-button type="submit">Login</button>
-        <button (click)="toggleLoginSignUp()" class="success" mat-flat-button type="button">Regjistrohu</button>
-    </form>
+    <!--        &lt;!&ndash; Password &ndash;&gt;-->
+    <!--        <mat-form-field class="w-75">-->
+    <!--            <input formControlName="password" matInput type="password">-->
+    <!--            <mat-error>{{errors.password}}</mat-error>-->
+    <!--        </mat-form-field>-->
+
+    <!--        <br>-->
+    <!--        <button (click)="submit()" [disabled]="loading$ | async" mat-flat-button type="submit">Login</button>-->
+    <!--        <button (click)="toggleLoginSignUp()" class="success" mat-flat-button type="button">Regjistrohu</button>-->
+    <!--    </form>-->
 
     <app-sign-up *ngIf="showSignUp"></app-sign-up>
 </section>

@@ -26,6 +26,11 @@ export const login = createAction(
     props<{ email: string, password: string }>()
 );
 
+export const socialLogin = createAction(
+    '[Social Login] Send social account access key to API',
+    props<{ authToken: string }>()
+);
+
 export const loginSuccess = createAction(
     '[Login/API] Login Success',
     props<{ jwt: JwtModel }>()

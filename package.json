@@ -30,6 +30,7 @@
     "@ngrx/schematics": "^9.0.0",
     "@ngrx/store": "^9.0.0",
     "@ngrx/store-devtools": "^9.0.0",
+    "angularx-social-login": "^2.2.1",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "ngx-cookie-service": "^2.3.0",

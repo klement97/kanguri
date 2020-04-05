@@ -24,6 +24,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {AuthServiceConfig, FacebookLoginProvider, SocialLoginModule} from 'angularx-social-login';
 
 
 const matModules: any[] = [
@@ -31,8 +32,24 @@ const matModules: any[] = [
     MatButtonModule,
     MatInputModule,
     MatIconModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatSelectModule
 ];
+
+const config = new AuthServiceConfig([
+    // {
+    //     id: GoogleLoginProvider.PROVIDER_ID,
+    //     provider: new GoogleLoginProvider("Google-OAuth-Client-Id")
+    // },
+    {
+        id: FacebookLoginProvider.PROVIDER_ID,
+        provider: new FacebookLoginProvider('1064024463990705')
+    }
+]);
+
+export function provideConfig() {
+    return config;
+}
 
 
 @NgModule({
@@ -62,12 +79,13 @@ const matModules: any[] = [
         // apps
         AuthModule,
         ReactiveFormsModule,
-        MatSelectModule,
 
+        SocialLoginModule,
     ],
     providers: [
         CookieService,
-        {provide: HTTP_INTERCEPTORS, useClass: ServiceInterceptor, multi: true}, // interceptor
+        {provide: AuthServiceConfig, useFactory: provideConfig},
+        {provide: HTTP_INTERCEPTORS, useClass: ServiceInterceptor, multi: true}
     ],
     exports: [],
     bootstrap: [AppComponent]

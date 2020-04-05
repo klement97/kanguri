@@ -12,6 +12,8 @@ const JWT_CREATE = `${JWT}/create`;
 const JWT_REFRESH = `${JWT}/refresh`;
 const JWT_VERIFY = `${JWT}/verify`;
 
+const FACEBOOK_LOGIN = `${API_HOST}/rest-auth/facebook`;
+
 const ANNOUNCEMENT = `${API_HOST}/announcement`;
 const CATEGORY = `${API_HOST}/category`;
 const ANNOUNCEMENT_MIN_MAX_VALUES = `${API_HOST}/announcement_min_max_values`;
@@ -28,6 +30,7 @@ export const ENDPOINTS = {
     JWT_CREATE,
     JWT_REFRESH,
     JWT_VERIFY,
+    FACEBOOK_LOGIN,
     ANNOUNCEMENT,
     CATEGORY,
     ANNOUNCEMENT_MIN_MAX_VALUES,

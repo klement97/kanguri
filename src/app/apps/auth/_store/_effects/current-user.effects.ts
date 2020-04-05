@@ -5,7 +5,6 @@ import {of} from 'rxjs';
 
 import * as CurrentUserActions from 'src/app/apps/auth/_store/_actions/current-user.actions';
 import {CurrentUserService} from 'src/app/apps/auth/_store/_services/current-user.service';
-import {JwtModel} from 'src/app/common/const';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -41,9 +40,9 @@ export class CurrentUserEffects {
 
     login$ = createEffect(() => {
         return this.actions$.pipe(
-            ofType(CurrentUserActions.login),
-            exhaustMap(({email, password}) => this.currentUserService.login(email, password).pipe(
-                map((jwt: JwtModel) => {
+            ofType(CurrentUserActions.login, CurrentUserActions.socialLogin),
+            exhaustMap((payload) => this.currentUserService.login(payload).pipe(
+                map((jwt) => {
                     this.currentUserService.setJwtToCookies(jwt);
                     return CurrentUserActions.loginSuccess({jwt});
                 }),

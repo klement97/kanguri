@@ -9,6 +9,7 @@ import {ErrorHandler} from 'src/app/common/error-handler/error.handler';
 import {takeUntil} from 'rxjs/operators';
 import {CurrentUserService} from 'src/app/apps/auth/_store/_services/current-user.service';
 import {MatDialogRef} from '@angular/material/dialog';
+import {AuthService, FacebookLoginProvider} from 'angularx-social-login';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         private service: CurrentUserService,
         private dialogRef: MatDialogRef<LoginComponent>,
         private actions$: ActionsSubject,
+        private socialAuthService: AuthService
     ) {
         this.error$ = store.select(selectLoginError);
         this.loading$ = store.select(selectCurrentUserLoading);
@@ -53,6 +55,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.initiateLoginForm();
         this.listenAndSetServerError();
         this.errorHandler.handleErrors(this.loginForm, this.errors);
+
+        this.socialAuthService.authState.subscribe((user) => {
+            console.log('User: ', user);
+        });
     }
 
     ngOnDestroy() {
@@ -85,6 +91,20 @@ export class LoginComponent implements OnInit, OnDestroy {
                     }
                 }
             );
+    }
+
+    signInWithFacebook() {
+        this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID)
+            .then(response => {
+                this.store.dispatch(
+                    CurrentUserActions.socialLogin({authToken: response.authToken})
+                );
+            });
+    }
+
+    signOut() {
+        this.socialAuthService.signOut()
+            .then(r => console.log(r));
     }
 
 }

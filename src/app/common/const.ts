@@ -10,6 +10,7 @@ export class JwtModel {
 export const KANGURI_ACCESS = '_kanguri_access';
 export const KANGURI_REFRESH = '_kanguri_refresh';
 export const KANGURI_USER = '_kanguri_user';
+export const KANGURI_AUTHORIZATION = 'KanguriAuthorization';
 
 
 export function buildQueryString(payload) {

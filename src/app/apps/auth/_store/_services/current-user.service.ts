@@ -1,15 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpBackend, HttpClient} from '@angular/common/http';
-import {JwtModel, KANGURI_ACCESS, KANGURI_REFRESH, KANGURI_USER} from 'src/app/common/const';
+import {JwtModel, KANGURI_ACCESS, KANGURI_AUTHORIZATION, KANGURI_REFRESH, KANGURI_USER} from 'src/app/common/const';
 import {CookieService} from 'ngx-cookie-service';
 import {map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
-import {
-    clearCurrentUser,
-    getCurrentUserDetails,
-    loadCurrentUser,
-    login
-} from 'src/app/apps/auth/_store/_actions/current-user.actions';
+import {clearCurrentUser, getCurrentUserDetails, loadCurrentUser, login} from 'src/app/apps/auth/_store/_actions/current-user.actions';
 import {UserModel} from 'src/app/apps/auth/_store/_models/user.model';
 import {Observable} from 'rxjs';
 import {ENDPOINTS} from 'src/app/common/endpoints';
@@ -55,8 +50,17 @@ export class CurrentUserService {
     }
 
     /** Makes a post request to receive a pair of tokens. */
-    login(email: string, password: string): Observable<JwtModel> {
-        return this.httpWithoutInterceptor.post(`${ENDPOINTS.JWT_CREATE}/`, {email, password});
+    login(payload): Observable<JwtModel> {
+        let url;
+        let body;
+        if (payload.hasOwnProperty('authToken')) {
+            url = `${ENDPOINTS.FACEBOOK_LOGIN}/`;
+            body = {access_token: payload.authToken};
+        } else if (payload.hasOwnProperty('password')) {
+            url = `${ENDPOINTS.JWT_CREATE}/`;
+            body = {email: payload.email, password: payload.password};
+        }
+        return this.httpWithoutInterceptor.post(url, body);
     }
 
 
@@ -98,6 +102,9 @@ export class CurrentUserService {
         if (jwt.refresh) {
             this.cookieService.set(KANGURI_REFRESH, jwt.refresh, nextWeek, '', '', false, 'Strict');
         }
+        if (jwt['token']) {
+            this.cookieService.set(KANGURI_AUTHORIZATION, jwt['token'], 1, '', '', false, 'None');
+        }
     }
 
     /**
@@ -126,10 +133,11 @@ export class CurrentUserService {
      * Get and return access and refresh tokens from cookies.
      * @returns JwtModel Object
      */
-    getJwtFromCookies(): JwtModel {
+    getJwtFromCookies() {
         return {
             access: this.cookieService.get(KANGURI_ACCESS),
-            refresh: this.cookieService.get(KANGURI_REFRESH)
+            refresh: this.cookieService.get(KANGURI_REFRESH),
+            authToken: this.cookieService.get(KANGURI_AUTHORIZATION)
         };
     }
 

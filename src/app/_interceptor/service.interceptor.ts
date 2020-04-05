@@ -17,9 +17,11 @@ export class ServiceInterceptor implements HttpInterceptor {
      */
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        const {access, refresh} = this.userService.getJwtFromCookies();
+        const {access, refresh, authToken} = this.userService.getJwtFromCookies();
         if (access) {
             request = request.clone({setHeaders: {Authorization: `Bearer ${access}`}});
+        } else if (authToken) {
+            request = request.clone({setHeaders: {Authorization: `Bearer ${authToken}`}});
         } else if (refresh) {
             //
         }
