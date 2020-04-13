@@ -25,6 +25,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AuthServiceConfig, FacebookLoginProvider, SocialLoginModule} from 'angularx-social-login';
+import {HandleErrorsDirective} from './common/error-handler/handle-errors.directive';
 
 
 const matModules: any[] = [
@@ -56,7 +57,8 @@ export function provideConfig() {
     declarations: [
         AppComponent,
         HeaderComponent,
-        AnnouncementSearchComponent
+        AnnouncementSearchComponent,
+        HandleErrorsDirective
     ],
     imports: [
         BrowserModule,
